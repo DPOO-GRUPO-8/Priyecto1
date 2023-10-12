@@ -13,12 +13,12 @@ import alquilerAutos.manejoDatos.Usuario;
 import alquilerAutos.manejoDatos.Vehiculo;
 
 public class AlquilerVehiculos {
-	private HashMap<String, Tarifa> tarifas = new HashMap<>();
-	private HashMap<String, HashMap<String, ArrayList<Vehiculo>>> inventario = new HashMap<>();
-	private HashMap<Integer, Reserva> reservas = new HashMap<>();
-	private HashMap<String, Sede> sedes = new HashMap<>();
-	private HashMap<Integer, Cliente> clientes = new HashMap<>();
-	private HashMap<String, Usuario> usuarios = new HashMap<>();
+	private HashMap<String, Tarifa> tarifas = new HashMap<>();//
+	private HashMap<String, HashMap<String, ArrayList<Vehiculo>>> inventario = new HashMap<>();//
+	private HashMap<Integer, Reserva> reservas = new HashMap<>();//
+	private HashMap<String, Sede> sedes = new HashMap<>();//
+	private HashMap<Integer, Cliente> clientes = new HashMap<>();//
+	private HashMap<String, Usuario> usuarios = new HashMap<>();//
 	private HashMap<String, LicenciaConducir> licencias = new HashMap<>();
 	private GestorDatos gestor = new GestorDatos();
 	
@@ -137,6 +137,184 @@ public class AlquilerVehiculos {
 		return retorno;
 	}
 	
+	public boolean agregarReserva(Reserva reserva) {
+		boolean retorno = !reservas.containsKey(reserva.getId());
+		
+		if (retorno) {
+			gestor.guardarReserva(reserva);
+			reservas.put(reserva.getId(), reserva);
+		}
+		
+		return retorno;
+	}
+	
+	public boolean quitarReserva(Reserva reserva) {
+		boolean retorno = reservas.containsKey(reserva.getId());
+		
+		if (retorno) {
+			gestor.quitarReserva(reserva);
+			reservas.remove(reserva.getId());
+		}
+		
+		return retorno;
+	}
+	
+	public boolean modificarReserva(Reserva viejo, Reserva nuevo) {
+		boolean retorno = true;
+		if (quitarReserva(viejo)) {
+			if (!agregarReserva(nuevo)) {
+				retorno = false;
+				agregarReserva(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+	
+	public boolean agregarCliente(Cliente cliente) {
+		boolean retorno = !clientes.containsKey(cliente.getDocumento());
+		if (retorno) {
+			gestor.guardarCliente(cliente);
+			clientes.put(cliente.getDocumento(), cliente);
+		}
+		
+		return retorno;
+	}
+	
+	public boolean quitarCliente (Cliente cliente) {
+		boolean retorno = clientes.containsKey(cliente.getDocumento());
+		if (retorno) {
+			gestor.quitarCliente(cliente);
+			clientes.remove(cliente.getDocumento());
+		}
+		
+		return retorno;
+	}
+	
+	public boolean modificarCliente (Cliente viejo, Cliente nuevo) {
+		boolean retorno = true;
+		if (quitarCliente(viejo)) {
+			if (!agregarCliente(nuevo)) {
+				retorno = false;
+				agregarCliente(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		return retorno;
+	}
+	
+	public boolean agregarSede (Sede sede) {
+		boolean retorno = !sedes.containsKey(sede.getNombre());
+		
+		if (retorno) {
+			gestor.guardarSede(sede);
+			sedes.put(sede.getNombre(), sede);
+		}
+		
+		return retorno;
+	}
+	
+	public boolean quitarSede (Sede sede) {
+		boolean retorno = sedes.containsKey(sede.getNombre());
+		
+		if (retorno) {
+			gestor.quitarSede(sede);
+			sedes.remove(sede.getNombre());
+		}
+		
+		return retorno;
+	}
+	
+	public boolean modificarSede (Sede viejo, Sede nuevo) {
+		boolean retorno = true;
+		
+		if (quitarSede(viejo)) {
+			if (!agregarSede(nuevo)) {
+				retorno = false;
+				agregarSede(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+	
+	public boolean agregarUsuario(Usuario usuario) {
+		boolean retorno = !usuarios.containsKey(usuario.getUsuario());
+		
+		if (retorno) {
+			gestor.guardarUsuario(usuario);
+			usuarios.put(usuario.getUsuario(), usuario);
+		}
+		
+		return retorno;
+	}
+	
+	public boolean quitarUsuario (Usuario usuario) {
+		boolean retorno = usuarios.containsKey(usuario.getUsuario());
+		if (retorno) {
+			gestor.quitarUsuario(usuario);
+			usuarios.remove(usuario.getUsuario());
+		}
+		
+		return retorno;
+	}
+	
+	public boolean modificarUsuario (Usuario viejo, Usuario nuevo) {
+		boolean retorno = true;
+		
+		if (quitarUsuario(viejo)) {
+			if(!agregarUsuario(nuevo)) {
+				retorno = false;
+				agregarUsuario(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+	
+	public boolean agregarLicencia(LicenciaConducir licencia) {
+		boolean retorno = !licencias.containsKey(String.valueOf(licencia.getNumero()));
+		
+		if (retorno) {
+			gestor.guardarLicencia(licencia);
+			licencias.put(String.valueOf(licencia.getNumero()), licencia);
+		}
+		
+		return retorno;
+	}
+	
+	public boolean quitarLicencia (LicenciaConducir licencia) {
+		boolean retorno = licencias.containsKey(String.valueOf(licencia.getNumero()));
+		
+		if (retorno) {
+			gestor.quitarLicencia(licencia);
+			licencias.remove(String.valueOf(licencia.getNumero()));
+		}
+		
+		return retorno;
+	}
+	
+	public boolean modificarLicencia (LicenciaConducir viejo, LicenciaConducir nuevo) {
+		boolean retorno = true;
+		
+		if (quitarLicencia(viejo)) {
+			if (!agregarLicencia(nuevo)) {
+				retorno = false;
+				agregarLicencia(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
 	
 	
 	
