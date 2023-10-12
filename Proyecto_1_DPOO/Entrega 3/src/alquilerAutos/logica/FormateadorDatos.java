@@ -45,5 +45,13 @@ public class FormateadorDatos {
         return horaString;
 	}
 	
+	public String generarFechaStr (LocalDate fecha) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        String horaString = fecha.format(formatter);
+        
+        return horaString;
+	}
 
 }

@@ -11,12 +11,12 @@ public class Cliente implements Ubicacion{
 	private File imagenDocumento;
 	private int numeroPago;
 	private boolean bloqueoPago = false;
-	private LicenciaConducir licencia;
+	private int licencia;
 	private String numeroCelular;
 	private String correoElectronico;
 	
 	
-	public Cliente(String nombre, int documento, String nacionalidad, String fechaNacimiento, String rutaImagen, int numeroTarjeta, String bloqueo, String numeroCelular, String correoElectronico) {
+	public Cliente(String nombre, int documento, String nacionalidad, String fechaNacimiento, String rutaImagen, int numeroTarjeta, String bloqueo, String numeroCelular, String correoElectronico, int numeroLicencia) {
 		this.nombre = nombre;
 		this.documento = documento;
 		this.nacionalidad = nacionalidad;
@@ -66,7 +66,7 @@ public class Cliente implements Ubicacion{
 		this.correoElectronico = correoElectronico;
 	}
 
-	public void agregarLicencia(LicenciaConducir licencia) {
+	public void agregarLicencia(int licencia) {
 		this.licencia = licencia;
 	}
 
@@ -124,22 +124,18 @@ public class Cliente implements Ubicacion{
 				fechaNacimiento + ";"+
 				numeroCelular + ";"+
 				correoElectronico + ";"+
-				licencia.getNumero() + ";"+
+				licencia + ";"+
 				numeroPago + ";"+
 				estadoTarjeta
 				;
 	}
 
-	public LicenciaConducir getLicencia() {
+	public int getLicencia() {
 		return licencia;
 	}
 
-	public void setLicencia(LicenciaConducir licencia) {
+	public void setLicencia(int licencia) {
 		this.licencia = licencia;
-	}
-	
-	public int getNumeroLicencia () {
-		return licencia.getNumero();
 	}
 	
 	/**

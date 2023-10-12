@@ -11,7 +11,7 @@ public class Reserva {
 	private LocalDateTime fechaHoraInicio;
 	private LocalDateTime fechaHoraFinal;
 	private String tipoVehiculo;
-	private Cliente cliente;
+	private int cliente;
 	private List<LicenciaConducir> licencias = new ArrayList<>();
 	private int precio;
 	private FormateadorDatos formateador = new FormateadorDatos();
@@ -27,7 +27,7 @@ public class Reserva {
 	 * @param cliente
 	 * @param precio
 	 */
-	public Reserva(int id, String fechaInicio, String fechaFinal, String tipoVehiculo, Cliente cliente, int precio) {
+	public Reserva(int id, String fechaInicio, String fechaFinal, String tipoVehiculo, int cliente, int precio) {
 		Reserva.nuevaReserva();
 		if (id != cantidad && id != 0) {
 			this.id = id;
@@ -48,7 +48,7 @@ public class Reserva {
 	 * @param licencia a agregar
 	 * @return true si se pudo agregar la licencia, false de lo contrario
 	 */
-	public boolean agregarLicencia (LicenciaConducir licencia) {
+	public boolean agregarLicencia (LicenciaConducir licencia, int licenciaCliente) {
 		
 		boolean retorno = true;
 		
@@ -59,7 +59,7 @@ public class Reserva {
 			}
 		}
 		
-		if (retorno && (licencia.getNumero() == cliente.getNumeroLicencia())) {
+		if (retorno && (licencia.getNumero() == licenciaCliente)) {
 			retorno = false;
 		}
 		
@@ -117,13 +117,13 @@ public class Reserva {
 
 
 
-	public Cliente getCliente() {
+	public int getCliente() {
 		return cliente;
 	}
 
 
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(int cliente) {
 		this.cliente = cliente;
 	}
 
@@ -183,15 +183,24 @@ public class Reserva {
 			licenciasStr = licenciasStr + " " + licencia.getNumero();
 		}
 		
+		if (licenciasStr.equals("")) {
+			licenciasStr = "nulo";
+		}
+		
 		return id + ";" + 
 				fechaHoraInicioStr + ";" +
 				fechaHoraFinalStr + ";" +
 				tipoVehiculo + ";" +
-				cliente.getDocumento() + ";" + 
+				cliente + ";" + 
 				licenciasStr + ";" +
 				precio + ";" + 
 				booleano + ";" +
 				vehiculoStr;
+	}
+
+
+	public void setVehiculo(String vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 	
 	

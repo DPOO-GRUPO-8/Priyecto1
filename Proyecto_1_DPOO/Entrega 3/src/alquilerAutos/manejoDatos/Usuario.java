@@ -6,7 +6,7 @@ public class Usuario {
 	private String rol;
 	
 	/**
-	 * Crea un usuario nuevo, el rol puede tener 3 posibilidades "Admin total", "Admin local", "Empleado"
+	 * Crea un usuario nuevo, el rol puede tener 3 posibilidades "Admin total", "Admin local Sede", "Empleado Sede"
 	 * @param usuario
 	 * @param contraseña
 	 * @param rol
