@@ -190,4 +190,77 @@ public class GestorDatos {
 		return retorno;
 	}
 	
+	public void guardarSede (Sede sede) {
+		sedesTxt.add(sede.toString());
+	}
+	
+	public void guardarVehiculo (Vehiculo vehiculo) {
+		vehiculosTxt.add(vehiculo.toString());
+	}
+	
+	public void guardarUsuario (Usuario usuario) {
+		usuariosTxt.add(usuario.toString());
+	}
+	
+	public void guardarCliente (Cliente cliente) {
+		clientesTxt.add(cliente.toString());
+	}
+	
+	public void guardarLicencia (LicenciaConducir licencia) {
+		licenciasTxt.add(licencia.toString());
+	}
+	
+	public void guardarReserva (Reserva reserva) {
+		licenciasTxt.add(reserva.toString());
+	}
+	
+	public void guardarTarifa (Tarifa tarifa) {
+		tarifasTxt.add(tarifa.toString());
+	}
+	
+	public void quitarSede (Sede sede) {
+		sedesTxt.remove(sede.toString());
+	}
+	
+	public void quitarVehiculo(Vehiculo vehiculo) {
+		vehiculosTxt.remove(vehiculo.toString());
+	}
+	
+	public void quitarUsuario(Usuario usuario) {
+		usuariosTxt.remove(usuario.toString());
+	}
+	
+	public void quitarCliente (Cliente cliente) {
+		clientesTxt.remove(cliente.toString());
+	}
+	
+	public void quitarLicencia (LicenciaConducir licencia) {
+		licenciasTxt.remove(licencia.toString());
+	}
+	
+	public void quitarReserva(Reserva reserva) {
+		reservasTxt.remove(reserva.toString());
+	}
+	
+	public void quitarTarifa (Tarifa tarifa) {
+		tarifasTxt.remove(tarifa.toString());
+	}
+	/**
+	 * Verifica que no exista ningun vehiculo con placa igual
+	 * @param placa
+	 * @return true de existir un vehiculo con misma placa, falso de lo contrario
+	 */
+	public boolean verificarExistenciaVehiculo (String placa) {
+		boolean retorno = false;
+		
+		for (String data: vehiculosTxt) {
+			if (data.contains(placa + ";")) {
+				retorno = true;
+				break;
+			}
+		}
+		
+		return retorno;
+	}
 }
+

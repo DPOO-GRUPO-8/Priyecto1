@@ -110,5 +110,16 @@ public class Vehiculo {
 				historial;
 		
 	}
+	@Override
+	public boolean equals(Object objeto) {
+		boolean retorno = false;
+		if (objeto instanceof Vehiculo){
+			Vehiculo objeto1 = (Vehiculo) objeto;
+			if (objeto1.getPlaca().equals(this.placa)) {
+				retorno = true;
+			}
+		}
+		return retorno;
+	}
 	
 }

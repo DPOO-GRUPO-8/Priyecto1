@@ -37,6 +37,108 @@ public class AlquilerVehiculos {
 		licencias = gestor.cargarLicencias();
 
 	}
+	/**
+	 * Funcion que busca si existe un vehiculo con la misma placa
+	 * @param placa
+	 * @return true de existir uno con placa igual, false de lo contrario
+	 */
+	
+	/**
+	 * Agrega un vehiculo mientras que la placa no esté repetida
+	 * @param vehiculo
+	 * @return true si logró hacer el cambio, false de lo contrario
+	 */
+	public boolean agregarVehiculo(Vehiculo vehiculo) {
+		boolean repetido = gestor.verificarExistenciaVehiculo(vehiculo.getPlaca());
+		
+		if (!repetido) {
+			gestor.guardarVehiculo(vehiculo);
+			HashMap<String, ArrayList<Vehiculo>> dataUbicacion = inventario.get(vehiculo.getUbicacion().get(0));
+			ArrayList<Vehiculo> dataTipo = dataUbicacion.get(vehiculo.getCategoria());
+			dataTipo.add(vehiculo);
+			dataUbicacion.put(vehiculo.getCategoria(), dataTipo);
+			inventario.put(vehiculo.getUbicacion().get(0), dataUbicacion);
+		}
+		
+		return !repetido;
+	}
+	/**
+	 * Quita un vehiculo del inventario
+	 * @param vehiculo
+	 * @return true si logró quitarlo, false de lo contrario
+	 */
+	public boolean quitarVehiculo(Vehiculo vehiculo) {
+		boolean repetido = gestor.verificarExistenciaVehiculo(vehiculo.getPlaca());
+		
+		if (repetido) {
+			gestor.quitarVehiculo(vehiculo);
+			HashMap<String, ArrayList<Vehiculo>> dataUbicacion = inventario.get(vehiculo.getUbicacion().get(0));
+			ArrayList<Vehiculo> dataTipo = dataUbicacion.get(vehiculo.getCategoria());
+			dataTipo.remove(vehiculo);
+			dataUbicacion.put(vehiculo.getCategoria(), dataTipo);
+			inventario.put(vehiculo.getUbicacion().get(0), dataUbicacion);
+		}
+		
+		return repetido;
+	}
+	
+	/**
+	 * Quita un vehiculo antiguo de la base de datos e introduce el nuevo con los cambios hechos
+	 * @param viejo datos viejos del vehiculo
+	 * @param nuevo datos nuevos del vehiculo
+	 * @return true si logro hacer el reemplazo, false de lo contrario
+	 */
+	
+	public boolean modificarVehiculo(Vehiculo viejo, Vehiculo nuevo) {
+		boolean retorno = true;
+		if (quitarVehiculo(viejo)) {
+			if (!agregarVehiculo(nuevo)) {
+				retorno = false;
+				agregarVehiculo(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+	
+	public boolean agregarTarifa(Tarifa tarifa) {
+		boolean retorno = !tarifas.containsKey(tarifa.getNombre());
+		if (retorno) {
+			gestor.guardarTarifa(tarifa);
+			tarifas.put(tarifa.getNombre(), tarifa);
+		}
+		
+		return retorno;
+	}
+	
+	public boolean quitarTarifa(Tarifa tarifa) {
+		boolean retorno = tarifas.containsKey(tarifa.getNombre());
+		if (retorno) {
+			gestor.quitarTarifa(tarifa);
+			tarifas.remove(tarifa.getNombre());
+		}
+		
+		return retorno;
+	}
+	
+	public boolean modificarTarifa(Tarifa viejo, Tarifa nuevo) {
+		boolean retorno = true;
+		if (quitarTarifa(viejo)) {
+			if(!agregarTarifa(nuevo)) {
+				retorno = false;
+				agregarTarifa(viejo);
+			}
+		} else {
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+	
+	
+	
 	
 	
 }
