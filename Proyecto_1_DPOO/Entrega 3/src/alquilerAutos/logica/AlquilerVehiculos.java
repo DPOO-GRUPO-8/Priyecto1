@@ -35,6 +35,8 @@ public class AlquilerVehiculos {
 		clientes = gestor.cargarClientes();
 		usuarios = gestor.cargarUsuarios();
 		licencias = gestor.cargarLicencias();
+		tarifas = gestor.cargarTarifas();
+		inventario = gestor.cargarVehiculos();
 
 	}
 	/**

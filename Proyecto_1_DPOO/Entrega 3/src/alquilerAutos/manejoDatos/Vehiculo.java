@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Vehiculo {
 	private String placa;
-	private String categoria;
+	private String categoria; // puede ser pequeño, mediano, grande, de lujo
 	private String marca;
 	private String modelo;
 	private String color;
 	private String transmision;
-	private ArrayList<String> ubicacion;
+	private ArrayList<String> ubicacion = new ArrayList<>();
 	private String historial;
 	
 	public Vehiculo(String placa, String categoria, String marca, String modelo, String color, String transmision, String ubicacion) {
@@ -96,8 +96,15 @@ public class Vehiculo {
 	@Override
 	public String toString() {
 		String ubicacionTxt = "";
+		String historialAgregar = "";
 		for (String elemento: ubicacion) {
 			ubicacionTxt = ubicacionTxt + " " + elemento;
+		}
+		
+		if (historial.equals("")) {
+			historialAgregar = "nulo"; 
+		} else {
+			historialAgregar = historial;
 		}
 		
 		return placa + ";" +
@@ -107,7 +114,7 @@ public class Vehiculo {
 				color + ";"+
 				transmision + ";"+
 				ubicacionTxt + ";" +
-				historial;
+				historialAgregar;
 		
 	}
 	@Override
