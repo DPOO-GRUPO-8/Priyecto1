@@ -474,7 +474,8 @@ public class AlquilerVehiculos
 		int documento = reserva.getCliente();
 		Cliente cliente = clientes.get(documento);
 		int numeroLicencia = cliente.getLicencia();
-		LicenciaConducir licenciaCliente = licencias.get(numeroLicencia);
+		String numeroStringLicencia = Integer.toString(numeroLicencia);
+		LicenciaConducir licenciaCliente = licencias.get(numeroStringLicencia);
 		conductores.add(licenciaCliente);
 		reserva.setLicencias(conductores);
 		
@@ -502,22 +503,46 @@ public class AlquilerVehiculos
 		return reserva;
 
 	}
-	public Reserva realizarTraslado(int documento, String fechaHoraInicio,
-			String fechaHoraFin, String categoria, String sedeOrigen,
-			String sedeDestino)
+	public Reserva crearAlquilerSinReserva(int documento, String fechaHoraInicio,
+			String fechaHoraFin, String categoria, String sedeI, String sedeEntrega, ArrayList<LicenciaConducir> conductores) 
 	{
-		/**
-		 * PARAMETROS documento: Un int del numero de documento del cliente.
-		 * fechaInicio: La fecha de incio de la reserva. fechaFinal: La fecha
-		 * final de la reserva. categoriaVehiculo: La categoria que desea
-		 * reservar el cliente. sede: La sede en la que se espera recoger el
-		 * automovil RETORNO reserva: La reserva realizada con los datos
-		 * ingresados En caso de que no haya reserva disponible en ese horario
-		 * el metodo retorna null
-		 */
 		
-		return null;
-
+		Reserva reserva = crearReserva(documento, fechaHoraInicio, fechaHoraFin, categoria, sedeI, sedeEntrega);
+		Reserva alquiler = crearAlquilerConReserva(reserva, fechaHoraInicio, fechaHoraFin,
+			conductores, categoria, sedeEntrega);
+		
+		return alquiler;
+		
+	}
+	
+	public void terminarReserva(Reserva reserva, String sedeEntrega) 
+	{
+		String placa = reserva.getVehiculo();
+		HashMap<String, ArrayList<Vehiculo>> vehiculosSede = this.inventario.get(reserva.getSede());
+		ArrayList<Vehiculo> vehiculos = vehiculosSede.get(reserva.getTipoVehiculo());
+		Sede sede = sedes.get(sedeEntrega);
+		int i = 0;
+		for(Vehiculo vehiculo : vehiculos) 
+		{
+			if (vehiculo.getPlaca() == placa);
+			{
+				
+				ArrayList<String> ubicacion = new ArrayList<String>();
+				ubicacion.add(sede.getNombre());
+				ubicacion.add(sede.getUbicacion());
+				vehiculo.setUbicacion(ubicacion);
+				if(sedeEntrega.equals(reserva.getSede()));
+				{
+					vehiculos.remove(i);
+					ArrayList<Vehiculo> vehiculosSedeEntrega = this.inventario.get(sedeEntrega).get(reserva.getTipoVehiculo());
+					vehiculosSedeEntrega.add(vehiculo);
+				}
+			}
+			i += 1;
+		}
+		if(sedeEntrega.equals(reserva.getSede()));
+		
+		
 	}
 	public int calcularPrecio(String categoria, int numeroConductores, String sedeOrigen, String sedeEntrega,
 			String fechaHoraInicio, String fechaHoraFinal)
