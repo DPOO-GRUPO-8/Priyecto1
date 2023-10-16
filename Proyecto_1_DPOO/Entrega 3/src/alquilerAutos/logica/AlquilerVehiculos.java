@@ -2,6 +2,7 @@ package alquilerAutos.logica;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import alquilerAutos.manejoDatos.Cliente;
@@ -152,246 +153,378 @@ public class AlquilerVehiculos
 		return retorno;
 	}
 
-	public boolean modificarTarifa(Tarifa viejo, Tarifa nuevo) {
+	public boolean modificarTarifa(Tarifa viejo, Tarifa nuevo)
+	{
 		boolean retorno = true;
-		if (quitarTarifa(viejo)) {
-			if(!agregarTarifa(nuevo)) {
+		if (quitarTarifa(viejo))
+		{
+			if (!agregarTarifa(nuevo))
+			{
 				retorno = false;
 				agregarTarifa(viejo);
 			}
-		} else {
+		} else
+		{
 			retorno = false;
 		}
-		
+
+		return retorno;
+	}
+
+	public boolean agregarReserva(Reserva reserva)
+	{
+		boolean retorno = !reservas.containsKey(reserva.getId());
+
+		if (retorno)
+		{
+			gestor.guardarReserva(reserva);
+			reservas.put(reserva.getId(), reserva);
+		}
+
+		return retorno;
+	}
+
+	public boolean quitarReserva(Reserva reserva)
+	{
+		boolean retorno = reservas.containsKey(reserva.getId());
+
+		if (retorno)
+		{
+			gestor.quitarReserva(reserva);
+			reservas.remove(reserva.getId());
+		}
+
+		return retorno;
+	}
+
+	public boolean modificarReserva(Reserva viejo, Reserva nuevo)
+	{
+		boolean retorno = true;
+		if (quitarReserva(viejo))
+		{
+			if (!agregarReserva(nuevo))
+			{
+				retorno = false;
+				agregarReserva(viejo);
+			}
+		} else
+		{
+			retorno = false;
+		}
+
+		return retorno;
+	}
+
+	public boolean agregarCliente(Cliente cliente)
+	{
+		boolean retorno = !clientes.containsKey(cliente.getDocumento());
+		if (retorno)
+		{
+			gestor.guardarCliente(cliente);
+			clientes.put(cliente.getDocumento(), cliente);
+		}
+
+		return retorno;
+	}
+
+	public boolean quitarCliente(Cliente cliente)
+	{
+		boolean retorno = clientes.containsKey(cliente.getDocumento());
+		if (retorno)
+		{
+			gestor.quitarCliente(cliente);
+			clientes.remove(cliente.getDocumento());
+		}
+
+		return retorno;
+	}
+
+	public boolean modificarCliente(Cliente viejo, Cliente nuevo)
+	{
+		boolean retorno = true;
+		if (quitarCliente(viejo))
+		{
+			if (!agregarCliente(nuevo))
+			{
+				retorno = false;
+				agregarCliente(viejo);
+			}
+		} else
+		{
+			retorno = false;
+		}
+		return retorno;
+	}
+
+	public boolean agregarSede(Sede sede)
+	{
+		boolean retorno = !sedes.containsKey(sede.getNombre());
+
+		if (retorno)
+		{
+			gestor.guardarSede(sede);
+			sedes.put(sede.getNombre(), sede);
+		}
+
+		return retorno;
+	}
+
+	public boolean quitarSede(Sede sede)
+	{
+		boolean retorno = sedes.containsKey(sede.getNombre());
+
+		if (retorno)
+		{
+			gestor.quitarSede(sede);
+			sedes.remove(sede.getNombre());
+		}
+
+		return retorno;
+	}
+
+	public boolean modificarSede(Sede viejo, Sede nuevo)
+	{
+		boolean retorno = true;
+
+		if (quitarSede(viejo))
+		{
+			if (!agregarSede(nuevo))
+			{
+				retorno = false;
+				agregarSede(viejo);
+			}
+		} else
+		{
+			retorno = false;
+		}
+
+		return retorno;
+	}
+
+	public boolean agregarUsuario(Usuario usuario)
+	{
+		boolean retorno = !usuarios.containsKey(usuario.getUsuario());
+
+		if (retorno)
+		{
+			gestor.guardarUsuario(usuario);
+			usuarios.put(usuario.getUsuario(), usuario);
+		}
+
+		return retorno;
+	}
+
+	public boolean quitarUsuario(Usuario usuario)
+	{
+		boolean retorno = usuarios.containsKey(usuario.getUsuario());
+		if (retorno)
+		{
+			gestor.quitarUsuario(usuario);
+			usuarios.remove(usuario.getUsuario());
+		}
+
+		return retorno;
+	}
+
+	public boolean modificarUsuario(Usuario viejo, Usuario nuevo)
+	{
+		boolean retorno = true;
+
+		if (quitarUsuario(viejo))
+		{
+			if (!agregarUsuario(nuevo))
+			{
+				retorno = false;
+				agregarUsuario(viejo);
+			}
+		} else
+		{
+			retorno = false;
+		}
+
+		return retorno;
+	}
+
+	public boolean agregarLicencia(LicenciaConducir licencia)
+	{
+		boolean retorno = !licencias
+				.containsKey(String.valueOf(licencia.getNumero()));
+
+		if (retorno)
+		{
+			gestor.guardarLicencia(licencia);
+			licencias.put(String.valueOf(licencia.getNumero()), licencia);
+		}
+
+		return retorno;
+	}
+
+	public boolean quitarLicencia(LicenciaConducir licencia)
+	{
+		boolean retorno = licencias
+				.containsKey(String.valueOf(licencia.getNumero()));
+
+		if (retorno)
+		{
+			gestor.quitarLicencia(licencia);
+			licencias.remove(String.valueOf(licencia.getNumero()));
+		}
+
+		return retorno;
+	}
+
+	public boolean modificarLicencia(LicenciaConducir viejo,
+			LicenciaConducir nuevo)
+	{
+		boolean retorno = true;
+
+		if (quitarLicencia(viejo))
+		{
+			if (!agregarLicencia(nuevo))
+			{
+				retorno = false;
+				agregarLicencia(viejo);
+			}
+		} else
+		{
+			retorno = false;
+		}
+
 		return retorno;
 	}
 
 	// FUNCIONES PARA EL SISTEMA DE RESERVAS
 
-	public Reserva crearReserva(int documento, String fechaHoraInicio, String fechaHoraFin,
-			String categoria, String sedeI)
+	public Reserva crearReserva(int documento, String fechaHoraInicio,
+			String fechaHoraFin, String categoria, String sedeI, String sedeEntrega)
 	{
-		/**PARAMETROS
-		 * documento: Un int del numero de documento del cliente.
-		 * fechaInicio: La fecha de incio de la reserva.
+		/**
+		 * PARAMETROS documento: Un int del numero de documento del cliente.
+		 * fechaInicio: La fecha de incio de la reserva. 
 		 * fechaFinal: La fecha final de la reserva.
 		 * categoriaVehiculo: La categoria que desea reservar el cliente.
-		 * sede: La sede en la que se espera recoger el automovil
+		 * sedeI: La sede en la que se espera recoger el automovil.
+		 * sedeEntrega: La Sede en la que se espera entregar el automovil 
 		 * RETORNO
-		 * reserva: La reserva realizada con los datos ingresados
+		 * reserva: La reserva realizada con los datos
+		 * ingresados En caso de que no haya reserva disponible en ese horario
+		 * el metodo retorna null
 		 */
-		
+
 		Cliente cliente = clientes.get(documento);
 		Sede sede = sedes.get(sedeI);
-		boolean disponible = true;
-		ArrayList<Vehiculo> invetarioCategoria = this.inventario.get(sede).get(categoria);
-		for(Vehiculo vehiculo : invetarioCategoria ) 
-		{	
+		boolean noDisponible = false;
+		ArrayList<Vehiculo> invetarioCategoria = this.inventario.get(sedeI).get(categoria);
+		Iterator<Vehiculo> iterador = invetarioCategoria.iterator();
+		boolean parar = false;
+		Vehiculo vehiculo = null;
+		while (iterador.hasNext() && !parar )
+		{
+			noDisponible = false;
+			vehiculo = iterador.next();
+
 			String historial = vehiculo.getHistorial();
 			String[] historialReservas = historial.split(" ");
-			for(String id:historialReservas)
+
+			int i = 0;
+			while (i < historialReservas.length && !noDisponible)
 			{
+				String id = historialReservas[i];
+
 				Integer idReserva = Integer.parseInt(id);
 				Reserva reserva = reservas.get(idReserva);
-				disponible = reserva.rangoCruzado(fechaHoraInicio, fechaHoraFin);
+				noDisponible = reserva.rangoCruzado(fechaHoraInicio,
+						fechaHoraFin);
+
+				i++;
 			}
-			// TODO Crear una forma de que se recorran los rangos de fechas del historia, esto se podria hacer accediendo a cada
-			// reserva con el id del historial y obteniendo el rango de fechas, luego se revisa si la fecha inicial y final de
-			// cada rango se encuentran en el otro rango
-			
+			if (i== historialReservas.length)
+				{
+					parar = true;
+				}
 		}
-		
-		if (sede.revisarDisponibilidad(fechaHoraInicio) && !disponible)
+
+		if (sede.revisarDisponibilidad(fechaHoraInicio) && sede.revisarDisponibilidad(fechaHoraFin) && !noDisponible)
 		{
-			Reserva reserva = cliente.crearReserva(fechaHoraInicio, fechaHoraFin, categoria, sedeI);
+			int precio = calcularPrecio(categoria, 1, sedeI, sedeEntrega, fechaHoraInicio, fechaHoraFin);
+			Reserva reserva = cliente.crearReserva(fechaHoraInicio,
+					fechaHoraFin, categoria, sedeI, precio);
+			this.reservas.put(reserva.getId(), reserva);
+			vehiculo.agregarHistorial(reserva);
+			String placa = vehiculo.getPlaca();
+			reserva.setVehiculo(placa);
 			return reserva;
-		}else {
+		} else
+		{
 			return null;
 		}
-			
-		
+
 	}
-	
-	public boolean agregarReserva(Reserva reserva) {
-		boolean retorno = !reservas.containsKey(reserva.getId());
+
+	public Reserva crearAlquilerConReserva(Reserva reserva, String fechaHoraActual, String fechaHoraEntrega,
+			ArrayList<LicenciaConducir> conductores, String categoria, String sedeEntrega)
+	{
+		/**
+		 * PARAMETROS 
+		 * reserva: La reserva que ya fue creada.
+		 * conductores: Una lista con los conductores que usaran el vehiculo.
+		 */
+		reserva.setFechaHoraFinal(fechaHoraEntrega);
+		reserva.setFechaHoraInicio(fechaHoraActual);
+		int documento = reserva.getCliente();
+		Cliente cliente = clientes.get(documento);
+		int numeroLicencia = cliente.getLicencia();
+		LicenciaConducir licenciaCliente = licencias.get(numeroLicencia);
+		conductores.add(licenciaCliente);
+		reserva.setLicencias(conductores);
 		
-		if (retorno) {
-			gestor.guardarReserva(reserva);
-			reservas.put(reserva.getId(), reserva);
-		}
-		
-		return retorno;
-	}
-	
-	public boolean quitarReserva(Reserva reserva) {
-		boolean retorno = reservas.containsKey(reserva.getId());
-		
-		if (retorno) {
-			gestor.quitarReserva(reserva);
-			reservas.remove(reserva.getId());
-		}
-		
-		return retorno;
-	}
-	
-	public boolean modificarReserva(Reserva viejo, Reserva nuevo) {
-		boolean retorno = true;
-		if (quitarReserva(viejo)) {
-			if (!agregarReserva(nuevo)) {
-				retorno = false;
-				agregarReserva(viejo);
+		String placa = reserva.getVehiculo();
+		HashMap<String, ArrayList<Vehiculo>> vehiculosSede = this.inventario.get(reserva.getSede());
+		ArrayList<Vehiculo> vehiculos = vehiculosSede.get(reserva.getTipoVehiculo());
+		for(Vehiculo vehiculo : vehiculos) 
+		{
+			if (vehiculo.getPlaca() == placa);
+			{
+				ArrayList<String> ubicacion = new ArrayList<String>();
+				ubicacion.add(cliente.getNombre());
+				ubicacion.add(cliente.getNumeroCelular());
+				ubicacion.add(cliente.getCorreoElectronico());
+				
+				vehiculo.setUbicacion(ubicacion);
 			}
-		} else {
-			retorno = false;
 		}
 		
-		return retorno;
+		int precio = calcularPrecio(categoria, conductores.size(), reserva.getSede(), sedeEntrega, fechaHoraActual, fechaHoraEntrega);
+		
+		reserva.setPrecio(precio);
+		
+		
+		return reserva;
+
 	}
-	
-	public boolean agregarCliente(Cliente cliente) {
-		boolean retorno = !clientes.containsKey(cliente.getDocumento());
-		if (retorno) {
-			gestor.guardarCliente(cliente);
-			clientes.put(cliente.getDocumento(), cliente);
-		}
+	public Reserva realizarTraslado(int documento, String fechaHoraInicio,
+			String fechaHoraFin, String categoria, String sedeOrigen,
+			String sedeDestino)
+	{
+		/**
+		 * PARAMETROS documento: Un int del numero de documento del cliente.
+		 * fechaInicio: La fecha de incio de la reserva. fechaFinal: La fecha
+		 * final de la reserva. categoriaVehiculo: La categoria que desea
+		 * reservar el cliente. sede: La sede en la que se espera recoger el
+		 * automovil RETORNO reserva: La reserva realizada con los datos
+		 * ingresados En caso de que no haya reserva disponible en ese horario
+		 * el metodo retorna null
+		 */
 		
-		return retorno;
+		return null;
+
 	}
-	
-	public boolean quitarCliente (Cliente cliente) {
-		boolean retorno = clientes.containsKey(cliente.getDocumento());
-		if (retorno) {
-			gestor.quitarCliente(cliente);
-			clientes.remove(cliente.getDocumento());
-		}
+	public int calcularPrecio(String categoria, int numeroConductores, String sedeOrigen, String sedeEntrega,
+			String fechaHoraInicio, String fechaHoraFinal)
+	{
 		
-		return retorno;
+		return numeroConductores;
+		
 	}
-	
-	public boolean modificarCliente (Cliente viejo, Cliente nuevo) {
-		boolean retorno = true;
-		if (quitarCliente(viejo)) {
-			if (!agregarCliente(nuevo)) {
-				retorno = false;
-				agregarCliente(viejo);
-			}
-		} else {
-			retorno = false;
-		}
-		return retorno;
-	}
-	
-	public boolean agregarSede (Sede sede) {
-		boolean retorno = !sedes.containsKey(sede.getNombre());
-		
-		if (retorno) {
-			gestor.guardarSede(sede);
-			sedes.put(sede.getNombre(), sede);
-		}
-		
-		return retorno;
-	}
-	
-	public boolean quitarSede (Sede sede) {
-		boolean retorno = sedes.containsKey(sede.getNombre());
-		
-		if (retorno) {
-			gestor.quitarSede(sede);
-			sedes.remove(sede.getNombre());
-		}
-		
-		return retorno;
-	}
-	
-	public boolean modificarSede (Sede viejo, Sede nuevo) {
-		boolean retorno = true;
-		
-		if (quitarSede(viejo)) {
-			if (!agregarSede(nuevo)) {
-				retorno = false;
-				agregarSede(viejo);
-			}
-		} else {
-			retorno = false;
-		}
-		
-		return retorno;
-	}
-	
-	public boolean agregarUsuario(Usuario usuario) {
-		boolean retorno = !usuarios.containsKey(usuario.getUsuario());
-		
-		if (retorno) {
-			gestor.guardarUsuario(usuario);
-			usuarios.put(usuario.getUsuario(), usuario);
-		}
-		
-		return retorno;
-	}
-	
-	public boolean quitarUsuario (Usuario usuario) {
-		boolean retorno = usuarios.containsKey(usuario.getUsuario());
-		if (retorno) {
-			gestor.quitarUsuario(usuario);
-			usuarios.remove(usuario.getUsuario());
-		}
-		
-		return retorno;
-	}
-	
-	public boolean modificarUsuario (Usuario viejo, Usuario nuevo) {
-		boolean retorno = true;
-		
-		if (quitarUsuario(viejo)) {
-			if(!agregarUsuario(nuevo)) {
-				retorno = false;
-				agregarUsuario(viejo);
-			}
-		} else {
-			retorno = false;
-		}
-		
-		return retorno;
-	}
-	
-	public boolean agregarLicencia(LicenciaConducir licencia) {
-		boolean retorno = !licencias.containsKey(String.valueOf(licencia.getNumero()));
-		
-		if (retorno) {
-			gestor.guardarLicencia(licencia);
-			licencias.put(String.valueOf(licencia.getNumero()), licencia);
-		}
-		
-		return retorno;
-	}
-	
-	public boolean quitarLicencia (LicenciaConducir licencia) {
-		boolean retorno = licencias.containsKey(String.valueOf(licencia.getNumero()));
-		
-		if (retorno) {
-			gestor.quitarLicencia(licencia);
-			licencias.remove(String.valueOf(licencia.getNumero()));
-		}
-		
-		return retorno;
-	}
-	
-	public boolean modificarLicencia (LicenciaConducir viejo, LicenciaConducir nuevo) {
-		boolean retorno = true;
-		
-		if (quitarLicencia(viejo)) {
-			if (!agregarLicencia(nuevo)) {
-				retorno = false;
-				agregarLicencia(viejo);
-			}
-		} else {
-			retorno = false;
-		}
-		
-		return retorno;
-	}
-	
-	
-	
-	
+
 }
