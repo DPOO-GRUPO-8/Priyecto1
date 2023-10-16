@@ -18,7 +18,6 @@ public class Cliente implements Ubicacion
 	private int licencia;
 	private String numeroCelular;
 	private String correoElectronico;
-	private Reserva reserva;
 
 	public Cliente(String nombre, int documento, String nacionalidad,
 			String fechaNacimiento, String rutaImagen, int numeroTarjeta,
@@ -181,29 +180,6 @@ public class Cliente implements Ubicacion
 		retorno.add(correoElectronico);
 		retorno.add("" + numeroCelular);
 		return retorno;
-
-	}
-
-	// FUNCIONES PARA EL SISTEMA DE RESERVAS
-
-	public Reserva crearReserva(String fechaHoraInicio, String fechaHoraFin,
-			String categoria, String sede)
-	{
-		/**
-		 * PARAMETROS fechaInicio: La fecha de incio de la reserva. fechaFinal:
-		 * La fecha final de la reserva. categoriaVehiculo: La categoria que
-		 * desea reservar el cliente. RETORNO reserva: La reserva realizada con
-		 * los datos ingresados
-		 */
-		
-		this.reserva = new Reserva(0, fechaHoraInicio, fechaHoraFin, categoria,
-				this.documento, 0, sede);
-		
-		return reserva;
-	}
-	public void modificarReserva(String fechaHoraInicio, String fechaHoraFin,
-			String categoria)
-	{
 
 	}
 
