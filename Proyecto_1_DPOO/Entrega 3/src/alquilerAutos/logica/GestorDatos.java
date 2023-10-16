@@ -201,58 +201,142 @@ public class GestorDatos {
 	
 	public void guardarSede (Sede sede) {
 		sedesTxt.add(sede.toString());
+		try {
+			guardarSedes();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void guardarVehiculo (Vehiculo vehiculo) {
 		vehiculosTxt.add(vehiculo.toString());
+		try {
+			guardarVehiculos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void guardarUsuario (Usuario usuario) {
 		usuariosTxt.add(usuario.toString());
+		try {
+			guardarUsuarios();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void guardarCliente (Cliente cliente) {
 		clientesTxt.add(cliente.toString());
+		try {
+			guardarClientes();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void guardarLicencia (LicenciaConducir licencia) {
 		licenciasTxt.add(licencia.toString());
+		try {
+			guardarLicencias();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void guardarReserva (Reserva reserva) {
 		licenciasTxt.add(reserva.toString());
+		try {
+			guardarReservas();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void guardarTarifa (Tarifa tarifa) {
 		tarifasTxt.add(tarifa.toString());
+		try {
+			guardarTarifas();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarSede (Sede sede) {
 		sedesTxt.remove(sede.toString());
+		try {
+			guardarSedes();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarVehiculo(Vehiculo vehiculo) {
 		vehiculosTxt.remove(vehiculo.toString());
+		try {
+			guardarVehiculos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarUsuario(Usuario usuario) {
 		usuariosTxt.remove(usuario.toString());
+		try {
+			guardarUsuarios();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarCliente (Cliente cliente) {
 		clientesTxt.remove(cliente.toString());
+		try {
+			guardarClientes();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarLicencia (LicenciaConducir licencia) {
 		licenciasTxt.remove(licencia.toString());
+		try {
+			guardarLicencias();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarReserva(Reserva reserva) {
 		reservasTxt.remove(reserva.toString());
+		try {
+			guardarReservas();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void quitarTarifa (Tarifa tarifa) {
 		tarifasTxt.remove(tarifa.toString());
+		try {
+			guardarTarifas();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Verifica que no exista ningun vehiculo con placa igual
@@ -298,6 +382,10 @@ public class GestorDatos {
 	
 	public void guardarTarifas () throws IOException{
 		guardador.guardarDatosLista(tarifasTxt, tarifas);
+	}
+	
+	public void generarLogVehiculo(String placa, String data) throws IOException {
+		guardador.guardarLog(placa, data);
 	}
 }
 
