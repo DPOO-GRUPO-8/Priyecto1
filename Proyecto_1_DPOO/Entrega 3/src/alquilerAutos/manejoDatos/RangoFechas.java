@@ -1,8 +1,7 @@
 package alquilerAutos.manejoDatos;
 
 import java.time.LocalDate;
-
-
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class RangoFechas
@@ -45,9 +44,5 @@ public class RangoFechas
 
 	// METODOS PARA EL SISTEMA DE RESERVAS
 
-	public boolean comprobar(LocalDate fechaInicio, LocalDate fechaFinal)
-    {
-		return fechaInicio.isAfter(this.fechaInicio) && fechaInicio.isBefore(this.fechaFinal);
-    }
     
 }

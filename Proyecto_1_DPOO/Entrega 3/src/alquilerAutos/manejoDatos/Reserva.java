@@ -250,10 +250,11 @@ public class Reserva
 	
 	public boolean rangoCruzado(String fechaInicioComprobar, String fechaFinalComprobar)
 	{
-		RangoFechas rangoComprobar = new RangoFechas(fechaInicioComprobar, fechaFinalComprobar);
-		boolean comprobado = rangoComprobar.comprobar(this.fechaHoraInicio, this.fechaHoraFinal);
+		LocalDateTime fechaInicio = formateador.generarHoraFecha(fechaInicioComprobar);
+		LocalDateTime fechaFinal = formateador.generarHoraFecha(fechaFinalComprobar);
 		
-		return comprobado;
+
+		return fechaInicio.isAfter(this.fechaHoraFinal) || this.fechaHoraInicio.isBefore(fechaFinal);
 	}
 
 }
