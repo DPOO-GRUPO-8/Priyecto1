@@ -2,6 +2,8 @@ package alquilerAutos.consola;
 
 import java.util.Scanner;
 
+import alquilerAutos.logica.AlquilerVehiculos;
+
 
 public class Consola {
 	public static void main(String[] args) {
@@ -52,15 +54,20 @@ public class Consola {
             } else {
                 System.out.println("Inicio de sesión fallido como administrador. Credenciales incorrectas.");
             }
+        } else if (perfilUsuario.equals("usuario")) {
+            
+            AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos(); 
+            ConsolaUsuario usuario = new ConsolaUsuario(alquilerVehiculos);
+            
+            // Show the ConsolaUsuario menu
+            usuario.mostrarMenu();
         } else {
-            // Lógica para el menú de otros perfiles de usuario
-            // ...
+            // 
         }
 
         scanner.close();
     }
 }
-
 
 	
 
