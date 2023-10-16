@@ -8,7 +8,7 @@ import alquilerAutos.manejoDatos.Vehiculo;
 
 
 
-public class ConsolaAdmin {
+public class ConsolaAdminLocal {
     private String nombreUsuario;
     private String contrasena;
     private boolean autenticado;
@@ -16,7 +16,7 @@ public class ConsolaAdmin {
     // Mapa que almacena información de las sedes y sus empleados
     private Map<String, String> sedesYEmpleados;
     
-    public ConsolaAdmin(String nombreUsuario, String contrasena) {
+    public ConsolaAdminLocal(String nombreUsuario, String contrasena) {
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
         this.autenticado = false;
