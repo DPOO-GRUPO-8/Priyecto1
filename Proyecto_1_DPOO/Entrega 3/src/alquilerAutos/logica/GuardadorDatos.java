@@ -21,4 +21,17 @@ public class GuardadorDatos {
 		bw.close();
 	}
 	
+	public void guardarLog (String placa, String data) throws IOException {
+		File archivo = new File ("Datos/logVehiculos/" + placa + ".log");
+		FileWriter fw = new FileWriter (archivo);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		bw.write("");
+		
+		bw.write(data);
+		
+		bw.close();
+		
+	}
+	
 }

@@ -1,5 +1,6 @@
 package alquilerAutos.logica;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -391,6 +392,23 @@ public class AlquilerVehiculos
 		return retorno;
 	}
 	
+	public void generarLogVehiculo (Vehiculo vehiculo) {
+		String agregar = "";
+		String dataHistorial = vehiculo.getHistorial();
+		String[] dataReservas = dataHistorial.split(" ");
+		for (String StrReserva: dataReservas) {
+			Reserva reserva = reservas.get(StrReserva);
+			String logReserva = "{" + reserva.toString() + "} ";
+			agregar = agregar + logReserva;
+		}
+		
+		try {
+			gestor.generarLogVehiculo(vehiculo.getPlaca(), dataHistorial);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
 	
 	
 	
