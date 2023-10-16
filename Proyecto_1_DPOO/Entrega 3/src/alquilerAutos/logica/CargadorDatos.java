@@ -66,7 +66,7 @@ public class CargadorDatos {
 	
 	public Reserva cargarReserva (String info) {
 		String[] data = info.split(";");
-		Reserva retorno = new Reserva (Integer.parseInt(data[0]), data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[6]));
+		Reserva retorno = new Reserva (Integer.parseInt(data[0]), data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[6]), info);
 		if (data[7].equals("0")) {
 			retorno.setPendiente(false);
 		}

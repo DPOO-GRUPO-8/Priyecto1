@@ -202,9 +202,12 @@ public class AlquilerVehiculos
 		if (sede.revisarDisponibilidad(fechaHoraInicio) && !disponible)
 		{
 			Reserva reserva = cliente.crearReserva(fechaHoraInicio, fechaHoraFin, categoria, sedeI);
+			return reserva;
+		}else {
+			return null;
 		}
 			
-		return reserva;
+		
 	}
 	
 }
