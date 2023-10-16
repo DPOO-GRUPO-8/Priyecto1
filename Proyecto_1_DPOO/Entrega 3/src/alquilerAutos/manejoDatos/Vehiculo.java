@@ -11,6 +11,7 @@ public class Vehiculo {
 	private String transmision;
 	private ArrayList<String> ubicacion;
 	private String historial;
+	private RangoFechas reservas;
 	
 	public Vehiculo(String placa, String categoria, String marca, String modelo, String color, String transmision, String ubicacion) {
 		this.placa = placa;
@@ -121,5 +122,14 @@ public class Vehiculo {
 		}
 		return retorno;
 	}
+	
+	// FUNCIONES PARA EL SISTEMA DE RESERVAS
+	
+	public String getHistorial()
+	{
+		return this.historial;
+	}
+	
+
 	
 }
