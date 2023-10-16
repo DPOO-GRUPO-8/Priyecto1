@@ -487,9 +487,7 @@ public class AlquilerVehiculos
 			if (vehiculo.getPlaca() == placa);
 			{
 				ArrayList<String> ubicacion = new ArrayList<String>();
-				ubicacion.add(cliente.getNombre());
-				ubicacion.add(cliente.getNumeroCelular());
-				ubicacion.add(cliente.getCorreoElectronico());
+				ubicacion = cliente.getUbicacion();
 				
 				vehiculo.setUbicacion(ubicacion);
 			}
@@ -528,8 +526,7 @@ public class AlquilerVehiculos
 			{
 				
 				ArrayList<String> ubicacion = new ArrayList<String>();
-				ubicacion.add(sede.getNombre());
-				ubicacion.add(sede.getUbicacion());
+				ubicacion = sede.getUbicacion();	
 				vehiculo.setUbicacion(ubicacion);
 				if(sedeEntrega.equals(reserva.getSede()));
 				{
