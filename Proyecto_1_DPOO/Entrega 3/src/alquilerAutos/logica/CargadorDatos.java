@@ -24,6 +24,7 @@ public class CargadorDatos {
 		while (linea != null) {
 			String lineaFinal = linea.replaceAll("\n", linea);
 			retorno.add(lineaFinal);
+			linea = in.readLine();
 		}
 
 		in.close();
@@ -54,6 +55,9 @@ public class CargadorDatos {
 		String[] data = info.split(";");
 		String rutaImagen = "Datos/imagenDocumento/" + data[1] + ".jpg";
 		Cliente retorno = new Cliente(data[0], Integer.parseInt(data[1]), data[2], data[3], rutaImagen, Integer.parseInt(data[7]), data[8], data[4], data[5], Integer.parseInt(data[6]));
+		if (data[8].equals("1")) {
+			retorno.setBloqueoPago(true);
+		}
 		return retorno;
 	}
 	

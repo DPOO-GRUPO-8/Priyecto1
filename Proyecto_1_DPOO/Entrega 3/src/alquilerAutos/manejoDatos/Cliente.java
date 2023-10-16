@@ -14,7 +14,7 @@ public class Cliente implements Ubicacion
 	private String fechaNacimiento;
 	private File imagenDocumento;
 	private int numeroPago;
-	private boolean bloqueoPago = false;
+	private boolean bloqueoPago = false; // si está en true, está bloqueada
 	private int licencia;
 	private String numeroCelular;
 	private String correoElectronico;
@@ -150,10 +150,15 @@ public class Cliente implements Ubicacion
 		{
 			estadoTarjeta = 0;
 		}
-		return nombre + ";" + documento + ";" + nacionalidad + ";"
-				+ fechaNacimiento + ";" + numeroCelular + ";"
-				+ correoElectronico + ";" + licencia + ";" + numeroPago + ";"
-				+ estadoTarjeta;
+		return nombre + ";" + 
+				documento + ";"+
+				nacionalidad + ";"+
+				fechaNacimiento + ";"+
+				numeroCelular + ";"+
+				correoElectronico + ";"+
+				licencia + ";"+
+				numeroPago + ";"+ estadoTarjeta
+				;
 	}
 
 	public int getLicencia()

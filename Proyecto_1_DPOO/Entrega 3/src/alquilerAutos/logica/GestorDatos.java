@@ -1,6 +1,7 @@
 package alquilerAutos.logica;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -12,7 +13,7 @@ public class GestorDatos {
 	private File vehiculos = new File("Datos/datosVehiculos.txt");
 	private File usuarios = new File ("Datos/datosUsuarios.txt");
 	private File clientes = new File ("Datos/datosClientes.txt");
-	private File licencias = new File ("Datos/datosClientes.txt");
+	private File licencias = new File ("Datos/datosLicencias.txt");
 	private File reservas = new File ("Datos/datosReservas.txt");
 	private File tarifas = new File ("Datos/datosTarifas.txt");
 	
@@ -26,9 +27,17 @@ public class GestorDatos {
 	private ArrayList<String> tarifasTxt = new ArrayList<>();
 	
 	private CargadorDatos cargador = new CargadorDatos();
+	private GuardadorDatos guardador = new GuardadorDatos();
 	
 
 	public void cargarDatos() {
+		cargarSedes(); 
+		cargarVehiculos();
+		cargarLicencias();
+		cargarClientes();
+		cargarUsuarios();
+		cargarTarifas();
+		cargarReservas();
 		
 	}
 	
@@ -262,5 +271,35 @@ public class GestorDatos {
 		
 		return retorno;
 	}
+	
+	public void guardarSedes() throws IOException {
+		guardador.guardarDatosLista(sedesTxt, sedes);
+	}
+	
+	public void guardarVehiculos () throws IOException {
+		guardador.guardarDatosLista(vehiculosTxt, vehiculos);
+	}
+	
+	public void guardarUsuarios () throws IOException{
+		guardador.guardarDatosLista(usuariosTxt, usuarios);
+	}
+	
+	public void guardarClientes() throws IOException{
+		guardador.guardarDatosLista(clientesTxt, clientes);
+	}
+	
+	public void guardarLicencias() throws IOException{
+		guardador.guardarDatosLista(licenciasTxt, licencias);
+	}
+	
+	public void guardarReservas() throws IOException{
+		guardador.guardarDatosLista(reservasTxt, reservas);
+	}
+	
+	public void guardarTarifas () throws IOException{
+		guardador.guardarDatosLista(tarifasTxt, tarifas);
+	}
 }
+
+
 
