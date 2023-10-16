@@ -183,7 +183,7 @@ public class Reserva
 	{
 		return sede;
 	}
-	
+
 	public void setSede(String sede)
 	{
 		this.sede = sede;
@@ -240,21 +240,34 @@ public class Reserva
 	{
 		this.vehiculo = vehiculo;
 	}
+	
+	public void setFechaHoraInicio(String fechaHoraInicio) 
+	{
+		this.fechaHoraInicio = formateador.generarHoraFecha(fechaHoraInicio);
+	}
+	
+	public void setLicencias(ArrayList<LicenciaConducir> licencias)
+	{
+		this.licencias = licencias;
+	}
 
 	// METODOS PARA EL SISTEMA DE RESERVAS
 
 	public void crearReserva()
 	{
-		
-	}
-	
-	public boolean rangoCruzado(String fechaInicioComprobar, String fechaFinalComprobar)
-	{
-		LocalDateTime fechaInicio = formateador.generarHoraFecha(fechaInicioComprobar);
-		LocalDateTime fechaFinal = formateador.generarHoraFecha(fechaFinalComprobar);
-		
 
-		return fechaInicio.isAfter(this.fechaHoraFinal) || this.fechaHoraInicio.isBefore(fechaFinal);
+	}
+
+	public boolean rangoCruzado(String fechaInicioComprobar,
+			String fechaFinalComprobar)
+	{
+		LocalDateTime fechaInicio = formateador
+				.generarHoraFecha(fechaInicioComprobar);
+		LocalDateTime fechaFinal = formateador
+				.generarHoraFecha(fechaFinalComprobar);
+
+		return fechaInicio.isAfter(this.fechaHoraFinal)
+				|| this.fechaHoraInicio.isBefore(fechaFinal);
 	}
 
 }

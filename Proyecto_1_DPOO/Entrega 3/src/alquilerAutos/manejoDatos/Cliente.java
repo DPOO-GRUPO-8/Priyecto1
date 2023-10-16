@@ -183,4 +183,27 @@ public class Cliente implements Ubicacion
 
 	}
 
+	// FUNCIONES PARA EL SISTEMA DE RESERVAS
+
+	public Reserva crearReserva(String fechaHoraInicio, String fechaHoraFin,
+			String categoria, String sede, int precio)
+	{
+		/**
+		 * PARAMETROS fechaInicio: La fecha de incio de la reserva. fechaFinal:
+		 * La fecha final de la reserva. categoriaVehiculo: La categoria que
+		 * desea reservar el cliente. RETORNO reserva: La reserva realizada con
+		 * los datos ingresados
+		 */
+		
+		Reserva reserva = new Reserva(0, fechaHoraInicio, fechaHoraFin, categoria,
+				this.documento, precio, sede);
+		
+		return reserva;
+	}
+	public void modificarReserva(String fechaHoraInicio, String fechaHoraFin,
+			String categoria)
+	{
+
+	}
+
 }
