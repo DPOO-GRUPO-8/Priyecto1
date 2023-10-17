@@ -54,10 +54,12 @@ public class Consola {
 
 				switch (opcion) {
 				case 1:
-					ConsolaAdmin consola = new ConsolaAdmin(usuario);
+					ConsolaAdmin consola = new ConsolaAdmin();
+					alquiler = consola.iniciar(usuario, alquiler);
 					break;
 				case 2:
-					ConsolaAdminLocal consola1 = new ConsolaAdminLocal(usuario);
+					ConsolaAdminLocal consola1 = new ConsolaAdminLocal();
+					alquiler = consola1.iniciar(usuario, alquiler);
 					break;
 				case 3:
 					ConsolaUsuario consola2 = new ConsolaUsuario();
@@ -74,7 +76,8 @@ public class Consola {
 
 				switch (opcion) {
 				case 1:
-					ConsolaAdminLocal consola = new ConsolaAdminLocal(usuario);
+					ConsolaAdminLocal consola = new ConsolaAdminLocal();
+					consola.iniciar(usuario, alquiler);
 					break;
 				case 2:
 					ConsolaUsuario consola1 = new ConsolaUsuario();

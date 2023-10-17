@@ -12,16 +12,21 @@ import alquilerAutos.manejoDatos.Vehiculo;
 public class ConsolaAdmin {
     private String nombreUsuario;
     private String contrasena;
+    private static AlquilerVehiculos alquilerVehiculos;
     private boolean autenticado;
     
     // Mapa que almacena información de las sedes y sus empleados
     private Map<String, String> sedesYEmpleados;
     
-    public ConsolaAdmin(String nombreUsuario, String contrasena) {
-        this.nombreUsuario = nombreUsuario;
-        this.contrasena = contrasena;
+    public AlquilerVehiculos iniciar(Usuario usuario, AlquilerVehiculos alquiler) {
+        this.nombreUsuario = usuario.getUsuario();
+        this.contrasena = usuario.getContraseña();
+        alquilerVehiculos = alquiler;
         this.autenticado = false;
         this.sedesYEmpleados = new HashMap<>();
+        mostrarMenu();
+        
+        return alquilerVehiculos;
     }
     
     public boolean autenticar(String nombreUsuario, String contrasena) {
@@ -34,7 +39,6 @@ public class ConsolaAdmin {
     
     private static void agregarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {
-			AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
 
 			System.out.println("Ingrese los datos del vehículo:");
 			System.out.print("Placa: ");
@@ -86,7 +90,6 @@ public class ConsolaAdmin {
 	    }
 	}
 */ 
-    private static AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
     
     private static void modificarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {

@@ -13,15 +13,20 @@ public class ConsolaAdminLocal  {
     private String nombreUsuario;
     private String contrasena;
     private boolean autenticado;
+    private static AlquilerVehiculos alquilerVehiculos;
     
     // Mapa que almacena información de las sedes y sus empleados
     private Map<String, String> sedesYEmpleados;
     
-    public ConsolaAdminLocal(Usuario usuario) {
+    public AlquilerVehiculos iniciar (Usuario usuario, AlquilerVehiculos alquiler) {
         this.nombreUsuario = usuario.getUsuario();
         this.contrasena = usuario.getContraseña();
         this.autenticado = false;
         this.sedesYEmpleados = new HashMap<>();
+        alquilerVehiculos = alquiler;
+        
+        return alquilerVehiculos;
+        
     }
     
     public boolean autenticar(String nombreUsuario, String contrasena) {
@@ -86,7 +91,6 @@ public class ConsolaAdminLocal  {
 	    }
 	}
 */ 
-    private static AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
     
     private static void modificarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {
