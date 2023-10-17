@@ -9,7 +9,12 @@ import alquilerAutos.manejoDatos.Usuario;
 public class ConsolaUsuario {
 
 	AlquilerVehiculos alquilerVehiculos;
-    public AlquilerVehiculos iniciar(Usuario usuario,AlquilerVehiculos alquiler) {
+    public ConsolaUsuario(AlquilerVehiculos alquilerVehiculos)
+	{
+		// TODO Auto-generated constructor stub
+	}
+
+	public AlquilerVehiculos iniciar(Usuario usuario,AlquilerVehiculos alquiler) {
     	this.alquilerVehiculos = alquiler;
     	mostrarMenu();
     	return this.alquilerVehiculos;
