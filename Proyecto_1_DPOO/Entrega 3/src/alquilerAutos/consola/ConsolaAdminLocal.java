@@ -231,7 +231,7 @@ public class ConsolaAdminLocal extends ConsolaUsuario
 	{
 		Scanner scanner = new Scanner(System.in);
 		System.out.println(
-				"Ingrese el nombre de usuario del usuario a eliminar:");
+				"Ingrese el nombre de usuario del usuario a modificar:");
 		String nombre = scanner.nextLine();
 
 		Usuario usuario = this.alquilerVehiculos.tieneUsuario(nombre);
