@@ -151,7 +151,23 @@ public class ConsolaAdmin {
 
         scanner.close();
     }
-    
+    private void eliminarUsuario() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el usuario que desea eliminar: ");
+        String nombre = scanner.nextLine();
+        Usuario nuevoUsuario = new Usuario(nombre,"a","a");
+
+        boolean agregado = alquilerVehiculos.quitarUsuario(nuevoUsuario);
+
+        if (agregado) {
+            System.out.println("Nuevo usuario agregado con éxito.");
+        } else {
+            System.out.println("El usuario ya existe en el sistema.");
+        }
+
+        scanner.close();
+    }
     public void verEmpleados() {
         if (autenticado) {
             // Lógica para ver la lista de empleados
@@ -242,7 +258,7 @@ public class ConsolaAdmin {
                     break;
                 case 5:
                     System.out.println("Has seleccionado agendar un auto.");
-                    // Lógica para agendar un auto
+                    eliminarUsuario();
                     break;
                 case 6:
                     System.out.println("Has seleccionado administrar sedes y empleados.");
