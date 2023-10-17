@@ -1,6 +1,8 @@
 package alquilerAutos.consola;
+import java.util.ArrayList;
 import java.util.Scanner;
 import alquilerAutos.logica.AlquilerVehiculos;
+import alquilerAutos.manejoDatos.LicenciaConducir;
 import alquilerAutos.manejoDatos.Reserva;
 
 public class ConsolaUsuario {
@@ -40,7 +42,7 @@ public class ConsolaUsuario {
                     break;
                 case 4:
                     System.out.println("Has seleccionado alquilar un vehiculo sin reserva.");
-                    reservarVehiculo();
+                    alquilarVehiculoSinReserva();
                     break;
                 case 5:
                     System.out.println("Saliendo del sistema de alquiler de autos.");
@@ -89,21 +91,58 @@ public class ConsolaUsuario {
         System.out.println("Has seleccionado alquilar un vehículo con reserva.");
         // Solicitar datos para alquilar con reserva
         Scanner scanner = new Scanner(System.in);
+        ArrayList<LicenciaConducir> conductores = new ArrayList<LicenciaConducir>();
         System.out.print("Ingrese el ID de la reserva: ");
         int idReserva = scanner.nextInt();
         System.out.print("Fecha y hora de entrega (YYYY-MM-DD HH:mm): ");
+        String fechaHoraActual = scanner.next();
+        System.out.print("Fecha y hora desde (YYYY-MM-DD HH:mm): ");
         String fechaHoraEntrega = scanner.next();
+        System.out.print("Ingrese la categoria del vehiculo: ");
+        String categoria = scanner.next();
+        System.out.print("Ingrese la sede de entrega: ");
+        String sede = scanner.next();
         
         Reserva reserva = alquilerVehiculos.tieneReserva(idReserva);
 
         if (reserva != null) {
             // Llamar a la función para alquilar con reserva
-            alquilerVehiculos.crearAlquilerConReserva(reserva, fechaHoraEntrega);
+            alquilerVehiculos.crearAlquilerConReserva(reserva, fechaHoraEntrega, fechaHoraActual, conductores, categoria, sede);
             System.out.println("Alquiler con reserva realizado con éxito.");
         } else {
             System.out.println("No se pudo encontrar la reserva con el ID proporcionado.");
         }
     }
+
+    private void alquilarVehiculoSinReserva() {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<LicenciaConducir> conductores = new ArrayList<LicenciaConducir>();
+
+        System.out.print("Ingrese la sede de entrega: ");
+        String sedeEntrega = scanner.next();
+
+        System.out.print("Ingrese la categoría del vehículo: ");
+        String categoria = scanner.next();
+
+        System.out.print("Ingrese la fecha y hora de inicio (Ejemplo: 2023-10-16 10:00): ");
+        String fechaHoraInicio = scanner.next();
+
+        System.out.print("Ingrese la fecha y hora de fin (Ejemplo: 2023-10-17 12:00): ");
+        String fechaHoraFin = scanner.next();
+
+        // Lógica para alquilar un vehículo sin reserva
+        Reserva alquiler = alquilerVehiculos.crearAlquilerSinReserva(12345, fechaHoraInicio, fechaHoraFin, categoria, placa, sedeEntrega, conductores);
+
+        if (alquiler != null) {
+            System.out.println("Vehículo con placa " + placa + " alquilado con éxito.");
+        } else {
+            System.out.println("No se pudo alquilar el vehículo. Verifique la disponibilidad y la placa ingresada.");
+        }
+
+        scanner.close();
+    }
+
+
     
 
     public static void main(String[] args) {
