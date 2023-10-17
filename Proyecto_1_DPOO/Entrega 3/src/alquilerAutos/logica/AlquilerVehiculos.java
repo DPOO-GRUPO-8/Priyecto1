@@ -474,8 +474,7 @@ public class AlquilerVehiculos
 		int documento = reserva.getCliente();
 		Cliente cliente = clientes.get(documento);
 		int numeroLicencia = cliente.getLicencia();
-		String numeroStringLicencia = Integer.toString(numeroLicencia);
-		LicenciaConducir licenciaCliente = licencias.get(numeroStringLicencia);
+		LicenciaConducir licenciaCliente = licencias.get(String.valueOf(numeroLicencia));
 		conductores.add(licenciaCliente);
 		reserva.setLicencias(conductores);
 		
@@ -487,9 +486,7 @@ public class AlquilerVehiculos
 			if (vehiculo.getPlaca() == placa);
 			{
 				ArrayList<String> ubicacion = new ArrayList<String>();
-				ubicacion.add(cliente.getNombre());
-				ubicacion.add(cliente.getNumeroCelular());
-				ubicacion.add(cliente.getCorreoElectronico());
+				ubicacion = cliente.getUbicacion();
 				
 				vehiculo.setUbicacion(ubicacion);
 			}
@@ -528,8 +525,7 @@ public class AlquilerVehiculos
 			{
 				
 				ArrayList<String> ubicacion = new ArrayList<String>();
-				ubicacion.add(sede.getNombre());
-				
+				ubicacion = sede.getUbicacion();	
 				vehiculo.setUbicacion(ubicacion);
 				if(sedeEntrega.equals(reserva.getSede()));
 				{
@@ -549,7 +545,19 @@ public class AlquilerVehiculos
 	{
 		
 		return numeroConductores;
-		
-	}
 
+	}
+	
+	public Usuario tieneUsuario(String nombre) {
+		Usuario retorno;
+		
+		boolean contiene = usuarios.containsKey(nombre);
+		if (contiene) {
+			retorno = usuarios.get(nombre);
+		}else {
+			retorno = null;
+		}
+		
+		return retorno;
+	}
 }
