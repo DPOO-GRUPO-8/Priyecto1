@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import alquilerAutos.logica.AlquilerVehiculos;
+import alquilerAutos.manejoDatos.Usuario;
 import alquilerAutos.manejoDatos.Vehiculo;
 
 
@@ -124,7 +125,32 @@ public class ConsolaAdmin {
 		}
     }
     
+    private void agregarNuevoUsuario() {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Ingrese el nombre del usuario: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese el usuario: ");
+        String contrasena = scanner.nextLine();
+        
+        System.out.print("Ingrese el rol: ");
+        String rol = scanner.nextLine();
+
+       
+        Usuario nuevoUsuario = new Usuario(nombre, contrasena, rol);
+
+        // Add the new user to the system
+        boolean agregado = alquilerVehiculos.agregarUsuario(nuevoUsuario);
+
+        if (agregado) {
+            System.out.println("Nuevo usuario agregado con éxito.");
+        } else {
+            System.out.println("El usuario ya existe en el sistema.");
+        }
+
+        scanner.close();
+    }
     
     public void verEmpleados() {
         if (autenticado) {
@@ -181,8 +207,8 @@ public class ConsolaAdmin {
             System.out.println("1. Comprar un auto");
             System.out.println("2. Vender un auto");
             System.out.println("3. Modificar un auto");
-            System.out.println("4. Reservar un auto");
-            System.out.println("5. Agendar un auto");
+            System.out.println("4. Agregar usuario a sistema");
+            System.out.println("5. Quitar usuario de sistema");
             System.out.println("6. Administrar sedes y empleados");
             System.out.println("7. Cerrar sesión");
             System.out.print("Seleccione una opción: ");
@@ -212,7 +238,7 @@ public class ConsolaAdmin {
                     break;
                 case 4:
                     System.out.println("Has seleccionado reservar un auto.");
-                    // Lógica para reservar un auto
+                    agregarNuevoUsuario();
                     break;
                 case 5:
                     System.out.println("Has seleccionado agendar un auto.");

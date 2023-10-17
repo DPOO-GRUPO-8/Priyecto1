@@ -26,6 +26,10 @@ public class AlquilerVehiculos
 	private HashMap<String, LicenciaConducir> licencias = new HashMap<>();
 	private GestorDatos gestor = new GestorDatos();
 
+	
+	public AlquilerVehiculos() {
+		cargarDatos();
+	}
 	public void cargarDatos()
 	{
 		tarifas = gestor.cargarTarifas();
@@ -620,5 +624,22 @@ public class AlquilerVehiculos
 		
 		return retorno;
 	}
-	
+	/**
+	 * Encuentra una reserva segun su id
+	 * @param id
+	 * @return la reserva si existe, null de lo contrario
+	 */
+	public Reserva tieneReserva (int id) {
+		Reserva retorno;
+		
+		boolean contiene = reservas.containsKey(id);
+		
+		if (contiene) {
+			retorno = reservas.get(id);
+		} else {
+			retorno = null;
+		}
+		
+		return retorno;
+	}
 }
