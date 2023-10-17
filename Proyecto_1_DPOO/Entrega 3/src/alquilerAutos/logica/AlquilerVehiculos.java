@@ -24,6 +24,10 @@ public class AlquilerVehiculos
 	private HashMap<String, LicenciaConducir> licencias = new HashMap<>();
 	private GestorDatos gestor = new GestorDatos();
 
+	
+	public AlquilerVehiculos() {
+		cargarDatos();
+	}
 	public void cargarDatos()
 	{
 		tarifas = gestor.cargarTarifas();
