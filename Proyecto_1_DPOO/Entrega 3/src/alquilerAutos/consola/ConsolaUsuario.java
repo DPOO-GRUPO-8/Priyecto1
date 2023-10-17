@@ -2,7 +2,6 @@ package alquilerAutos.consola;
 import java.util.Scanner;
 import alquilerAutos.logica.AlquilerVehiculos;
 import alquilerAutos.manejoDatos.Reserva;
-import alquilerAutos.manejoDatos.Vehiculo;
 
 public class ConsolaUsuario {
     private AlquilerVehiculos alquilerVehiculos;
@@ -19,7 +18,9 @@ public class ConsolaUsuario {
             System.out.println("Menú de Usuario/Cliente:");
             System.out.println("1. Ver vehículos disponibles");
             System.out.println("2. Reservar un vehículo");
-            System.out.println("3. Salir");
+            System.out.println("3. Crear alquiler con reserva");
+            System.out.println("4. Crear alquiler sin reserva");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
@@ -34,6 +35,14 @@ public class ConsolaUsuario {
                     reservarVehiculo();
                     break;
                 case 3:
+                    System.out.println("Has seleccionado alquilar un vehiculo con reserva.");
+                    alquilarConReserva();
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado alquilar un vehiculo sin reserva.");
+                    reservarVehiculo();
+                    break;
+                case 5:
                     System.out.println("Saliendo del sistema de alquiler de autos.");
                     break;
                 default:
@@ -76,6 +85,26 @@ public class ConsolaUsuario {
             System.out.println("No se pudo crear la reserva. Verifique la disponibilidad y los datos ingresados.");
         }
     }
+    private void alquilarConReserva() {
+        System.out.println("Has seleccionado alquilar un vehículo con reserva.");
+        // Solicitar datos para alquilar con reserva
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el ID de la reserva: ");
+        int idReserva = scanner.nextInt();
+        System.out.print("Fecha y hora de entrega (YYYY-MM-DD HH:mm): ");
+        String fechaHoraEntrega = scanner.next();
+        
+        Reserva reserva = alquilerVehiculos.tieneReserva(idReserva);
+
+        if (reserva != null) {
+            // Llamar a la función para alquilar con reserva
+            alquilerVehiculos.crearAlquilerConReserva(reserva, fechaHoraEntrega);
+            System.out.println("Alquiler con reserva realizado con éxito.");
+        } else {
+            System.out.println("No se pudo encontrar la reserva con el ID proporcionado.");
+        }
+    }
+    
 
     public static void main(String[] args) {
         AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
