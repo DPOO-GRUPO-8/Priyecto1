@@ -200,10 +200,5 @@ public class Cliente implements Ubicacion
 		
 		return reserva;
 	}
-	public void modificarReserva(String fechaHoraInicio, String fechaHoraFin,
-			String categoria)
-	{
-
-	}
 
 }

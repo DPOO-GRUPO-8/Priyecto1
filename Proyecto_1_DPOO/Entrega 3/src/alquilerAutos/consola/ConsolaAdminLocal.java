@@ -184,25 +184,32 @@ public class ConsolaAdminLocal extends ConsolaUsuario{
         autenticado = false;
     }
 
-	public void crearUsuario()
-	{
+    private void agregarNuevoUsuario() {
+        Scanner scanner = new Scanner(System.in);
 
-		Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del usuario: ");
+        String nombre = scanner.nextLine();
 
-		System.out.println("Ingrese el usuario:");
-		String usuario = scanner.nextLine();
+        System.out.print("Ingrese el usuario: ");
+        String contrasena = scanner.nextLine();
+        
+        System.out.print("Ingrese el rol: ");
+        String rol = scanner.nextLine();
 
-		System.out.println("Ingrese la contraseña:");
-		String contraseña = scanner.nextLine();
+       
+        Usuario nuevoUsuario = new Usuario(nombre, contrasena, rol);
 
-		System.out.println("Ingrese el rol:");
-		String rol = scanner.nextLine();
+        // Add the new user to the system
+        boolean agregado = alquilerVehiculos.agregarUsuario(nuevoUsuario);
 
-		scanner.close();
-		new Usuario(usuario, contraseña, rol);
+        if (agregado) {
+            System.out.println("Nuevo usuario agregado con éxito.");
+        } else {
+            System.out.println("El usuario ya existe en el sistema.");
+        }
 
-		System.out.println("Usuario creado correctamente");
-	}
+        scanner.close();
+    }
 
 	public void eliminarUsuario()
 	{
@@ -307,7 +314,7 @@ public class ConsolaAdminLocal extends ConsolaUsuario{
 					// Lógica para administrar sedes y empleados
 					break;
 				case 7 :
-					crearUsuario();
+					agregarNuevoUsuario();
 					break;
 				case 8 :
 					eliminarUsuario();
