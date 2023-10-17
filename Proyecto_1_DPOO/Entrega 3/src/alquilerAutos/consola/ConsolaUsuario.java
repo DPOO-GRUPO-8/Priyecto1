@@ -7,10 +7,12 @@ import alquilerAutos.manejoDatos.Reserva;
 import alquilerAutos.manejoDatos.Usuario;
 
 public class ConsolaUsuario {
-    private AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
 
-    public ConsolaUsuario(Usuario usuario) {
+	AlquilerVehiculos alquilerVehiculos;
+    public AlquilerVehiculos iniciar(Usuario usuario,AlquilerVehiculos alquiler) {
+    	this.alquilerVehiculos = alquiler;
     	mostrarMenu();
+    	return this.alquilerVehiculos;
     }
 
     public void mostrarMenu() {

@@ -6,9 +6,9 @@ import alquilerAutos.logica.AlquilerVehiculos;
 import alquilerAutos.manejoDatos.Usuario;
 
 public class Consola {
+	private static AlquilerVehiculos alquiler = new AlquilerVehiculos();
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		AlquilerVehiculos alquiler = new AlquilerVehiculos();
 		Usuario usuario = null;
 		boolean usuarioValido = false;
 
@@ -60,7 +60,8 @@ public class Consola {
 					ConsolaAdminLocal consola1 = new ConsolaAdminLocal(usuario);
 					break;
 				case 3:
-					ConsolaUsuario consola2 = new ConsolaUsuario(usuario);
+					ConsolaUsuario consola2 = new ConsolaUsuario();
+					alquiler = consola2.iniciar(usuario, alquiler);
 					break;
 				case 0:
 					working = false;
@@ -76,7 +77,8 @@ public class Consola {
 					ConsolaAdminLocal consola = new ConsolaAdminLocal(usuario);
 					break;
 				case 2:
-					ConsolaUsuario consola1 = new ConsolaUsuario(usuario);
+					ConsolaUsuario consola1 = new ConsolaUsuario();
+					alquiler = consola1.iniciar(usuario, alquiler);
 					break;
 				case 0:
 					working = false;
@@ -90,7 +92,8 @@ public class Consola {
 	
 				switch (opcion) {
 				case 1:
-					ConsolaUsuario consola1 = new ConsolaUsuario(usuario);
+					ConsolaUsuario consola1 = new ConsolaUsuario();
+					alquiler = consola1.iniciar(usuario, alquiler);
 					break;
 				case 0:
 					working = false;
