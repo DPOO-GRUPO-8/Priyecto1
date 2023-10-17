@@ -1,6 +1,7 @@
 package alquilerAutos.consola;
 import java.util.Scanner;
 import alquilerAutos.logica.AlquilerVehiculos;
+import alquilerAutos.manejoDatos.Reserva;
 import alquilerAutos.manejoDatos.Vehiculo;
 
 public class ConsolaUsuario {
@@ -26,13 +27,11 @@ public class ConsolaUsuario {
             switch (opcion) {
                 case 1:
                     System.out.println("Vehículos disponibles:");
-                    mostrarVehiculosDisponibles();
+                    //mostrarVehiculosDisponibles();
                     break;
                 case 2:
                     System.out.println("Has seleccionado reservar un vehículo.");
-                    System.out.print("Ingrese la placa del vehículo que desea reservar: ");
-                    String placaReserva = scanner.next();
-                    reservarVehiculo(placaReserva);
+                    reservarVehiculo();
                     break;
                 case 3:
                     System.out.println("Saliendo del sistema de alquiler de autos.");
@@ -45,24 +44,41 @@ public class ConsolaUsuario {
         scanner.close();
     }
 
-    private void mostrarVehiculosDisponibles() {
+/*    private void mostrarVehiculosDisponibles() {
         // Lógica para mostrar vehículos disponibles
-        alquilerVehiculos.mostrarVehiculosDisponibles();
+        alquilerVehiculos.crearAlquilerConReserva();
     }
+*/
+    private void reservarVehiculo() {
+        System.out.println("Has seleccionado reservar un vehículo.");
+        // Solicitar datos para la reserva
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el número de documento del cliente: ");
+        int documento = scanner.nextInt();
+        System.out.print("Fecha y hora de inicio (YYYY-MM-DD HH:mm): ");
+        String fechaHoraInicio = scanner.next();
+        System.out.print("Fecha y hora de finalización (YYYY-MM-DD HH:mm): ");
+        String fechaHoraFin = scanner.next();
+        System.out.print("Categoría del vehículo: ");
+        String categoria = scanner.next();
+        System.out.print("Sede de recogida: ");
+        String sedeI = scanner.next();
+        System.out.print("Sede de entrega: ");
+        String sedeEntrega = scanner.next();
+        scanner.close();
 
-    private void reservarVehiculo(String placa) {
-        // Lógica para reservar un vehículo
-        boolean reservado = alquilerVehiculos.reservarVehiculo(placa);
+        // Intentar crear la reserva
+        Reserva reserva = alquilerVehiculos.crearReserva(documento, fechaHoraInicio, fechaHoraFin, categoria, sedeI, sedeEntrega);
 
-        if (reservado) {
-            System.out.println("Vehículo con placa " + placa + " reservado con éxito.");
+        if (reserva != null) {
+            System.out.println("Reserva creada con éxito. ID de reserva: " + reserva.getId());
         } else {
-            System.out.println("No se pudo reservar el vehículo. Verifique la disponibilidad y la placa ingresada.");
+            System.out.println("No se pudo crear la reserva. Verifique la disponibilidad y los datos ingresados.");
         }
     }
 
     public static void main(String[] args) {
-        AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos(); // Debes crear una instancia de la lógica de alquiler de autos
+        AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
         ConsolaUsuario consolaUsuario = new ConsolaUsuario(alquilerVehiculos);
         consolaUsuario.mostrarMenu();
     }
