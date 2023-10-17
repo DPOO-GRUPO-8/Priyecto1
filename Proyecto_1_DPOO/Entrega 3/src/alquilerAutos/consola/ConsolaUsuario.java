@@ -4,12 +4,15 @@ import java.util.Scanner;
 import alquilerAutos.logica.AlquilerVehiculos;
 import alquilerAutos.manejoDatos.LicenciaConducir;
 import alquilerAutos.manejoDatos.Reserva;
+import alquilerAutos.manejoDatos.Usuario;
 
 public class ConsolaUsuario {
-    private AlquilerVehiculos alquilerVehiculos;
 
-    public ConsolaUsuario(AlquilerVehiculos alquilerVehiculos) {
-        this.alquilerVehiculos = alquilerVehiculos;
+	AlquilerVehiculos alquilerVehiculos;
+    public AlquilerVehiculos iniciar(Usuario usuario,AlquilerVehiculos alquiler) {
+    	this.alquilerVehiculos = alquiler;
+    	mostrarMenu();
+    	return this.alquilerVehiculos;
     }
 
     public void mostrarMenu() {
@@ -112,42 +115,39 @@ public class ConsolaUsuario {
         } else {
             System.out.println("No se pudo encontrar la reserva con el ID proporcionado.");
         }
+        
+        scanner.close();
     }
 
     private void alquilarVehiculoSinReserva() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<LicenciaConducir> conductores = new ArrayList<LicenciaConducir>();
-
+        
+        System.out.print("Ingrese la sede de recogida: ");
+        String sedeI = scanner.next();
+        
         System.out.print("Ingrese la sede de entrega: ");
         String sedeEntrega = scanner.next();
 
         System.out.print("Ingrese la categoría del vehículo: ");
         String categoria = scanner.next();
 
-        System.out.print("Ingrese la fecha y hora de inicio (Ejemplo: 2023-10-16 10:00): ");
+        System.out.print("Ingrese la fecha y hora de inicio (Ejemplo: 2023/10/16 10:00): ");
         String fechaHoraInicio = scanner.next();
+        
 
-        System.out.print("Ingrese la fecha y hora de fin (Ejemplo: 2023-10-17 12:00): ");
+        System.out.print("Ingrese la fecha y hora de fin (Ejemplo: 2023/10/17 12:00): ");
         String fechaHoraFin = scanner.next();
 
         // Lógica para alquilar un vehículo sin reserva
-        Reserva alquiler = alquilerVehiculos.crearAlquilerSinReserva(12345, fechaHoraInicio, fechaHoraFin, categoria, placa, sedeEntrega, conductores);
+        Reserva alquiler = alquilerVehiculos.crearAlquilerSinReserva(12345, fechaHoraInicio, fechaHoraFin, categoria, sedeI, sedeEntrega, conductores);
 
         if (alquiler != null) {
-            System.out.println("Vehículo con placa " + placa + " alquilado con éxito.");
+            System.out.println("Vehículo alquilado con exito.");
         } else {
             System.out.println("No se pudo alquilar el vehículo. Verifique la disponibilidad y la placa ingresada.");
         }
 
         scanner.close();
-    }
-
-
-    
-
-    public static void main(String[] args) {
-        AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
-        ConsolaUsuario consolaUsuario = new ConsolaUsuario(alquilerVehiculos);
-        consolaUsuario.mostrarMenu();
     }
 }

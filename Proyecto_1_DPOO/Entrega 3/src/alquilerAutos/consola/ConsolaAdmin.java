@@ -12,16 +12,21 @@ import alquilerAutos.manejoDatos.Vehiculo;
 public class ConsolaAdmin {
     private String nombreUsuario;
     private String contrasena;
+    private static AlquilerVehiculos alquilerVehiculos;
     private boolean autenticado;
     
     // Mapa que almacena información de las sedes y sus empleados
     private Map<String, String> sedesYEmpleados;
     
-    public ConsolaAdmin(String nombreUsuario, String contrasena) {
-        this.nombreUsuario = nombreUsuario;
-        this.contrasena = contrasena;
+    public AlquilerVehiculos iniciar(Usuario usuario, AlquilerVehiculos alquiler) {
+        this.nombreUsuario = usuario.getUsuario();
+        this.contrasena = usuario.getContraseña();
+        alquilerVehiculos = alquiler;
         this.autenticado = false;
         this.sedesYEmpleados = new HashMap<>();
+        mostrarMenu();
+        
+        return alquilerVehiculos;
     }
     
     public boolean autenticar(String nombreUsuario, String contrasena) {
@@ -34,7 +39,6 @@ public class ConsolaAdmin {
     
     private static void agregarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {
-			AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
 
 			System.out.println("Ingrese los datos del vehículo:");
 			System.out.print("Placa: ");
@@ -86,7 +90,6 @@ public class ConsolaAdmin {
 	    }
 	}
 */ 
-    private static AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
     
     private static void modificarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -151,7 +154,23 @@ public class ConsolaAdmin {
 
         scanner.close();
     }
-    
+    private void eliminarUsuario() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el usuario que desea eliminar: ");
+        String nombre = scanner.nextLine();
+        Usuario nuevoUsuario = new Usuario(nombre,"a","a");
+
+        boolean agregado = alquilerVehiculos.quitarUsuario(nuevoUsuario);
+
+        if (agregado) {
+            System.out.println("Nuevo usuario agregado con éxito.");
+        } else {
+            System.out.println("El usuario ya existe en el sistema.");
+        }
+
+        scanner.close();
+    }
     public void verEmpleados() {
         if (autenticado) {
             // Lógica para ver la lista de empleados
@@ -204,8 +223,8 @@ public class ConsolaAdmin {
 
         do {
             System.out.println("Menú del Administrador:");
-            System.out.println("1. Comprar un auto");
-            System.out.println("2. Vender un auto");
+            System.out.println("1. Agregar un auto");
+            System.out.println("2. Quitar un auto");
             System.out.println("3. Modificar un auto");
             System.out.println("4. Agregar usuario a sistema");
             System.out.println("5. Quitar usuario de sistema");
@@ -242,7 +261,7 @@ public class ConsolaAdmin {
                     break;
                 case 5:
                     System.out.println("Has seleccionado agendar un auto.");
-                    // Lógica para agendar un auto
+                    eliminarUsuario();
                     break;
                 case 6:
                     System.out.println("Has seleccionado administrar sedes y empleados.");
