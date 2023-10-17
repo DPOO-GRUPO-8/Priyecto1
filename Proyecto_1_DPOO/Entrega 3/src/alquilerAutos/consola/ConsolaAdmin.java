@@ -220,8 +220,8 @@ public class ConsolaAdmin {
 
         do {
             System.out.println("Menú del Administrador:");
-            System.out.println("1. Comprar un auto");
-            System.out.println("2. Vender un auto");
+            System.out.println("1. Agregar un auto");
+            System.out.println("2. Quitar un auto");
             System.out.println("3. Modificar un auto");
             System.out.println("4. Agregar usuario a sistema");
             System.out.println("5. Quitar usuario de sistema");
