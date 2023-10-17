@@ -1,5 +1,7 @@
 package alquilerAutos.logica;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -548,7 +550,25 @@ public class AlquilerVehiculos
 			String fechaHoraInicio, String fechaHoraFinal)
 	{
 		
-		return numeroConductores;
+		Tarifa tarifa = tarifas.get(categoria);
+		
+		int cambioSede = 0;
+		
+		LocalDate fechaInicial = LocalDate.parse(fechaHoraInicio);
+        LocalDate fechaFinal = LocalDate.parse(fechaHoraFinal);
+        Period periodo = Period.between(fechaInicial, fechaFinal);
+        
+        int tarifaDiaria = tarifa.getTarifaDiaria();
+        int dias = periodo.getDays();
+        
+        if(!sedeOrigen.equals(sedeEntrega)) 
+        {
+        	cambioSede = 30000;
+        }
+        int precio = (dias*tarifaDiaria)+(numeroConductores*20000)+cambioSede;
+		
+		
+		return precio;
 
 	}
 	
@@ -569,6 +589,8 @@ public class AlquilerVehiculos
 		
 		return retorno;
 	}
+	
+	
 	
 	
 	/**
