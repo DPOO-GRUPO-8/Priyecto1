@@ -9,7 +9,7 @@ import alquilerAutos.manejoDatos.Vehiculo;
 
 
 
-public class ConsolaAdmin {
+public class ConsolaAdmin extends ConsolaAdminLocal{
     private String nombreUsuario;
     private String contrasena;
     private static AlquilerVehiculos alquilerVehiculos;
@@ -76,20 +76,6 @@ public class ConsolaAdmin {
 		}
     }
 
-/*    public void quitarAuto(String placa) {
-	    if (autenticado) {
-	        // Lógica para quitar un auto
-	        boolean eliminado = AlquilerVehiculos.quitarVehiculo(placa);
-	        if (eliminado) {
-	            System.out.println("Vehículo con placa " + placa + " eliminado del sistema.");
-	        } else {
-	            System.out.println("No se encontró un vehículo con placa " + placa + " en el sistema.");
-	        }
-	    } else {
-	        System.out.println("Acceso no autorizado.");
-	    }
-	}
-*/ 
     
     private static void modificarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -154,19 +140,22 @@ public class ConsolaAdmin {
 
         scanner.close();
     }
+    
+    
     private void eliminarUsuario() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese el usuario que desea eliminar: ");
         String nombre = scanner.nextLine();
-        Usuario nuevoUsuario = new Usuario(nombre,"a","a");
+        Usuario usuario = alquilerVehiculos.tieneUsuario(nombre);
 
-        boolean agregado = alquilerVehiculos.quitarUsuario(nuevoUsuario);
+        boolean agregado = usuario != null;
 
         if (agregado) {
-            System.out.println("Nuevo usuario agregado con éxito.");
+        	alquilerVehiculos.quitarUsuario(usuario);
+            System.out.println("Nuevo usuario retirado con éxito.");
         } else {
-            System.out.println("El usuario ya existe en el sistema.");
+            System.out.println("El usuario no existe en el sistema.");
         }
 
         scanner.close();
@@ -245,7 +234,7 @@ public class ConsolaAdmin {
                     // Lógica para quitar un auto
                     System.out.print("Ingrese la placa del vehículo a quitar: ");
                     String placaQuitar = scanner.nextLine();
-                    //quitarAuto(placaQuitar);
+                    quitarAuto(placaQuitar);
                     break;
                     
                  
