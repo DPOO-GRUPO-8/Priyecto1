@@ -188,7 +188,7 @@ public class ConsolaAdminLocal extends ConsolaUsuario
 			System.out.println("Administración de sedes y empleados");
 		} else
 		{
-			System.out.println("Acceso no autorizado.");
+			System.out.println("Acceso no autorizado."); 
 		}
 	}
 	private void crearUsuario()
