@@ -9,10 +9,6 @@ import alquilerAutos.manejoDatos.Usuario;
 public class ConsolaUsuario {
 
 	AlquilerVehiculos alquilerVehiculos;
-    public ConsolaUsuario(AlquilerVehiculos alquilerVehiculos)
-	{
-		// TODO Auto-generated constructor stub
-	}
 
 	public AlquilerVehiculos iniciar(Usuario usuario,AlquilerVehiculos alquiler) {
     	this.alquilerVehiculos = alquiler;

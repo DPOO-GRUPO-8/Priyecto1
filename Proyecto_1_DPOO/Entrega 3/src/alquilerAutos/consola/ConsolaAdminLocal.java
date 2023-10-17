@@ -9,7 +9,7 @@ import alquilerAutos.manejoDatos.Vehiculo;
 
 
 
-public class ConsolaAdminLocal  {
+public class ConsolaAdminLocal extends ConsolaUsuario{
     private String nombreUsuario;
     private String contrasena;
     private boolean autenticado;
@@ -286,7 +286,7 @@ public class ConsolaAdminLocal  {
 					System.out
 							.print("Ingrese la placa del vehículo a quitar: ");
 					String placaQuitar = scanner.nextLine();
-					// quitarAuto(placaQuitar);
+					quitarAuto(placaQuitar);
 					break;
 
 				case 3 :

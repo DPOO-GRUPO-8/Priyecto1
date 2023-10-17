@@ -142,7 +142,7 @@ public class ConsolaAdmin extends ConsolaAdminLocal{
     }
     
     
-    private void eliminarUsuario() {
+    public void eliminarUsuario() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese el usuario que desea eliminar: ");
