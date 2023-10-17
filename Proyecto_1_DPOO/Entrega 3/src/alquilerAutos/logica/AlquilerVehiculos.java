@@ -549,6 +549,11 @@ public class AlquilerVehiculos
 
 	}
 	
+	/**
+	 * Encuentra un usuario según su nombre
+	 * @param nombre
+	 * @return el usuario de existir, de lo contrario, retorna null
+	 */
 	public Usuario tieneUsuario(String nombre) {
 		Usuario retorno;
 		
@@ -557,6 +562,39 @@ public class AlquilerVehiculos
 			retorno = usuarios.get(nombre);
 		}else {
 			retorno = null;
+		}
+		
+		return retorno;
+	}
+	
+	
+	/**
+	 * Encuentra un vehiculo segun la placa
+	 * @param placa
+	 * @return el vehiculo si existe, null de lo contrario
+	 */
+	public Vehiculo tieneVehiculo (String placa) {
+		Vehiculo retorno = null;
+		boolean encontrado = false;
+		
+		for (String ubicacion: inventario.keySet()) {
+			HashMap<String, ArrayList<Vehiculo>> tipos = inventario.get(ubicacion);
+			for(String tipo: tipos.keySet()) {
+				ArrayList<Vehiculo> carros = tipos.get(tipo);
+				for (Vehiculo carro: carros) {
+					if (carro.getPlaca().equals(placa)) {
+						retorno = carro;
+						encontrado = true;
+						break;
+					}
+				}
+				if (encontrado) {
+					break;
+				}
+			}
+			if (encontrado) {
+				break;
+			}
 		}
 		
 		return retorno;
