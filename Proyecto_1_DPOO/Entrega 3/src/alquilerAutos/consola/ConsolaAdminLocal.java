@@ -77,10 +77,15 @@ public class ConsolaAdminLocal  {
 		}
     }
 
-/*    public void quitarAuto(String placa) {
+    public void quitarAuto(String placa) {
 	    if (autenticado) {
 	        // Lógica para quitar un auto
-	        boolean eliminado = AlquilerVehiculos.quitarVehiculo(placa);
+	    	Vehiculo vehiculo = alquilerVehiculos.tieneVehiculo(placa);
+	        boolean eliminado = false;
+	        if (vehiculo != null) {
+	        	eliminado = alquilerVehiculos.quitarVehiculo(vehiculo);
+	        } 
+	        
 	        if (eliminado) {
 	            System.out.println("Vehículo con placa " + placa + " eliminado del sistema.");
 	        } else {
@@ -90,14 +95,21 @@ public class ConsolaAdminLocal  {
 	        System.out.println("Acceso no autorizado.");
 	    }
 	}
-*/ 
     
     private static void modificarAuto() {
         try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Ingrese los datos del vehículo antiguo:");
 			System.out.print("Placa del vehículo antiguo: ");
-			String placaViejo = scanner.nextLine();
-
+			Vehiculo vehiculoViejo = null;
+			while (vehiculoViejo != null) {
+				String placaViejo = scanner.nextLine();
+				vehiculoViejo = alquilerVehiculos.tieneVehiculo(placaViejo);
+				if (vehiculoViejo == null) {
+					System.out.println("No es un vehiculo registrado");
+				}
+			}
+			
+			
 			System.out.println("Ingrese los datos del vehículo nuevo:");
 			System.out.print("Placa del vehículo nuevo: ");
 			String placaNuevo = scanner.nextLine();
@@ -115,7 +127,6 @@ public class ConsolaAdminLocal  {
 			String ubicacion = scanner.nextLine();
 
 			// Crear objetos de la clase Vehiculo para el vehículo antiguo y el nuevo
-			Vehiculo vehiculoViejo = new Vehiculo(placaViejo, categoria, marca, modelo, color, transmision, ubicacion);
 			Vehiculo vehiculoNuevo = new Vehiculo(placaNuevo, categoria, marca, modelo, color, transmision, ubicacion);
 
 			// Llamar al método modificarVehiculo y pasar los objetos de vehículo antiguo y nuevo como argumentos
@@ -205,7 +216,7 @@ public class ConsolaAdminLocal  {
                     // Lógica para quitar un auto
                     System.out.print("Ingrese la placa del vehículo a quitar: ");
                     String placaQuitar = scanner.nextLine();
-                    //quitarAuto(placaQuitar);
+                    quitarAuto(placaQuitar);
                     break;
                     
                  
