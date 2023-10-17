@@ -184,7 +184,7 @@ public class ConsolaAdminLocal extends ConsolaUsuario{
         autenticado = false;
     }
 
-	private void crearUsuario()
+	public void crearUsuario()
 	{
 
 		Scanner scanner = new Scanner(System.in);

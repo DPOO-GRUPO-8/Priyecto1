@@ -211,61 +211,76 @@ public class ConsolaAdmin extends ConsolaAdminLocal{
         int opcion;
 
         do {
-            System.out.println("Menú del Administrador:");
-            System.out.println("1. Agregar un auto");
-            System.out.println("2. Quitar un auto");
-            System.out.println("3. Modificar un auto");
-            System.out.println("4. Agregar usuario a sistema");
-            System.out.println("5. Quitar usuario de sistema");
-            System.out.println("6. Administrar sedes y empleados");
-            System.out.println("7. Cerrar sesión");
-            System.out.print("Seleccione una opción: ");
-            
-            opcion = scanner.nextInt();
+        	System.out.println("Menú del Administrador:");
+			System.out.println("1. Comprar un auto");
+			System.out.println("2. Vender un auto");
+			System.out.println("3. Modificar un auto");
+			System.out.println("4. Reservar un auto");
+			System.out.println("5. Agendar un auto");
+			System.out.println("6. Administrar sedes y empleados");
+			System.out.println("7. Crear usuario");
+			System.out.println("8. Eliminar usuario");
+			System.out.println("9. modificar usuario");
+			System.out.println("0. Cerrar sesión");
+			System.out.print("Seleccione una opción: ");
 
-            switch (opcion) {
-                case 1:
-                    System.out.println("Has seleccionado agregar un auto.");
-                    // Lógica para agregar un auto
-                    agregarAuto();
-                    break;
-                case 2:
-                    System.out.println("Has seleccionado quitar un auto.");
-                    // Lógica para quitar un auto
-                    System.out.print("Ingrese la placa del vehículo a quitar: ");
-                    String placaQuitar = scanner.nextLine();
-                    quitarAuto(placaQuitar);
-                    break;
-                    
-                 
-                case 3:
-                    System.out.println("Has seleccionado modificar un auto.");
-                    // Lógica para modificar un auto
-                    modificarAuto();
-                    
-                    break;
-                case 4:
-                    System.out.println("Has seleccionado reservar un auto.");
-                    agregarNuevoUsuario();
-                    break;
-                case 5:
-                    System.out.println("Has seleccionado agendar un auto.");
-                    eliminarUsuario();
-                    break;
-                case 6:
-                    System.out.println("Has seleccionado administrar sedes y empleados.");
-                    // Lógica para administrar sedes y empleados
-                    break;
-                case 7:
-                    System.out.println("Cerrando sesión del administrador.");
-                    cerrarSesion();
-                    break;
-                default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
-            }
-        } while (opcion != 7);
+			opcion = scanner.nextInt();
 
-        scanner.close();
+			switch (opcion)
+			{
+				case 1 :
+					System.out.println("Has seleccionado agregar un auto.");
+					// Lógica para agregar un auto
+					agregarAuto();
+					break;
+				case 2 :
+					System.out.println("Has seleccionado quitar un auto.");
+					// Lógica para quitar un auto
+					System.out
+							.print("Ingrese la placa del vehículo a quitar: ");
+					String placaQuitar = scanner.nextLine();
+					quitarAuto(placaQuitar);
+					break;
+
+				case 3 :
+					System.out.println("Has seleccionado modificar un auto.");
+					// Lógica para modificar un auto
+					modificarAuto();
+
+					break;
+				case 4 :
+					System.out.println("Has seleccionado reservar un auto.");
+					// Lógica para reservar un auto
+					break;
+				case 5 :
+					System.out.println("Has seleccionado agendar un auto.");
+					// Lógica para agendar un auto
+					break;
+				case 6 :
+					System.out.println(
+							"Has seleccionado administrar sedes y empleados.");
+					// Lógica para administrar sedes y empleados
+					break;
+				case 7 :
+					crearUsuario();
+					break;
+				case 8 :
+					eliminarUsuario();
+					break;
+				case 9 :
+					modificarUsuario();
+					break;
+				case 0 :
+					System.out.println("Cerrando sesión del administrador.");
+					cerrarSesion();
+					break;
+				default :
+					System.out.println(
+							"Opción no válida. Por favor, seleccione una opción válida.");
+			}
+		} while (opcion != 0);
+
+		scanner.close();
     
     
 }}
