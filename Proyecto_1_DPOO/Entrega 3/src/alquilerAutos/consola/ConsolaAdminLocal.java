@@ -141,6 +141,7 @@ public class ConsolaAdminLocal extends ConsolaUsuario{
     }
     
 
+<<<<<<< HEAD
     
     public void verEmpleados() {
         if (autenticado) {
@@ -186,6 +187,63 @@ public class ConsolaAdminLocal extends ConsolaUsuario{
         autenticado = false;
     }
     		
+=======
+	public void verEmpleados()
+	{
+		if (autenticado)
+		{
+			// Lógica para ver la lista de empleados
+			System.out.println("Lista de empleados:");
+			for (Map.Entry<String, String> sede : sedesYEmpleados.entrySet())
+			{
+				System.out.println("Sede: " + sede.getKey() + ", Empleado: "
+						+ sede.getValue());
+			}
+		} else
+		{
+			System.out.println("Acceso no autorizado.");
+		}
+	}
+
+	public void reservarAuto(String modelo)
+	{
+		if (autenticado)
+		{
+			// Lógica para reservar un auto
+			System.out.println("Reserva exitosa del auto modelo " + modelo);
+		} else
+		{
+			System.out.println("Acceso no autorizado.");
+		}
+	}
+
+	public void agendarAuto(String modelo)
+	{
+		if (autenticado)
+		{
+			// Lógica para agendar un auto
+			System.out
+					.println("Agendamiento exitoso del auto modelo " + modelo);
+		} else
+		{
+			System.out.println("Acceso no autorizado.");
+		}
+	}
+
+	public void administrarSedes()
+	{
+		if (autenticado)
+		{
+			// Lógica para administrar las sedes y empleados
+			// Se utilizaría el mapa sedesYEmpleados para realizar estas
+			// operaciones
+			System.out.println("Administración de sedes y empleados");
+		} else
+		{
+			System.out.println("Acceso no autorizado."); 
+		}
+	}
+>>>>>>> branch 'main' of https://github.com/DPOO-GRUPO-8/Proyecto_1
 	private void crearUsuario()
 	{
 
