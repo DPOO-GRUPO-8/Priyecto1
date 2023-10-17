@@ -262,7 +262,7 @@ public class ConsolaAdmin extends ConsolaAdminLocal{
 					// Lógica para administrar sedes y empleados
 					break;
 				case 7 :
-					crearUsuario();
+					agregarNuevoUsuario();
 					break;
 				case 8 :
 					eliminarUsuario();
