@@ -229,6 +229,8 @@ public class ConsolaAdminLocal  {
                 case 4:
                     System.out.println("Has seleccionado reservar un auto.");
                     // Lógica para reservar un auto
+                    String categoria = scanner.nextLine();
+                    reservarAuto(categoria);
                     break;
                 case 5:
                     System.out.println("Has seleccionado agendar un auto.");
