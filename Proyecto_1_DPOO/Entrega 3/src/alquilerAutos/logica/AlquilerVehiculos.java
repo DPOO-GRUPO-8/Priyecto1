@@ -1,6 +1,5 @@
 package alquilerAutos.logica;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -566,6 +565,7 @@ public class AlquilerVehiculos
 		
 		return retorno;
 	}
+<<<<<<< HEAD
 	
 	
 	/**
@@ -600,3 +600,6 @@ public class AlquilerVehiculos
 		return retorno;
 	}
 }
+=======
+}
+>>>>>>> branch 'main' of https://github.com/DPOO-GRUPO-8/Proyecto_1
