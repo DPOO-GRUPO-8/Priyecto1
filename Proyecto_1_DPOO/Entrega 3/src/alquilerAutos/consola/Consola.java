@@ -8,13 +8,9 @@ import alquilerAutos.logica.AlquilerVehiculos;
 public class Consola {
 	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        AlquilerVehiculos alquiler = new AlquilerVehiculos();
         // Datos de prueba para los perfiles (usuario, contraseña, tipo de perfil)
-        String[][] usuarios = {
-            {"admin", "admin123", "admin"},
-            {"localadmin", "localadmin123", "admin local"},
-            {"usuario1", "usuario123", "usuario"}
-        };
+        
 
         boolean usuarioValido = false;
         String perfilUsuario = "";
@@ -28,13 +24,7 @@ public class Consola {
             System.out.print("Contraseña: ");
             contrasena = scanner.nextLine();
 
-            for (String[] usuario : usuarios) {
-                if (usuario[0].equals(nombreUsuario) && usuario[1].equals(contrasena)) {
-                    usuarioValido = true;
-                    perfilUsuario = usuario[2];
-                    break;
-                }
-            }
+            
 
             if (!usuarioValido) {
                 System.out.println("Credenciales incorrectas. Por favor, inténtelo de nuevo.");
@@ -43,7 +33,7 @@ public class Consola {
 
         // Mostrar menú según el perfil
         System.out.println("Inicio de sesión exitoso como " + perfilUsuario + ".");
-        if (perfilUsuario.equals("admin") || perfilUsuario.equals("admin local")) {
+        if (perfilUsuario.equals("Admin total") || perfilUsuario.equals("Admin local")) {
             // Crear una instancia de Admin
         	ConsolaAdmin admin = new ConsolaAdmin(nombreUsuario, contrasena);
 

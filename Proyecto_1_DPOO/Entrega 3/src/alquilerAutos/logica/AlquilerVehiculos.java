@@ -548,4 +548,17 @@ public class AlquilerVehiculos
 		return numeroConductores;
 
 	}
+	
+	public Usuario tieneUsuario(String nombre) {
+		Usuario retorno;
+		
+		boolean contiene = usuarios.containsKey(nombre);
+		if (contiene) {
+			retorno = usuarios.get(nombre);
+		}else {
+			retorno = null;
+		}
+		
+		return retorno;
+	}
 }
