@@ -598,4 +598,22 @@ public class AlquilerVehiculos
 		
 		return retorno;
 	}
+	/**
+	 * Encuentra una reserva segun su id
+	 * @param id
+	 * @return la reserva si existe, null de lo contrario
+	 */
+	public Reserva tieneReserva (int id) {
+		Reserva retorno;
+		
+		boolean contiene = reservas.containsKey(id);
+		
+		if (contiene) {
+			retorno = reservas.get(id);
+		} else {
+			retorno = null;
+		}
+		
+		return retorno;
+	}
 }
