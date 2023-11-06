@@ -18,13 +18,13 @@ import alquilerAutos.manejoDatos.Vehiculo;
 public class AlquilerVehiculos
 {
 	private HashMap<String, Tarifa> tarifas = new HashMap<>();
-	private HashMap<String, HashMap<String, ArrayList<Vehiculo>>> inventario = new HashMap<>();
 	private HashMap<Integer, Reserva> reservas = new HashMap<>();
 	private HashMap<String, Sede> sedes = new HashMap<>();
 	private HashMap<Integer, Cliente> clientes = new HashMap<>();
 	private HashMap<String, Usuario> usuarios = new HashMap<>();
 	private HashMap<String, LicenciaConducir> licencias = new HashMap<>();
 	private GestorDatos gestor = new GestorDatos();
+	private Sede sedeActual = null;
 
 	
 	public AlquilerVehiculos() {
@@ -32,21 +32,13 @@ public class AlquilerVehiculos
 	}
 	public void cargarDatos()
 	{
-		tarifas = gestor.cargarTarifas();
-		inventario = gestor.cargarVehiculos();
-		/*
-		 * Inventario esta dividido en dos mapas, el mas grande tiene como llave
-		 * la ubicacion, ya sea el nombre de una sede o "Cliente", que se
-		 * refiere a cuando el vehiculo anda en mitad de servicio con un cliente
-		 */
-		reservas = gestor.cargarReservas();
 		sedes = gestor.cargarSedes();
+		tarifas = gestor.cargarTarifas();
+		reservas = gestor.cargarReservas();
 		clientes = gestor.cargarClientes();
 		usuarios = gestor.cargarUsuarios();
 		licencias = gestor.cargarLicencias();
 		tarifas = gestor.cargarTarifas();
-		inventario = gestor.cargarVehiculos();
-
 	}
 	/**
 	 * Funcion que busca si existe un vehiculo con la misma placa
@@ -65,17 +57,16 @@ public class AlquilerVehiculos
 	{
 		boolean repetido = gestor
 				.verificarExistenciaVehiculo(vehiculo.getPlaca());
+		
+		ArrayList<String> dataUbicacion = new ArrayList<>();
+		dataUbicacion.add(sedeActual.getNombre());
+		dataUbicacion.add("2");
 
 		if (!repetido)
 		{
+			vehiculo.setUbicacion(dataUbicacion);
 			gestor.guardarVehiculo(vehiculo);
-			HashMap<String, ArrayList<Vehiculo>> dataUbicacion = inventario
-					.get(vehiculo.getUbicacion().get(0));
-			ArrayList<Vehiculo> dataTipo = dataUbicacion
-					.get(vehiculo.getCategoria());
-			dataTipo.add(vehiculo);
-			dataUbicacion.put(vehiculo.getCategoria(), dataTipo);
-			inventario.put(vehiculo.getUbicacion().get(0), dataUbicacion);
+			sedeActual.agregarVehiculo(vehiculo);
 		}
 
 		return !repetido;
@@ -94,13 +85,7 @@ public class AlquilerVehiculos
 		if (repetido)
 		{
 			gestor.quitarVehiculo(vehiculo);
-			HashMap<String, ArrayList<Vehiculo>> dataUbicacion = inventario
-					.get(vehiculo.getUbicacion().get(0));
-			ArrayList<Vehiculo> dataTipo = dataUbicacion
-					.get(vehiculo.getCategoria());
-			dataTipo.remove(vehiculo);
-			dataUbicacion.put(vehiculo.getCategoria(), dataTipo);
-			inventario.put(vehiculo.getUbicacion().get(0), dataUbicacion);
+			sedeActual.quitarVehiculo(vehiculo);
 		}
 
 		return repetido;
@@ -531,7 +516,7 @@ public class AlquilerVehiculos
 			{
 				
 				ArrayList<String> ubicacion = new ArrayList<String>();
-				ubicacion = sede.getUbicacion();	
+				ubicacion = sede.getUbicacion(vehiculo);	
 				vehiculo.setUbicacion(ubicacion);
 				if(sedeEntrega.equals(reserva.getSede()));
 				{

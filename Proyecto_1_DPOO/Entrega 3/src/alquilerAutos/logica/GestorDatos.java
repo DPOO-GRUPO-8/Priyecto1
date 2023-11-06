@@ -28,18 +28,7 @@ public class GestorDatos {
 	
 	private CargadorDatos cargador = new CargadorDatos();
 	private GuardadorDatos guardador = new GuardadorDatos();
-	
 
-	public void cargarDatos() {
-		cargarSedes(); 
-		cargarVehiculos();
-		cargarLicencias();
-		cargarClientes();
-		cargarUsuarios();
-		cargarTarifas();
-		cargarReservas();
-		
-	}
 	
 	public HashMap<String, Sede> cargarSedes() {
 		try {
@@ -55,13 +44,13 @@ public class GestorDatos {
 			retorno.put(datos.getNombre(), datos);
 		}
 		
+		
+		retorno = cargarVehiculos(retorno);
+		
 		return retorno;
 	}
 	
-	public HashMap<String, HashMap<String, ArrayList<Vehiculo>>> cargarVehiculos(){
-		HashMap<String, HashMap<String, ArrayList<Vehiculo>>> retorno = new HashMap<>();
-		HashMap<String, ArrayList<Vehiculo>> vehiculosMapa; 
-		ArrayList<Vehiculo> listaVehiculos;
+	public HashMap<String, Sede> cargarVehiculos(HashMap<String, Sede> sedes){
 		
 		try {
 			vehiculosTxt = cargador.cargarLista(vehiculos);
@@ -72,36 +61,13 @@ public class GestorDatos {
 		
 		for (String carrito: vehiculosTxt) {
 			Vehiculo nuevoVehiculo = cargador.cargarVehiculo(carrito);
-			String key = "";
-			if (nuevoVehiculo.getUbicacion().size()>2) {
-				key = "Cliente";
-				
-			} else {
-				key = nuevoVehiculo.getUbicacion().get(0);
-			}
-			
-			boolean check = retorno.containsKey(key);
-			
-			if (check) {
-				vehiculosMapa = retorno.get(key);
-			} else {
-				vehiculosMapa = new HashMap<>();
-			}
-			
-			String categoria = nuevoVehiculo.getCategoria();
-			if (vehiculosMapa.containsKey(categoria)) {
-				listaVehiculos = vehiculosMapa.get(categoria);
-				
-			} else {
-				listaVehiculos = new ArrayList<>();
-				
-			}
-			listaVehiculos.add(nuevoVehiculo);
-			vehiculosMapa.put(categoria, listaVehiculos);
-			retorno.put(key, vehiculosMapa);
+			ArrayList<String> ubicacion = nuevoVehiculo.getUbicacion();
+			Sede sede = sedes.get(ubicacion.get(0));
+			sede.agregarVehiculo(nuevoVehiculo);
+			sedes.put(sede.getNombre(), sede);
 		}
-		
-		return retorno;
+
+		return sedes;
 	}
 	
 	public HashMap<String, LicenciaConducir> cargarLicencias(){

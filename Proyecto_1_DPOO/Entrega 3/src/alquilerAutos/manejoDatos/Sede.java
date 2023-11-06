@@ -10,17 +10,22 @@ import java.util.Set;
 
 import alquilerAutos.logica.FormateadorDatos;
 
-public class Sede implements Ubicacion
+public class Sede
 {
 	private String nombre;
 	private FormateadorDatos formateador = new FormateadorDatos();
-	private Map<String, RangoHoras> horario = new HashMap<>(); // La llave es el
+	private Map<String, ArrayList<Vehiculo>> inventario = new HashMap<>();
+	// estan los vehiculos que se encuentran disponibles separados por categoria
+	// y separados estan los que se encuentran en Mantenimiento o en Reserva
+	private Map<String, RangoHoras> horario = new HashMap<>();// La llave es el
 																// dia de la
 																// semana, el
 																// valor es un
 																// rango
 																// de horas
 	private String ubicacion;
+	
+	
 
 	/**
 	 * Crea una nueva sede
@@ -42,6 +47,14 @@ public class Sede implements Ubicacion
 			RangoHoras rangoHoras = new RangoHoras(horas[1], horas[2]);
 			horario.put(horas[0].toUpperCase(), rangoHoras);
 		}
+		
+		String[] categorias = {"Pequeño", "Mediano", "Grande", "De Lujo", "Mantenimiento", "Reserva"};
+		 
+		for (String cat: categorias) {
+			ArrayList<Vehiculo> agregar = new ArrayList<>();
+			inventario.put(cat, agregar);
+		}
+		
 
 	}
 
@@ -81,18 +94,146 @@ public class Sede implements Ubicacion
 	/**
 	 * retorna 2 elementos en la lista
 	 */
-	public ArrayList<String> getUbicacion()
+	public ArrayList<String> getUbicacion(Vehiculo vehiculo)
 	{
 		ArrayList<String> retorno = new ArrayList<>();
 		retorno.add(nombre);
-		retorno.add(ubicacion);
+		if (checkMantenimiento(vehiculo)) {
+			retorno.add("0");
+		}else if (checkReservado(vehiculo)) {
+			retorno.add("1");
+		} else {
+			retorno.add("2");
+		}
+		
 		return retorno;
+	}
+	
+	public boolean checkMantenimiento(Vehiculo vehiculo) {
+		ArrayList<Vehiculo> vehiculosMantenimiento = inventario.get("Mantenimiento");
+		if (vehiculosMantenimiento.contains(vehiculo)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean checkReservado (Vehiculo vehiculo) {
+		ArrayList<Vehiculo> vehiculosReservados = inventario.get("Reservados");
+		if (vehiculosReservados.contains(vehiculo)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void setUbicacion(String ubicacion)
 	{
 		this.ubicacion = ubicacion;
 	}
+	
+	public Vehiculo getVehiculoCategoria (String cat) {
+		Vehiculo retorno = null;
+		
+		ArrayList<Vehiculo> datos = inventario.get(cat);
+		if (datos.size() > 0) {
+			retorno = datos.get(0);
+		}
+		
+		return retorno;
+		
+	}
+	
+	public Vehiculo getVehiculoPlaca (String placa) {
+		Vehiculo retorno = null;
+		for (String llave: inventario.keySet()) {
+			ArrayList<Vehiculo> datos = inventario.get(llave);
+			for (Vehiculo revisar: datos) {
+				if (revisar.getPlaca().equals(placa)) {
+					retorno = revisar;
+					break;
+				}
+			}
+			if (retorno != null) {
+				break;
+			}
+		}
+		return retorno;
+	}
+	
+	public void agregarVehiculo(Vehiculo vehiculo) {
+		ArrayList<String> dataUbicacion = vehiculo.getUbicacion();
+		
+		if (dataUbicacion.get(1).equals("2")) {
+			ArrayList<Vehiculo> categoria = inventario.get(vehiculo.getCategoria());
+			categoria.add(vehiculo);
+			inventario.put(vehiculo.getCategoria(), categoria);
+		} else if (dataUbicacion.get(1).equals("0")){
+			ArrayList<Vehiculo> categoria = inventario.get("Mantenimiento");
+			categoria.add(vehiculo);
+			inventario.put("Mantenimiento", categoria);
+		} else if (dataUbicacion.get(1).equals("1")) {
+			ArrayList<Vehiculo> categoria = inventario.get("Reserva");
+			categoria.add(vehiculo);
+			inventario.put("Reserva", categoria);
+		}
+	}
+	
+	public void quitarVehiculo(Vehiculo vehiculo) {
+		ArrayList<String> dataUbicacion = vehiculo.getUbicacion();
+		if (dataUbicacion.get(1).equals("2")) {
+			ArrayList<Vehiculo> datos = inventario.get(vehiculo.getCategoria());
+			datos.remove(vehiculo);
+			inventario.put(vehiculo.getCategoria(), datos);
+		} else if (dataUbicacion.get(1).equals("1")) {
+			ArrayList<Vehiculo> datos = inventario.get("Reserva");
+			datos.remove(vehiculo);
+			inventario.put("Reserva", datos);
+		} else if (dataUbicacion.get(1).equals("2")){
+			ArrayList<Vehiculo> datos = inventario.get("Mantenimiento");
+			datos.remove(vehiculo);
+			inventario.put("Mantenimiento", datos);
+		}
+	}
+	
+	public void ponerVehiculoReservado(Vehiculo vehiculo) {
+		ArrayList<Vehiculo> categoria = inventario.get(vehiculo.getCategoria());
+		categoria.remove(vehiculo);
+		inventario.put(vehiculo.getCategoria(), categoria);
+		ArrayList<String> ubicacion = new ArrayList<>();
+		ubicacion.add(this.nombre);
+		ubicacion.add("1");
+		vehiculo.setUbicacion(ubicacion);
+		agregarVehiculo(vehiculo);
+	}
+	
+	public void ponerMantenimientoVehiculo (Vehiculo vehiculo) {
+		ArrayList<Vehiculo> categoria = inventario.get(vehiculo.getCategoria());
+		categoria.remove(vehiculo);
+		inventario.put(vehiculo.getCategoria(), categoria);
+		ArrayList<String> ubicacion = new ArrayList<>();
+		ubicacion.add(this.nombre);
+		ubicacion.add("0");
+		vehiculo.setUbicacion(ubicacion);
+		agregarVehiculo(vehiculo);
+	}
+	
+	public void quitarVehiculoReservado(Vehiculo vehiculo) {
+		ArrayList<Vehiculo> reservados = inventario.get("Reserva");
+		reservados.remove(vehiculo);
+		inventario.put("Reserva", reservados);
+		vehiculo.setUbicacion(getUbicacion(vehiculo));
+		agregarVehiculo(vehiculo);
+	}
+	
+	public void quitarVehiculoMantenimiento(Vehiculo vehiculo) {
+		ArrayList<Vehiculo> mantenimiento = inventario.get("Mantenimiento");
+		mantenimiento.remove(vehiculo);
+		inventario.put("Mantenimiento", mantenimiento);
+		vehiculo.setUbicacion(getUbicacion(vehiculo));
+		agregarVehiculo(vehiculo);
+	}
+	
 
 	@Override
 	public String toString()

@@ -11,7 +11,6 @@ public class Vehiculo {
 	private String transmision;
 	private ArrayList<String> ubicacion = new ArrayList<>();
 	private String historial;
-	private RangoFechas reservas;
 	
 	public Vehiculo(String placa, String categoria, String marca, String modelo, String color, String transmision, String ubicacion) {
 		this.placa = placa;
