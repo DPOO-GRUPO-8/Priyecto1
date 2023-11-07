@@ -404,8 +404,7 @@ public class AlquilerVehiculos
 
 		Cliente cliente = clientes.get(documento);
 		Sede sede = sedes.get(sedeI);
-		boolean noDisponible = false;
-		ArrayList<Vehiculo> invetarioCategoria = this.inventario.get(sedeI).get(categoria);
+		/*ArrayList<Vehiculo> invetarioCategoria = this.inventario.get(sedeI).get(categoria);
 		Iterator<Vehiculo> iterador = invetarioCategoria.iterator();
 		boolean parar = false;
 		Vehiculo vehiculo = null;
@@ -434,8 +433,13 @@ public class AlquilerVehiculos
 					parar = true;
 				}
 		}
+		
+		CAMBIE ESTO PARA QUE LO HAGA EN SEDE, CON LA FUNCION QUE LLAMA AQUI DE CHECK DISPONIBILIDAD
+		*/
+		
+		Vehiculo vehiculo  = sedeActual.checkDisponibilidadCategoria(reservas, categoria, fechaHoraInicio, fechaHoraFin);
 
-		if (sede.revisarDisponibilidad(fechaHoraInicio) && sede.revisarDisponibilidad(fechaHoraFin) && !noDisponible)
+		if (sede.revisarDisponibilidad(fechaHoraInicio) && sede.revisarDisponibilidad(fechaHoraFin) && vehiculo != null)
 		{
 			int precio = calcularPrecio(categoria, 1, sedeI, sedeEntrega, fechaHoraInicio, fechaHoraFin);
 			Reserva reserva = cliente.crearReserva(fechaHoraInicio,
@@ -444,6 +448,7 @@ public class AlquilerVehiculos
 			vehiculo.agregarHistorial(reserva);
 			String placa = vehiculo.getPlaca();
 			reserva.setVehiculo(placa);
+			sedeActual.agregarVehiculo(vehiculo);
 			return reserva;
 		} else
 		{
