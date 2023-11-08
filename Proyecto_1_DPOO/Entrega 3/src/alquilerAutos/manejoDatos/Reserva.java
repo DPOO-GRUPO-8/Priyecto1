@@ -18,7 +18,8 @@ public class Reserva
 	private FormateadorDatos formateador = new FormateadorDatos();
 	private boolean pendiente = true;
 	private String vehiculo; // es la placa del vehiculo asignado a la reserva
-	private String sede;
+	private String sedeInicial;
+	private String sedeFinal;
 
 	/**
 	 * Al crear una nueva reserva, utilizar como id 0
@@ -168,6 +169,10 @@ public class Reserva
 	{
 		this.pendiente = pendiente;
 	}
+	
+	public void cerrarReserva() {
+		this.pendiente = false;
+	}
 
 	public void asignarVehiculo(String placa)
 	{
@@ -179,14 +184,22 @@ public class Reserva
 		return vehiculo;
 	}
 
-	public String getSede()
+	public String getSedeInicial()
 	{
-		return sede;
+		return sedeInicial;
 	}
 
-	public void setSede(String sede)
+	public void setSedeInicio(String sede)
 	{
-		this.sede = sede;
+		this.sedeInicial = sede;
+	}
+	
+	public String getSedeFinal() {
+		return sedeFinal;
+	}
+	
+	public void setSedeFinal(String sede) {
+		this.sedeFinal = sede;
 	}
 
 	private static void nuevaReserva()
@@ -233,7 +246,7 @@ public class Reserva
 
 		return id + ";" + fechaHoraInicioStr + ";" + fechaHoraFinalStr + ";"
 				+ tipoVehiculo + ";" + cliente + ";" + licenciasStr + ";"
-				+ precio + ";" + booleano + ";" + vehiculoStr;
+				+ precio + ";" + booleano + ";" + vehiculoStr + ";" + sedeInicial + ";" + sedeFinal;
 	}
 
 	public void setVehiculo(String vehiculo)
@@ -252,11 +265,6 @@ public class Reserva
 	}
 
 	// METODOS PARA EL SISTEMA DE RESERVAS
-
-	public void crearReserva()
-	{
-
-	}
 
 	public boolean rangoCruzado(String fechaInicioComprobar,
 			String fechaFinalComprobar)
