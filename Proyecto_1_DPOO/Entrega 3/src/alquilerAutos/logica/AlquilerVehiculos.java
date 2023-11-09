@@ -474,7 +474,7 @@ public class AlquilerVehiculos
 		conductores.add(licenciaCliente);
 		reserva.setLicencias(conductores);
 		
-		String placa = reserva.getVehiculo();
+		/*String placa = reserva.getVehiculo();
 		HashMap<String, ArrayList<Vehiculo>> vehiculosSede = this.inventario.get(reserva.getSede());
 		ArrayList<Vehiculo> vehiculos = vehiculosSede.get(reserva.getTipoVehiculo());
 		for(Vehiculo vehiculo : vehiculos) 
@@ -486,9 +486,9 @@ public class AlquilerVehiculos
 				
 				vehiculo.setUbicacion(ubicacion);
 			}
-		}
+		}*/
 		
-		int precio = calcularPrecio(categoria, conductores.size(), reserva.getSede(), sedeEntrega, fechaHoraActual, fechaHoraEntrega);
+		int precio = calcularPrecio(categoria, conductores.size(), reserva.getSedeInicial(), reserva.getSedeFinal(), fechaHoraActual, fechaHoraEntrega);
 		
 		reserva.setPrecio(precio);
 		
@@ -508,10 +508,20 @@ public class AlquilerVehiculos
 		
 	}
 	
-	public void terminarReserva(Reserva reserva, String sedeEntrega) 
-	{
-		String placa = reserva.getVehiculo();
-		HashMap<String, ArrayList<Vehiculo>> vehiculosSede = this.inventario.get(reserva.getSede());
+	public boolean terminarReserva(Reserva reserva, String sedeEntrega) 
+	{	
+		boolean retorno = true;
+		
+		if (!sedeEntrega.equals(sedeActual.getNombre())) {
+			retorno = false;
+		}
+		
+		
+		if (retorno) {
+			reserva.cerrarReserva();
+			reservas.put(reserva.getId(), reserva);
+		}
+		/*HashMap<String, ArrayList<Vehiculo>> vehiculosSede = this.inventario.get(reserva.getSede());
 		ArrayList<Vehiculo> vehiculos = vehiculosSede.get(reserva.getTipoVehiculo());
 		Sede sede = sedes.get(sedeEntrega);
 		int i = 0;
@@ -531,9 +541,9 @@ public class AlquilerVehiculos
 				}
 			}
 			i += 1;
-		}
-		if(sedeEntrega.equals(reserva.getSede()));
+		}*/
 		
+		return retorno;
 		
 	}
 	public int calcularPrecio(String categoria, int numeroConductores, String sedeOrigen, String sedeEntrega,
@@ -589,28 +599,7 @@ public class AlquilerVehiculos
 	 * @return el vehiculo si existe, null de lo contrario
 	 */
 	public Vehiculo tieneVehiculo (String placa) {
-		Vehiculo retorno = null;
-		boolean encontrado = false;
-		
-		for (String ubicacion: inventario.keySet()) {
-			HashMap<String, ArrayList<Vehiculo>> tipos = inventario.get(ubicacion);
-			for(String tipo: tipos.keySet()) {
-				ArrayList<Vehiculo> carros = tipos.get(tipo);
-				for (Vehiculo carro: carros) {
-					if (carro.getPlaca().equals(placa)) {
-						retorno = carro;
-						encontrado = true;
-						break;
-					}
-				}
-				if (encontrado) {
-					break;
-				}
-			}
-			if (encontrado) {
-				break;
-			}
-		}
+		Vehiculo retorno = sedeActual.getVehiculoPlaca(placa);
 		
 		return retorno;
 	}
@@ -631,5 +620,9 @@ public class AlquilerVehiculos
 		}
 		
 		return retorno;
+	}
+	
+	public void setSedeActual(String sede) {
+		sedeActual = sedes.get(sede);
 	}
 }

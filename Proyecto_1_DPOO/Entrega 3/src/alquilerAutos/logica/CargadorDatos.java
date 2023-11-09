@@ -51,6 +51,7 @@ public class CargadorDatos {
 		Usuario retorno = new Usuario(data[0], data[1], data[2]);
 		return retorno;
 	}
+	
 	public Cliente cargarCliente (String info) {
 		String[] data = info.split(";");
 		String rutaImagen = "Datos/imagenDocumento/" + data[1] + ".jpg";
@@ -75,6 +76,8 @@ public class CargadorDatos {
 			retorno.setPendiente(false);
 		}
 		retorno.setVehiculo(data[8]);
+		retorno.setSedeInicio(data[9]);
+		retorno.setSedeFinal(data[10]);
 		
 		return retorno;
 	}
