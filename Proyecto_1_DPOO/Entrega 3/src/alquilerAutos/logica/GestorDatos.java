@@ -2,6 +2,7 @@ package alquilerAutos.logica;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -352,6 +353,18 @@ public class GestorDatos {
 	
 	public void generarLogVehiculo(String placa, String data) throws IOException {
 		guardador.guardarLog(placa, data);
+	}
+	
+	public LocalDate cargarFecha() throws IOException {
+		return cargador.cargarFecha();
+	}
+	
+	public void guardarFecha(LocalDate fecha) throws IOException {
+		guardador.guardarFecha(fecha);
+	}
+	
+	public void guardarAutosDisponiblesSedeFecha(int numero, LocalDate fecha, Sede sede) throws IOException {
+		guardador.guardarAutosDisponiblesSedeFecha(numero, fecha, sede);
 	}
 }
 
