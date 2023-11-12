@@ -52,7 +52,7 @@ public class GuardadorDatos {
 	}
 	
 	public void guardarAutosDisponiblesSedeFecha(int cantidad, LocalDate fecha, Sede sede) throws IOException {
-		File archivo = new File ("Datos/datosDisponibilidad/" + sede.getNombre() + ".txt");
+		File archivo = new File ("Datos/datosDisponibilidad/" + sede.getNombre() + " " + LocalDate.now().getYear() + ".txt");
 		boolean existe = archivo.exists();
 		
 		if (!existe) {

@@ -27,6 +27,7 @@ public class AlquilerVehiculos
 	private GestorDatos gestor = new GestorDatos();
 	private Sede sedeActual = null;
 	private LocalDate fechaActual;
+	private CalculadoraEstadisticas calculadora = new CalculadoraEstadisticas();
 
 	
 	public AlquilerVehiculos() {
@@ -651,4 +652,23 @@ public class AlquilerVehiculos
 	public void setSedeActual(String sede) {
 		sedeActual = sedes.get(sede);
 	}
+	
+	public HashMap<String, Integer> calcularValoresDisponibilidad(){
+		
+		HashMap<String, ArrayList<Integer>> datos = null;
+		
+		try {
+			datos = gestor.cargarDatosDisponibilidad(sedeActual);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("No existe el archivo de datos para esta sede");
+		}
+		
+		HashMap<String, Integer> retorno = calculadora.calcularValoresDisponibilidad(datos);
+		
+		return retorno;
+		
+	}
+	
 }
