@@ -1,6 +1,7 @@
 package alquilerAutos.logica;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class CalculadoraEstadisticas {
@@ -38,5 +39,19 @@ public class CalculadoraEstadisticas {
 		return retorno;
 		
 		
+	}
+	
+	public int promedioColeccion(Collection<Integer> datos){
+		
+		int retorno;
+		int total = 0;
+		
+		for (Integer i: datos) {
+			total = total + i;
+		}
+		
+		retorno = total/datos.size();
+		
+		return retorno;
 	}
 }

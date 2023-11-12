@@ -6,17 +6,19 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import alquilerAutos.logica.CalculadoraEstadisticas;
+
 public class PanelDisponibilidad extends JPanel {
-    private static final Color[] COLORS = {
-            Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE,
-            Color.CYAN, Color.MAGENTA
-    };
     
     private Color rojoOscuro = new Color(112, 51, 41);
     private Color rojoPromedio = new Color(255, 87,87);
     private Color rojoClaro = new Color (249,179,179);
-    
+    private CalculadoraEstadisticas calculadora = new CalculadoraEstadisticas();
     private int promedio;
+    private HashMap<String, Integer> info;
+    
+    
+    
     
     private static final String[] MESES = {
             "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -32,6 +34,8 @@ public class PanelDisponibilidad extends JPanel {
     public PanelDisponibilidad(int rows, int cols, HashMap<String, Integer> datos) {
         this.rows = rows;
         this.cols = cols;
+        promedio = calculadora.promedioColeccion(datos.values());
+        this.info = datos;
     }
 
     @Override
@@ -55,7 +59,19 @@ public class PanelDisponibilidad extends JPanel {
                 if (j == 0){
                     g.setColor(Color.WHITE);
                 } else{
-                    g.setColor(rojoOscuro);
+                	if (i != 0) {
+                		int valor = info.get(i + " " + j);
+                    	
+                		if (valor > promedio) {
+                			g.setColor(rojoClaro);
+                		} else if (valor == promedio) {
+                			g.setColor(rojoPromedio);
+                		} else {
+                			g.setColor(rojoOscuro);
+                		}
+                    	
+                	}
+                	
                 }
                 
 
