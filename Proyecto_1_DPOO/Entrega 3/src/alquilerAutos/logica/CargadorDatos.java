@@ -3,7 +3,10 @@ package alquilerAutos.logica;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import alquilerAutos.manejoDatos.Cliente;
 import alquilerAutos.manejoDatos.LicenciaConducir;
@@ -14,6 +17,8 @@ import alquilerAutos.manejoDatos.Usuario;
 import alquilerAutos.manejoDatos.Vehiculo;
 
 public class CargadorDatos {
+	
+	private FormateadorDatos formateador;
 
 	public ArrayList<String> cargarLista(File archivo) throws Exception {
 		FileReader fr = new FileReader(archivo);
@@ -86,5 +91,17 @@ public class CargadorDatos {
 		String[] data = info.split(";");
 		Tarifa retorno = new Tarifa (data[0], data[1], data[2], Integer.parseInt(data[3]));
 		return retorno;
+	}
+	
+	public LocalDate cargarFecha() throws IOException {
+		FileReader fr = new FileReader("Datos/fecha.txt");
+		BufferedReader in = new BufferedReader(fr);
+		String linea = in.readLine();
+		
+		LocalDate retorno = formateador.generarFecha(linea);
+		in.close();
+		
+		return retorno;
+		
 	}
 }

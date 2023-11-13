@@ -1,1 +1,15 @@
 FMA-204;pequeño;nissan;micra;amarillo;automatica;Sede_1 calle_19;1
+BHG-789;mediano;toyota;corolla;azul;manual;Sede_2 calle_72;1
+JKL-456;pequeño;honda;civic;rojo;automatica;Sede_3 calle_110;1
+XYZ-123;grande;ford;explorer;negro;automatica;Sede_1 calle_19;1
+ABC-987;de lujo;mercedes;benz;c200;plateado;automatica;Sede_2 calle_72;1
+LMN-654;pequeño;chevrolet;spark;verde;manual;Sede_3 calle_110;1
+PQR-321;mediano;volkswagen;golf;blanco;automatica;Sede_1 calle_19;1
+UVW-890;grande;jeep;grand cherokee;gris;automatica;Sede_2 calle_72;1
+DEF-567;de lujo;bmw;serie 3;negro;automatica;Sede_3 calle_110;1
+GHI-234;pequeño;fiat;500;azul;manual;Sede_1 calle_19;1
+JKL-901;mediano;subaru;impreza;rojo;automatica;Sede_2 calle_72;1
+XYZ-345;grande;audi;q7;blanco;automatica;Sede_3 calle_110;1
+MNO-678;de lujo;lexus;rx;negro;automatica;Sede_1 calle_19;1
+BHG-432;pequeño;renault;clio;verde;manual;Sede_2 calle_72;1
+FMA-567;mediano;mazda;3;amarillo;automatica;Sede_3 calle_110;1

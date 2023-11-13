@@ -243,5 +243,44 @@ public class Sede
     	
     	return diaSemana.toString();
     }
+    
+    public int getVehiculosDisponiblesHoy(LocalDate fecha, HashMap<Integer, Reserva> dataReservas) {
+    	int retorno = 0;
+    	Set<String> dataCategorias = inventario.keySet();
+    	String fechaVerificar = formateador.generarFechaStr(fecha);
+    	for (String categoria: dataCategorias) {
+    		
+			ArrayList<Vehiculo> dataCategoria = inventario.get(categoria);
+    		for (Vehiculo vehiculo: dataCategoria) {
+    			String[] reservas = vehiculo.getHistorial().split(" ");
+    			
+    			int i = reservas.length - 1;
+    			boolean terminado = false;
+    			boolean valido = true;
+    			while (i>0 && !terminado && valido) {
+    				int idReserva = Integer.parseInt(reservas[i]);
+    				Reserva check = dataReservas.get(idReserva);
+    				
+    				if (check.isPendiente()) {
+    					
+    					valido = !check.rangoCruzado(fechaVerificar, fechaVerificar);
+    					
+    				} else {
+    					terminado = true;
+    				}
+    				
+    				i--;
+    				
+    			}
+    			
+    			if (valido) {
+    				retorno ++;
+    			}
+    		}
+    		
+    	}
+    	
+    	return retorno;
+    }
 
 }

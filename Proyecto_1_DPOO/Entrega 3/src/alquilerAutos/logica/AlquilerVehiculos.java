@@ -1,5 +1,6 @@
 package alquilerAutos.logica;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -25,12 +26,20 @@ public class AlquilerVehiculos
 	private HashMap<String, LicenciaConducir> licencias = new HashMap<>();
 	private GestorDatos gestor = new GestorDatos();
 	private Sede sedeActual = null;
+	private LocalDate fechaActual;
+	private CalculadoraEstadisticas calculadora = new CalculadoraEstadisticas();
 
 	
 	public AlquilerVehiculos() {
-		cargarDatos();
+		try {
+			cargarDatos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Hubo un error leyendo los archivos, verifica que existen");
+			e.printStackTrace();
+		}
 	}
-	public void cargarDatos()
+	public void cargarDatos() throws IOException
 	{
 		sedes = gestor.cargarSedes();
 		tarifas = gestor.cargarTarifas();
@@ -39,6 +48,7 @@ public class AlquilerVehiculos
 		usuarios = gestor.cargarUsuarios();
 		licencias = gestor.cargarLicencias();
 		tarifas = gestor.cargarTarifas();
+		fechaActual = gestor.cargarFecha();
 	}
 	/**
 	 * Funcion que busca si existe un vehiculo con la misma placa
@@ -118,6 +128,23 @@ public class AlquilerVehiculos
 		}
 
 		return retorno;
+	}
+	
+	public void actualizarFecha() {
+		if (fechaActual.isBefore(LocalDate.now())) {
+			fechaActual = LocalDate.now();
+			int disponibles = sedeActual.getVehiculosDisponiblesHoy(fechaActual, reservas);
+		
+			try {
+				gestor.guardarFecha(fechaActual);
+				gestor.guardarAutosDisponiblesSedeFecha(disponibles, fechaActual, sedeActual);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Hubo un problema guardando los datos acerca de la fecha y autos diponibles");
+			}
+			
+		}
 	}
 
 	public boolean agregarTarifa(Tarifa tarifa)
@@ -625,4 +652,23 @@ public class AlquilerVehiculos
 	public void setSedeActual(String sede) {
 		sedeActual = sedes.get(sede);
 	}
+	
+	public HashMap<String, Integer> calcularValoresDisponibilidad(){
+		
+		HashMap<String, ArrayList<Integer>> datos = null;
+		
+		try {
+			datos = gestor.cargarDatosDisponibilidad(sedeActual);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("No existe el archivo de datos para esta sede");
+		}
+		
+		HashMap<String, Integer> retorno = calculadora.calcularValoresDisponibilidad(datos);
+		
+		return retorno;
+		
+	}
+	
 }

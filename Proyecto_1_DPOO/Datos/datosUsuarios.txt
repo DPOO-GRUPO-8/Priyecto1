@@ -1,1 +1,19 @@
 Jefazo;12345;Admin total
+AdminLocal_Sede1;541sajsdaj;Admin local Sede_1
+LocalUser_Sede2;contraseña123;Admin local Sede_2
+Sede3_Admin;clave456;Admin local Sede_3
+Empleado1;1q2w3e4r;Empleado Sede_1
+Empleado2;5t6y7u8i;Empleado Sede_2
+Empleado3;p9o0i8u7;Empleado Sede_3
+Empleado4;xcvbnmas;Empleado Sede_1
+Empleado5;qwertyui;Empleado Sede_2
+Empleado6;asdfghjk;Empleado Sede_3
+Empleado7;zxcvbnml;Empleado Sede_1
+Empleado8;poiuytrew;Empleado Sede_2
+Empleado9;mnbvcxzq;Empleado Sede_3
+Empleado10;lkjhgfdsa;Empleado Sede_1
+Empleado11;0987654321;Empleado Sede_2
+Empleado12;qazwsxedc;Empleado Sede_3
+Empleado13;plmoknijb;Empleado Sede_1
+Empleado14;yhnbgvfcdx;Empleado Sede_2
+Empleado15;edcrfvtgby;Empleado Sede_3

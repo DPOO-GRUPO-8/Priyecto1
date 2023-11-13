@@ -2,6 +2,7 @@ package alquilerAutos.logica;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -28,6 +29,7 @@ public class GestorDatos {
 	
 	private CargadorDatos cargador = new CargadorDatos();
 	private GuardadorDatos guardador = new GuardadorDatos();
+	private FormateadorDatos formateador = new FormateadorDatos();
 
 	
 	public HashMap<String, Sede> cargarSedes() {
@@ -352,6 +354,41 @@ public class GestorDatos {
 	
 	public void generarLogVehiculo(String placa, String data) throws IOException {
 		guardador.guardarLog(placa, data);
+	}
+	
+	public LocalDate cargarFecha() throws IOException {
+		return cargador.cargarFecha();
+	}
+	
+	public void guardarFecha(LocalDate fecha) throws IOException {
+		guardador.guardarFecha(fecha);
+	}
+	
+	public void guardarAutosDisponiblesSedeFecha(int numero, LocalDate fecha, Sede sede) throws IOException {
+		guardador.guardarAutosDisponiblesSedeFecha(numero, fecha, sede);
+	}
+	
+	public HashMap<String, ArrayList<Integer>> cargarDatosDisponibilidad(Sede sede) throws Exception{
+		
+		HashMap<String, ArrayList<Integer>> retorno = new HashMap<>();
+		
+		String rutaArchivo = "Datos/datosDisponibilidad/" + sede.getNombre() + " " + LocalDate.now().getYear() + ".txt" ;
+		
+		ArrayList<String> datosRaw = cargador.cargarLista(new File(rutaArchivo));
+		
+		for (String data: datosRaw) {
+			String[] info = data.split(";");
+			
+			LocalDate fecha = formateador.generarFecha(info[0]);
+			int dia = fecha.getDayOfWeek().getValue();
+			int mes = fecha.getMonthValue();
+			
+			ArrayList<Integer> datosDia = retorno.get(mes + " " + dia);
+			datosDia.add(Integer.parseInt(info[1]));
+			retorno.put(mes + " " + dia, datosDia);
+		}
+		
+		return retorno;
 	}
 }
 
