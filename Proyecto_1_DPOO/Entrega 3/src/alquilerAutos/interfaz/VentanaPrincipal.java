@@ -7,6 +7,7 @@ import javax.swing.*;
 import alquilerAutos.logica.AlquilerVehiculos;
 import alquilerAutos.manejoDatos.Reserva;
 import alquilerAutos.manejoDatos.Usuario;
+import alquilerAutos.manejoDatos.Vehiculo;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -169,6 +170,10 @@ public class VentanaPrincipal extends JFrame
 	public void setDatosVehiculo(HashMap<String, String> datosVehiculo)
 	{
 		this.datosVehiculo = datosVehiculo;
+		Vehiculo agregar = new Vehiculo(datosVehiculo.get("Placa"), datosVehiculo.get("Categoria"), datosVehiculo.get("Marca"), datosVehiculo.get("Modelo"),
+				datosVehiculo.get("Color"),datosVehiculo.get("Transmision"),datosVehiculo.get("Ubicacion"));
+		
+		alquiler.agregarVehiculo(agregar);
 	}
 
 }
