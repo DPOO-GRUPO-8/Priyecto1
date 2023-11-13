@@ -5,30 +5,83 @@ package alquilerAutos.interfaz;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.HashMap;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame
 {
-	//AlquilerVehiculos alqulerVehiculos = new AlquilerVehiculos();
-	Color color = new Color(255, 87,87);
-	
+	// AlquilerVehiculos alqulerVehiculos = new AlquilerVehiculos();
+	private Color color = new Color(255, 87, 87);
+	private PanelLogin panelLogin;
+	private PanelMenu panelMenu;
+	private GestionReservas gestionReservas;
+	private HashMap<String, String> datosReserva;
+
 	private VentanaPrincipal()
 	{
-        this.setName("Alquiler De Vehiculos");
-        this.setSize(500, 500);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-        
-        iniciarAplicacion();
+		this.setName("Alquiler De Vehiculos");
+		this.setSize(500, 500);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+
+		iniciarAplicacion();
 	}
-	private void iniciarAplicacion()
+	public void iniciarAplicacion()
 	{
-		JPanel panelLogin = new PanelLogin(color);
-		JPanel panelBienvenidaAdmin = new PanelBienvenidaAdmin(color);
+		this.panelLogin = new PanelLogin(color, this);
+
 		this.add(panelLogin);
-		//this.add(panelBienvenidaAdmin);
+		revalidate();
+	}
+	public void iniciarBienvenida()
+	{
+		this.panelMenu = new PanelMenu(color, this);
+
+		this.add(panelMenu);
+		this.remove(panelLogin);
+		revalidate();
+	}
+
+	public boolean comprobarLogin(String usuario, String contraseña)
+	{
+		// TODO conectar con la logica en donde se compruebe el login y si es
+		// tru se llame la funcion iniciar bienvenida
+		iniciarBienvenida();
+		return true;
+	}
+
+	public void nuevaReserva()
+	{
+		// TODO asignar a sedes un arreglo con las sedes igual con categoria
+		String[] sedes =
+		{""};
+		String[] categorias =
+		{""};
+		gestionReservas = new GestionReservas(color, this, categorias, sedes);
+		this.add(gestionReservas);
+		revalidate();
+
+	}
+
+	public void cambiarPanel(String accion)
+	{
+		if (accion == "NUEVA RESERVA")
+		{
+			this.remove(panelMenu);
+			nuevaReserva();
+		}
+		if (accion == "VOLVER" || accion == "ENVIAR")
+		{
+			this.remove(gestionReservas);
+			iniciarBienvenida();
+		}
+	}
+
+	public void setReserva(HashMap<String, String> datosReserva)
+	{
+		this.datosReserva = datosReserva;
 	}
 	public static void main(String[] args)
 	{
