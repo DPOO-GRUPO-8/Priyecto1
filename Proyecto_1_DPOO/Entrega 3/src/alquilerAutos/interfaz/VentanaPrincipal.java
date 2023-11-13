@@ -19,10 +19,12 @@ public class VentanaPrincipal extends JFrame
 	private PanelMenu panelMenu;
 	private GestionReservas gestionReservas;
 	private HashMap<String, String> datosReserva;
-	private GestionCliente gestionUsuarios;
+	private HashMap<String, String> datosNuevoUsuario;
+	private GestionUsuarios gestionUsuarios;
 	private JPanel panelActual;
 	private AlquilerVehiculos alquiler = new AlquilerVehiculos();
 	private Usuario usuario;
+
 
 	private VentanaPrincipal()
 	{
@@ -95,13 +97,21 @@ public class VentanaPrincipal extends JFrame
 	}
 	private void nuevoCliente()
 	{
-		gestionUsuarios = new GestionCliente(color, this);
-		panelActual = gestionUsuarios;
-		this.add(gestionUsuarios);
-		revalidate();
+		//gestionUsuarios = new GestionCliente(color, this);
+		//panelActual = gestionUsuarios;
+		//this.add(gestionUsuarios);
+		//revalidate();
 
 	}
 
+	private void nuevoUsuario()
+	{
+		gestionUsuarios = new GestionUsuarios(color, this);
+		panelActual = gestionUsuarios;
+		this.add(gestionUsuarios);
+		revalidate();
+		
+	}
 	public void cambiarPanel(String accion)
 	{
 		if (accion == "NUEVA RESERVA")
@@ -114,6 +124,11 @@ public class VentanaPrincipal extends JFrame
 			this.remove(panelMenu);
 			nuevoCliente();
 		}
+		if (accion == "NUEVO USUARIO")
+		{
+			this.remove(panelMenu);
+			nuevoUsuario();
+		}
 		if (accion == "VOLVER" || accion == "ENVIAR")
 		{
 			this.remove(panelActual);
@@ -121,9 +136,14 @@ public class VentanaPrincipal extends JFrame
 		}
 	}
 
+
 	public void setReserva(HashMap<String, String> datosReserva)
 	{
 		this.datosReserva = datosReserva;
+	}
+	public void setNuevoUsuario(HashMap<String, String> datosNuevoUsuario)
+	{
+		this.datosNuevoUsuario = datosReserva;
 	}
 	public static void main(String[] args)
 	{
