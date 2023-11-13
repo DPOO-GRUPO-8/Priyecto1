@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import alquilerAutos.logica.AlquilerVehiculos;
 import alquilerAutos.manejoDatos.Reserva;
+import alquilerAutos.manejoDatos.Sede;
 import alquilerAutos.manejoDatos.Usuario;
 
 import java.awt.*;
@@ -25,6 +26,9 @@ public class VentanaPrincipal extends JFrame
 	private JPanel panelActual;
 	private AlquilerVehiculos alquiler = new AlquilerVehiculos();
 	private Usuario usuario;
+	private GestionVehiculos gestionVehiculos;
+	private MostrarInfoSede mostrarInfo;
+	private Sede sede;
 
 
 
@@ -114,6 +118,27 @@ public class VentanaPrincipal extends JFrame
 		revalidate();
 		
 	}
+	
+	private void nuevaSede()
+	{
+	
+		
+	}
+	
+	private void nuevoVehiculo()
+	{
+		gestionVehiculos = new GestionVehiculos(color, this);
+		panelActual = gestionVehiculos;
+		this.add(gestionVehiculos);
+		
+	}
+	
+	private void verDatosSede()
+	{
+		mostrarInfo = new MostrarInfoSede(color, this, sede, alquiler);
+		this.add(mostrarInfo);
+	}
+	
 	public void cambiarPanel(String accion)
 	{
 		if (accion == "NUEVA RESERVA")
@@ -131,14 +156,27 @@ public class VentanaPrincipal extends JFrame
 			this.remove(panelMenu);
 			nuevoUsuario();
 		}
+		if (accion == "NUEVO VEHICULO")
+		{
+			this.remove(panelMenu);
+			nuevoVehiculo();
+		}
 		if (accion == "VOLVER" || accion == "ENVIAR")
 		{
 			this.remove(panelActual);
 			iniciarBienvenida(usuario.getRol(), usuario.getUsuario());
 		}
+		if (accion == "VER DATOS SEDE")
+		{
+			this.remove(panelMenu);
+			verDatosSede();
+		}
 	}
 
 
+	
+	
+	
 	public void setReserva(HashMap<String, String> datosReserva)
 	{
 		this.datosReserva = datosReserva;

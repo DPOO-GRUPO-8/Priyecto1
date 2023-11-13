@@ -30,8 +30,7 @@ public class GestionVehiculos extends JPanel
 	private String[] categorias;
 	private String[] sedes;
 
-	GestionVehiculos(Color color, VentanaPrincipal ventanaPrincipal,
-			String[] sedes, String[] categorias)
+	GestionVehiculos(Color color, VentanaPrincipal ventanaPrincipal)
 	{
 		this.color = color;
 		this.ventanaPrincipal = ventanaPrincipal;

@@ -215,7 +215,7 @@ public class PanelMenu extends JPanel
 		this.panelVehiculos = new JPanel();
 		panelVehiculos.setLayout(new GridBagLayout());
 
-		JLabel labelTitulo = new JLabel("Opciones de Vehiculos");
+		JLabel labelTitulo = new JLabel("OPCIONES VEHICULO");
 		labelTitulo.setFont(new Font("Roboto Mono", Font.PLAIN, 60));
 		labelTitulo.setForeground(color);
 		GridBagConstraints labelConstraints = new GridBagConstraints();
@@ -225,7 +225,7 @@ public class PanelMenu extends JPanel
 		labelConstraints.insets = new Insets(0, 0, 250, 0);
 		panelVehiculos.add(labelTitulo, labelConstraints);
 
-		JButton botonNuevoVehiculo = botonPanel("Nuevo Vehiculo");
+		JButton botonNuevoVehiculo = botonPanel("NUEVO VEHICULO");
 		GridBagConstraints nuevoVehiculoConstraints = new GridBagConstraints();
 		nuevoVehiculoConstraints.gridx = 0;
 		nuevoVehiculoConstraints.gridy = 1;
@@ -234,7 +234,7 @@ public class PanelMenu extends JPanel
 		nuevoVehiculoConstraints.insets = new Insets(0, 10, 250, 10);
 		panelVehiculos.add(botonNuevoVehiculo, nuevoVehiculoConstraints);
 
-		JButton botonModificarVehiculo = botonPanel("Modificar Vehiculo");
+		JButton botonModificarVehiculo = botonPanel("MODIFICAR VEHICULO");
 		GridBagConstraints modificarVehiculoConstraints = new GridBagConstraints();
 		modificarVehiculoConstraints.gridx = 1;
 		modificarVehiculoConstraints.gridy = 1;
@@ -259,25 +259,24 @@ public class PanelMenu extends JPanel
 		labelConstraints.insets = new Insets(0, 0, 225, 0);
 		panelSedes.add(labelTitulo, labelConstraints);
 
-		JButton botonNuevaSede = botonPanel("Nueva Sede");
+		JButton botonNuevaSede = botonPanel("NUEVA SEDE");
 		GridBagConstraints nuevaSedeConstraints = new GridBagConstraints();
 		nuevaSedeConstraints.gridx = 0;
 		nuevaSedeConstraints.gridy = 1;
 		nuevaSedeConstraints.weightx = 0.5;
 		nuevaSedeConstraints.anchor = GridBagConstraints.CENTER;
-		//nuevaSedeConstraints.insets = new Insets(0, 10, 250, 10);
 		panelSedes.add(botonNuevaSede, nuevaSedeConstraints);
 		
-		JButton botonVerDatosSede = botonPanel("Ver Datos Sede");
+		JButton botonVerDatosSede = botonPanel("VER DATOS SEDE");
 		GridBagConstraints verDatosSedeConstraints = new GridBagConstraints();
 		verDatosSedeConstraints.gridx = 1;
 		verDatosSedeConstraints.gridy = 1;
 		verDatosSedeConstraints.weightx = 0.5;
 		verDatosSedeConstraints.anchor = GridBagConstraints.CENTER;
-		verDatosSedeConstraints.insets = new Insets(0, 0, 0, 150);
+		verDatosSedeConstraints.insets = new Insets(0, 0, 0, 35);
 		panelSedes.add(botonVerDatosSede, verDatosSedeConstraints);
 
-		JButton botonModificarSede = botonPanel("Modificar Sede");
+		JButton botonModificarSede = botonPanel("MODIFICAR SEDE");
 		GridBagConstraints modificarSedeConstraints = new GridBagConstraints();
 		modificarSedeConstraints.gridx = 0;
 		modificarSedeConstraints.gridy = 2;

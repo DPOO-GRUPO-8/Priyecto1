@@ -14,6 +14,7 @@ import alquilerAutos.manejoDatos.Sede;
 import java.awt.*;
 import java.util.HashMap;
 
+@SuppressWarnings("serial")
 public class MostrarInfoSede extends JPanel{
 	
 	private VentanaPrincipal ventanaPrincipal;
@@ -22,7 +23,7 @@ public class MostrarInfoSede extends JPanel{
 	private JTable tablaDias;
 	private JPanel panelAbajo = new JPanel();
 	private JPanel panelBotones = new JPanel();
-	private JButton botonVolver = new JButton("Volver");
+	private JButton botonVolver = new JButton("VOLVER");
 	private JButton botonMostrarGrafico = new JButton("Mostrar info disponibilidad");
 	private Color color;
 	private Sede sede;
@@ -85,6 +86,12 @@ public class MostrarInfoSede extends JPanel{
 		botonVolver.setBackground(color);
 		botonVolver.setForeground(Color.WHITE);
 		botonVolver.setOpaque(true);
+		botonVolver.addActionListener(event ->
+		{
+			String etiqueta = ((JButton) event.getSource()).getText();
+			ventanaPrincipal.cambiarPanel(etiqueta);
+			
+		});
 		
 		botonMostrarGrafico.setBackground(color);
 		botonMostrarGrafico.setForeground(Color.WHITE);
