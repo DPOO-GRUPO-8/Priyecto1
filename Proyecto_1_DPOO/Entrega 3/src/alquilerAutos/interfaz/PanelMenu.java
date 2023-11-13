@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import alquilerAutos.manejoDatos.Usuario;
+
 @SuppressWarnings("serial")
 
 public class PanelMenu extends JPanel
@@ -23,13 +25,12 @@ public class PanelMenu extends JPanel
 	
 	
 
-	PanelMenu(Color color, VentanaPrincipal ventanaPrincipal)
+	public PanelMenu(Color color, VentanaPrincipal ventanaPrincipal)
 	{
 		panelBotones = new JPanel();
 		mensajeBienvenida = new JPanel();
 		this.color = color;
 		this.ventanaPrincipal = ventanaPrincipal;
-
 		configurarPaneles();
 	}
 
