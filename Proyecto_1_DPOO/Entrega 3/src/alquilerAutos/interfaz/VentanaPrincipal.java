@@ -5,6 +5,7 @@ package alquilerAutos.interfaz;
 import javax.swing.*;
 
 import alquilerAutos.logica.AlquilerVehiculos;
+import alquilerAutos.manejoDatos.Reserva;
 import alquilerAutos.manejoDatos.Usuario;
 
 import java.awt.*;
@@ -140,6 +141,16 @@ public class VentanaPrincipal extends JFrame
 	public void setReserva(HashMap<String, String> datosReserva)
 	{
 		this.datosReserva = datosReserva;
+		int precio = alquiler.calcularPrecio(datosReserva.get("Categoria"), Integer.parseInt(datosReserva.get("Conductores")), datosReserva.get("Sede recogida"), datosReserva.get("Sede llegada"), datosReserva.get("Fecha inicio"), datosReserva.get("Fecha final"));
+		Reserva nuevaReserva = new Reserva(0,datosReserva.get("Fecha inicio"), datosReserva.get("Fecha final"), datosReserva.get("Categoria"),
+				Integer.parseInt(datosReserva.get("Cedula")), precio, datosReserva.get("Sede recogida"));
+		nuevaReserva.setSedeInicio(datosReserva.get("Sede recogida"));
+		nuevaReserva.setSedeFinal(datosReserva.get("Sede llegada"));
+		
+		alquiler.agregarReserva(nuevaReserva);
+		
+		JOptionPane.showMessageDialog(null, "El precio a pagar es" + precio, "Precio a pagar", JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 	public void setNuevoUsuario(HashMap<String, String> datosNuevoUsuario)
 	{
