@@ -68,9 +68,7 @@ public class AlquilerVehiculos
 		boolean repetido = gestor
 				.verificarExistenciaVehiculo(vehiculo.getPlaca());
 		
-		ArrayList<String> dataUbicacion = new ArrayList<>();
-		dataUbicacion.add(sedeActual.getNombre());
-		dataUbicacion.add("2");
+		ArrayList<String> dataUbicacion = sedeActual.getUbicacion(vehiculo);
 
 		if (!repetido)
 		{
