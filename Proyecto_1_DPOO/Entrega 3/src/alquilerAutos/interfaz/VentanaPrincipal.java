@@ -75,6 +75,7 @@ public class VentanaPrincipal extends JFrame
 				if (!(usuario.getRol().equals("Admin total"))) {
 					String[] dataRol = usuario.getRol().split(" ");
 					alquiler.setSedeActual(dataRol[1]);
+					this.sede = alquiler.getSedeActual();
 				}
 				
 				iniciarBienvenida(usuario.getRol(), usuario.getUsuario());
