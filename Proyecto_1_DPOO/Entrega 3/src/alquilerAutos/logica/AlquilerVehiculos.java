@@ -673,4 +673,8 @@ public class AlquilerVehiculos
 		return sedeActual.vehiculosSegunCategoria();
 	}
 	
+	public Sede getSedeActual() {
+		return sedeActual;
+	}
+	
 }
