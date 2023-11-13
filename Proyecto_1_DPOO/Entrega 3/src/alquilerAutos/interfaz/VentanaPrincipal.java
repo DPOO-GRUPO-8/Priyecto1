@@ -184,8 +184,8 @@ public class VentanaPrincipal extends JFrame
 				
 				int seleccion = JOptionPane.showOptionDialog(
 		                null,
-		                "Selecciona una opción:",
-		                "Miniventana",
+		                "Selecciona una sede:",
+		                "Seleccionar sede",
 		                JOptionPane.DEFAULT_OPTION,
 		                JOptionPane.PLAIN_MESSAGE,
 		                null,
