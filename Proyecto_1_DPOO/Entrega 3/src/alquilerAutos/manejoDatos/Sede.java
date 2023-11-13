@@ -49,7 +49,7 @@ public class Sede
 			horario.put(horas[0].toUpperCase(), rangoHoras);
 		}
 		
-		String[] categorias = {"Pequeño", "Mediano", "Grande", "De Lujo", "Mantenimiento", "Reserva"};
+		String[] categorias = {"pequeño", "mediano", "grande", "de lujo"};
 		 
 		for (String cat: categorias) {
 			ArrayList<Vehiculo> agregar = new ArrayList<>();

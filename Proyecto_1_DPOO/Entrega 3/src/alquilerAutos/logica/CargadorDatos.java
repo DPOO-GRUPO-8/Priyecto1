@@ -18,7 +18,7 @@ import alquilerAutos.manejoDatos.Vehiculo;
 
 public class CargadorDatos {
 	
-	private FormateadorDatos formateador;
+	private FormateadorDatos formateador = new FormateadorDatos();
 
 	public ArrayList<String> cargarLista(File archivo) throws Exception {
 		FileReader fr = new FileReader(archivo);
