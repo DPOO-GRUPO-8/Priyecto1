@@ -1,5 +1,5 @@
 Jefazo;12345;Admin total
-AdminLocal_Sede1;541sajsdaj;Admin local Sede_1
+1;1;Admin local Sede_1
 LocalUser_Sede2;contraseña123;Admin local Sede_2
 Sede3_Admin;clave456;Admin local Sede_3
 Empleado1;1q2w3e4r;Empleado Sede_1

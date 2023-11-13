@@ -14,17 +14,18 @@ import java.util.HashMap;
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame
 {
-	// AlquilerVehiculos alqulerVehiculos = new AlquilerVehiculos();
 	private Color color = new Color(255, 87, 87);
 	private PanelLogin panelLogin;
 	private PanelMenu panelMenu;
 	private GestionReservas gestionReservas;
 	private HashMap<String, String> datosReserva;
 	private HashMap<String, String> datosNuevoUsuario;
+	private HashMap<String, String> datosVehiculo;
 	private GestionUsuarios gestionUsuarios;
 	private JPanel panelActual;
 	private AlquilerVehiculos alquiler = new AlquilerVehiculos();
 	private Usuario usuario;
+
 
 
 	private VentanaPrincipal()
@@ -57,7 +58,7 @@ public class VentanaPrincipal extends JFrame
 	public boolean comprobarLogin(String usuarioA, String contraseña)
 	{
 		// TODO conectar con la logica en donde se compruebe el login y si es
-		// tru se llame la funcion iniciar bienvenida
+		// true se llame la funcion iniciar bienvenida
 		
 		usuario = alquiler.tieneUsuario(usuarioA);
 		
@@ -164,6 +165,10 @@ public class VentanaPrincipal extends JFrame
 	public static void main(String[] args)
 	{
 		new VentanaPrincipal();
+	}
+	public void setDatosVehiculo(HashMap<String, String> datosVehiculo)
+	{
+		this.datosVehiculo = datosVehiculo;
 	}
 
 }

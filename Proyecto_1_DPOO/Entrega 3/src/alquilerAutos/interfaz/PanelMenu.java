@@ -256,7 +256,7 @@ public class PanelMenu extends JPanel
 		labelConstraints.gridx = 0;
 		labelConstraints.gridy = 0;
 		labelConstraints.anchor = GridBagConstraints.NORTHWEST;
-		labelConstraints.insets = new Insets(0, 0, 250, 0);
+		labelConstraints.insets = new Insets(0, 0, 225, 0);
 		panelSedes.add(labelTitulo, labelConstraints);
 
 		JButton botonNuevaSede = botonPanel("Nueva Sede");
@@ -265,16 +265,25 @@ public class PanelMenu extends JPanel
 		nuevaSedeConstraints.gridy = 1;
 		nuevaSedeConstraints.weightx = 0.5;
 		nuevaSedeConstraints.anchor = GridBagConstraints.CENTER;
-		nuevaSedeConstraints.insets = new Insets(0, 10, 250, 10);
+		//nuevaSedeConstraints.insets = new Insets(0, 10, 250, 10);
 		panelSedes.add(botonNuevaSede, nuevaSedeConstraints);
+		
+		JButton botonVerDatosSede = botonPanel("Ver Datos Sede");
+		GridBagConstraints verDatosSedeConstraints = new GridBagConstraints();
+		verDatosSedeConstraints.gridx = 1;
+		verDatosSedeConstraints.gridy = 1;
+		verDatosSedeConstraints.weightx = 0.5;
+		verDatosSedeConstraints.anchor = GridBagConstraints.CENTER;
+		verDatosSedeConstraints.insets = new Insets(0, 0, 0, 150);
+		panelSedes.add(botonVerDatosSede, verDatosSedeConstraints);
 
 		JButton botonModificarSede = botonPanel("Modificar Sede");
 		GridBagConstraints modificarSedeConstraints = new GridBagConstraints();
-		modificarSedeConstraints.gridx = 1;
-		modificarSedeConstraints.gridy = 1;
-		modificarSedeConstraints.weightx = 0.5;
+		modificarSedeConstraints.gridx = 0;
+		modificarSedeConstraints.gridy = 2;
+		modificarSedeConstraints.weightx = 2;
 		modificarSedeConstraints.anchor = GridBagConstraints.CENTER;
-		modificarSedeConstraints.insets = new Insets(0, 10, 250, 0);
+		modificarSedeConstraints.insets = new Insets(20, 500, 250, 0);
 		panelSedes.add(botonModificarSede, modificarSedeConstraints);
 	}
 
