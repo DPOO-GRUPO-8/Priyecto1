@@ -282,5 +282,18 @@ public class Sede
     	
     	return retorno;
     }
+    
+    public HashMap<String,Integer> vehiculosSegunCategoria() {
+    	
+    	HashMap<String,Integer> retorno = new HashMap<>();
+    	
+    	for (String llave: inventario.keySet()) {
+    		ArrayList<Vehiculo> datos = inventario.get(llave);
+    		retorno.put(llave, datos.size());
+    	}
+    	
+    	return retorno;
+    	
+    }
 
 }

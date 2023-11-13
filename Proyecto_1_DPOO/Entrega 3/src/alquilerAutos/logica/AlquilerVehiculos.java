@@ -671,4 +671,8 @@ public class AlquilerVehiculos
 		
 	}
 	
+	public HashMap<String, Integer> vehiculosSegunCategoria(){
+		return sedeActual.vehiculosSegunCategoria();
+	}
+	
 }

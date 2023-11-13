@@ -12,6 +12,7 @@ import alquilerAutos.logica.AlquilerVehiculos;
 import alquilerAutos.manejoDatos.Sede;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class MostrarInfoSede extends JPanel{
 	
@@ -31,6 +32,7 @@ public class MostrarInfoSede extends JPanel{
 		this.ventanaPrincipal = ventanaPrincipal;
 		this.sede = sede;
 		this.alquiler = alquiler;
+		configurarPanel();
 	}
 	
 	private void configurarTitulo()
@@ -96,12 +98,47 @@ public class MostrarInfoSede extends JPanel{
 		panelAbajo.add(panelBotones, BorderLayout.SOUTH);
 	}
 	
+	private void configurarTablaVehiculos()
+	{
+		DefaultTableModel modelo = new DefaultTableModel(4, 2);
+		HashMap<String, Integer> datos = alquiler.vehiculosSegunCategoria();
+		
+		int i = 0;
+		
+		for (String key: datos.keySet()) {
+			modelo.setValueAt(key, i, 0);
+			modelo.setValueAt("" + datos.get(key), i, 1);
+		}
+		
+		tablaVehiculos = new JTable(modelo);
+		tablaVehiculos.setBackground(color);
+		tablaVehiculos.setShowGrid(false);
+		tablaVehiculos.setIntercellSpacing(new Dimension(2, 2));
+		
+		 DefaultTableCellRenderer renderer = new DefaultTableCellRenderer(){
+	            @Override
+	            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	                comp.setForeground(Color.WHITE);
+	                return comp;
+	            }
+	            };
+        
+	     renderer.setHorizontalAlignment(SwingConstants.CENTER); // Centrar contenido en las celdas
+	     tablaDias.setDefaultRenderer(Object.class, renderer);
+	     setSize(400, 300);
+	            
+	     panelAbajo.add(tablaDias, BorderLayout.EAST);
+		
+		
+	}
 	private void configurarPanel()
 	{
 		setLayout(new BorderLayout());
 		add(panelAbajo, BorderLayout.SOUTH);
 		configurarTitulo();
 		configurarTablaDias();
+		configurarTablaVehiculos();
 	}
 
 }
