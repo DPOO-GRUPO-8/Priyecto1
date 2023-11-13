@@ -16,6 +16,8 @@ public class VentanaPrincipal extends JFrame
 	private PanelMenu panelMenu;
 	private GestionReservas gestionReservas;
 	private HashMap<String, String> datosReserva;
+	private GestionCliente gestionUsuarios;
+	private JPanel panelActual;
 
 	private VentanaPrincipal()
 	{
@@ -60,7 +62,16 @@ public class VentanaPrincipal extends JFrame
 		String[] categorias =
 		{""};
 		gestionReservas = new GestionReservas(color, this, categorias, sedes);
+		panelActual = gestionReservas;
 		this.add(gestionReservas);
+		revalidate();
+
+	}
+	private void nuevoCliente()
+	{
+		gestionUsuarios = new GestionCliente(color, this);
+		panelActual = gestionUsuarios;
+		this.add(gestionUsuarios);
 		revalidate();
 
 	}
@@ -72,9 +83,14 @@ public class VentanaPrincipal extends JFrame
 			this.remove(panelMenu);
 			nuevaReserva();
 		}
+		if (accion == "NUEVO CLIENTE")
+		{
+			this.remove(panelMenu);
+			nuevoCliente();
+		}
 		if (accion == "VOLVER" || accion == "ENVIAR")
 		{
-			this.remove(gestionReservas);
+			this.remove(panelActual);
 			iniciarBienvenida();
 		}
 	}

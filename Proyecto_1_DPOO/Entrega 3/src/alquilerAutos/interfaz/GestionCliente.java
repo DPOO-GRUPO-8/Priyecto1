@@ -1,13 +1,24 @@
 package alquilerAutos.interfaz;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
-public class GestionReservas extends JPanel
+public class GestionCliente extends JPanel
 {
 	private VentanaPrincipal ventanaPrincipal;
 	private JLabel titulo;
@@ -16,16 +27,11 @@ public class GestionReservas extends JPanel
 	private Color color;
 	private ArrayList<JTextField> fields = new ArrayList<JTextField>();
 	private ArrayList<JComboBox<String>> comboBox = new ArrayList<JComboBox<String>>();
-	private String[] categorias;
-	private String[] sedes;
 
-	GestionReservas(Color color, VentanaPrincipal ventanaPrincipal,
-			String[] sedes, String[] categorias)
+	GestionCliente(Color color, VentanaPrincipal ventanaPrincipal)
 	{
 		this.color = color;
 		this.ventanaPrincipal = ventanaPrincipal;
-		this.sedes = sedes;
-		this.categorias = categorias;
 		configurarPanel();
 	}
 
@@ -89,6 +95,9 @@ public class GestionReservas extends JPanel
 
 		panelConductores(constraintsPanel, constraintsLabels,
 				constraintsTextFields);
+		
+		panelNumeroDeCelular(constraintsPanel, constraintsLabels,
+				constraintsTextFields);
 	}
 
 	private void panelCedula(GridBagConstraints constraintsPanel,
@@ -96,7 +105,7 @@ public class GestionReservas extends JPanel
 	{
 		JPanel panelCedula = new JPanel();
 		panelCedula.setLayout(new GridBagLayout());
-		JLabel labelCedula = label("CEDULA");
+		JLabel labelCedula = label("USUARIO");
 		JTextField textFieldCedula = textField();
 		panelCedula.add(labelCedula);
 		panelCedula.add(textFieldCedula, constraintsTextFields);
@@ -113,14 +122,13 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 0;
 		JPanel panelCategoria = new JPanel();
 		panelCategoria.setLayout(new GridBagLayout());
-		JLabel labelCategoria = label("CATEGORIA");
-		JComboBox<String> comboBoxCategoria = new JComboBox<>(categorias);
-		comboBoxCategoria.setPreferredSize(new Dimension(200, 30));
+		JLabel labelCategoria = label("FECHA DE NACIMIENTO");
+		JTextField textFieldFechaNacimiento = textField();
 		panelCategoria.add(labelCategoria, constraintsLabels);
-		panelCategoria.add(comboBoxCategoria, constraintsTextFields);
+		panelCategoria.add(textFieldFechaNacimiento, constraintsTextFields);
 		panelFormulario.add(panelCategoria, constraintsPanel);
 
-		comboBox.add(comboBoxCategoria);
+		fields.add(textFieldFechaNacimiento);
 	}
 
 	private void panelSedeRecogida(GridBagConstraints constraintsPanel,
@@ -131,14 +139,13 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 0;
 		JPanel panelSedeRecogida = new JPanel();
 		panelSedeRecogida.setLayout(new GridBagLayout());
-		JLabel labelSedeRecogida = label("SEDE RECOGIDA");
-		JComboBox<String> comboBoxSedeRecogida = new JComboBox<>(sedes);
-		comboBoxSedeRecogida.setPreferredSize(new Dimension(200, 30));
+		JLabel labelSedeRecogida = label("NUMERO DE DOCUMENTO");
+		JTextField textFieldFechaNacimiento = textField();
 		panelSedeRecogida.add(labelSedeRecogida, constraintsLabels);
-		panelSedeRecogida.add(comboBoxSedeRecogida, constraintsTextFields);
+		panelSedeRecogida.add(textFieldFechaNacimiento, constraintsTextFields);
 		panelFormulario.add(panelSedeRecogida, constraintsPanel);
 
-		comboBox.add(comboBoxSedeRecogida);
+		fields.add(textFieldFechaNacimiento);
 	}
 
 	private void panelSedeLlegada(GridBagConstraints constraintsPanel,
@@ -149,14 +156,12 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 1;
 		JPanel panelSedeLlegada = new JPanel();
 		panelSedeLlegada.setLayout(new GridBagLayout());
-		JLabel labelSedeLlegada = label("SEDE LLEGADA");
-		JComboBox<String> comboBoxSedeLlegada = new JComboBox<>(sedes);
-		comboBoxSedeLlegada.setPreferredSize(new Dimension(200, 30));
-		panelSedeLlegada.add(labelSedeLlegada, constraintsLabels);
-		panelSedeLlegada.add(comboBoxSedeLlegada, constraintsTextFields);
+		JLabel labelSedeLlegada = label("NOMBRE");
+		JTextField textFieldFechaNacimiento = textField();		panelSedeLlegada.add(labelSedeLlegada, constraintsLabels);
+		panelSedeLlegada.add(textFieldFechaNacimiento, constraintsTextFields);
 		panelFormulario.add(panelSedeLlegada, constraintsPanel);
 
-		comboBox.add(comboBoxSedeLlegada);
+		fields.add(textFieldFechaNacimiento);
 	}
 
 	private void panelFechaInicio(GridBagConstraints constraintsPanel,
@@ -167,7 +172,7 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 1;
 		JPanel panelInicio = new JPanel();
 		panelInicio.setLayout(new GridBagLayout());
-		JLabel labelInicio = label("FECHA INICIO");
+		JLabel labelInicio = label("NACIONALIDAD");
 		JTextField textFieldInicio = textField();
 		panelInicio.add(labelInicio, constraintsLabels);
 		panelInicio.add(textFieldInicio, constraintsTextFields);
@@ -184,7 +189,7 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 1;
 		JPanel panelFinal = new JPanel();
 		panelFinal.setLayout(new GridBagLayout());
-		JLabel labelFinal = label("FECHA FINAL");
+		JLabel labelFinal = label("ARCHIVOS DEL DOCUMENTO");
 		JTextField textFieldFinal = textField();
 		panelFinal.add(labelFinal, constraintsLabels);
 		panelFinal.add(textFieldFinal, constraintsTextFields);
@@ -201,9 +206,8 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 2;
 		JPanel panelHoras = new JPanel();
 		panelHoras.setLayout(new GridBagLayout());
-		JLabel labelHoras = label("HORAS DE ENTREGA");
+		JLabel labelHoras = label("CORREO ELECTRONICO");
 		JTextField textFieldHoras = textField();
-		textFieldHoras.setText("HH:MM - HH:MM");
 		panelHoras.add(labelHoras, constraintsLabels);
 		panelHoras.add(textFieldHoras, constraintsTextFields);
 		panelFormulario.add(panelHoras, constraintsPanel);
@@ -220,7 +224,23 @@ public class GestionReservas extends JPanel
 		constraintsPanel.gridy = 2;
 		JPanel panelConductores = new JPanel();
 		panelConductores.setLayout(new GridBagLayout());
-		JLabel labelConductores = label("FECHA FINAL");
+		JLabel labelConductores = label("LICENCIA");
+		JTextField textFieldConductores = textField();
+		panelConductores.add(labelConductores, constraintsLabels);
+		panelConductores.add(textFieldConductores, constraintsTextFields);
+		panelFormulario.add(panelConductores, constraintsPanel);
+
+		fields.add(textFieldConductores);
+	}
+	private void panelNumeroDeCelular(GridBagConstraints constraintsPanel,
+			GridBagConstraints constraintsLabels,
+			GridBagConstraints constraintsTextFields)
+	{
+		constraintsPanel.gridx = 2;
+		constraintsPanel.gridy = 2;
+		JPanel panelConductores = new JPanel();
+		panelConductores.setLayout(new GridBagLayout());
+		JLabel labelConductores = label("NUMERO DE CELULAR");
 		JTextField textFieldConductores = textField();
 		panelConductores.add(labelConductores, constraintsLabels);
 		panelConductores.add(textFieldConductores, constraintsTextFields);
@@ -231,7 +251,7 @@ public class GestionReservas extends JPanel
 
 	private void configurarTitulo()
 	{
-		titulo = new JLabel("NUEVA RESERVA");
+		titulo = new JLabel("CUENTA NUEVA");
 		titulo.setFont(new Font("Roboto Mono", Font.PLAIN, 60));
 		titulo.setForeground(color);
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
