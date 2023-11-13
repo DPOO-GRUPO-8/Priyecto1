@@ -44,9 +44,9 @@ public class VentanaPrincipal extends JFrame
 		this.add(panelLogin);
 		revalidate();
 	}
-	public void iniciarBienvenida()
-	{
-		this.panelMenu = new PanelMenu(color, this);
+	public void iniciarBienvenida(String rol, String nombre)
+	{	
+		this.panelMenu = new PanelMenu(color, this, rol, nombre);
 
 		this.add(panelMenu);
 		this.remove(panelLogin);
@@ -63,7 +63,13 @@ public class VentanaPrincipal extends JFrame
 		if (usuario != null) {
 			
 			if (usuario.getContraseña().equals(contraseña)) {
-				iniciarBienvenida();
+				
+				if (!usuario.getRol().equals("Admin total")) {
+					String[] dataRol = usuario.getRol().split(" ");
+					alquiler.setSedeActual(dataRol[1]);
+				}
+				
+				iniciarBienvenida(usuario.getRol(), usuario.getUsuario());
 				return true;
 			} else {
 				return false;
@@ -126,7 +132,7 @@ public class VentanaPrincipal extends JFrame
 		if (accion == "VOLVER" || accion == "ENVIAR")
 		{
 			this.remove(panelActual);
-			iniciarBienvenida();
+			iniciarBienvenida(usuario.getRol(), usuario.getUsuario());
 		}
 	}
 
