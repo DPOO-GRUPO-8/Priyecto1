@@ -128,7 +128,7 @@ public class PanelMenu extends JPanel
 		bienvenidadLabel.setFont(new Font("Roboto Mono", Font.PLAIN, 24));
 		bienvenidadLabel.setForeground(color);
 
-		JLabel usuarioLabel = new JLabel("Admin");
+		JLabel usuarioLabel = new JLabel(usuario);
 		usuarioLabel.setFont(new Font("Roboto Mono", Font.PLAIN, 60));
 		usuarioLabel.setForeground(color);
 
