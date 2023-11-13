@@ -30,6 +30,7 @@ public class VentanaPrincipal extends JFrame
 	private GestionVehiculos gestionVehiculos;
 	private MostrarInfoSede mostrarInfo;
 	private Sede sede;
+	private GestionSedes gestionSedes;
 
 
 
@@ -122,7 +123,10 @@ public class VentanaPrincipal extends JFrame
 	
 	private void nuevaSede()
 	{
-	
+		gestionSedes = new GestionSedes(color, this);
+		panelActual = gestionSedes;
+		this.add(gestionSedes);
+		revalidate();
 		
 	}
 	
@@ -161,6 +165,11 @@ public class VentanaPrincipal extends JFrame
 		{
 			this.remove(panelMenu);
 			nuevoVehiculo();
+		}
+		if (accion == "NUEVA SEDE")
+		{
+			this.remove(panelMenu);
+			nuevaSede();
 		}
 		if (accion == "VOLVER" || accion == "ENVIAR")
 		{
