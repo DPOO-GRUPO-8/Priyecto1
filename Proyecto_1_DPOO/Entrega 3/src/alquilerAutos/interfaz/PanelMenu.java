@@ -21,14 +21,22 @@ public class PanelMenu extends JPanel
 	private JPanel panelSedes;
 	private Color color;
 	private String usuario;
-	private String rolUsuario = "Admin total";
+	private String rolUsuario;
 
-	public PanelMenu(Color color, VentanaPrincipal ventanaPrincipal)
+	public PanelMenu(Color color, VentanaPrincipal ventanaPrincipal, String rol, String nombre)
 	{
 		panelBotones = new JPanel();
 		mensajeBienvenida = new JPanel();
 		this.color = color;
 		this.ventanaPrincipal = ventanaPrincipal;
+		
+		usuario = nombre;
+		
+		if (!rol.equals("Admin total")) {
+			String[] dataRol = rol.split(" ");
+			rolUsuario = dataRol[0];
+		}
+		
 		configurarPaneles();
 	}
 
