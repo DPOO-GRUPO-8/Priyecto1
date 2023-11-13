@@ -154,7 +154,12 @@ public class VentanaPrincipal extends JFrame
 	}
 	public void setNuevoUsuario(HashMap<String, String> datosNuevoUsuario)
 	{
-		this.datosNuevoUsuario = datosReserva;
+		this.datosNuevoUsuario = datosNuevoUsuario;
+		
+		Usuario nuevoUsuario = new Usuario(datosNuevoUsuario.get("Usuario"), datosNuevoUsuario.get("Contraseña"), datosNuevoUsuario.get("Rol"));
+		alquiler.agregarUsuario(nuevoUsuario);
+		
+		
 	}
 	public static void main(String[] args)
 	{
