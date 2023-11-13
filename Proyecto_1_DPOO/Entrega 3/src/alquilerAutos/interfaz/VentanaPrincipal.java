@@ -4,6 +4,9 @@ package alquilerAutos.interfaz;
 
 import javax.swing.*;
 
+import alquilerAutos.logica.AlquilerVehiculos;
+import alquilerAutos.manejoDatos.Usuario;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -18,6 +21,8 @@ public class VentanaPrincipal extends JFrame
 	private HashMap<String, String> datosReserva;
 	private GestionCliente gestionUsuarios;
 	private JPanel panelActual;
+	private AlquilerVehiculos alquiler = new AlquilerVehiculos();
+	private Usuario usuario;
 
 	private VentanaPrincipal()
 	{
@@ -46,12 +51,27 @@ public class VentanaPrincipal extends JFrame
 		revalidate();
 	}
 
-	public boolean comprobarLogin(String usuario, String contraseña)
+	public boolean comprobarLogin(String usuarioA, String contraseña)
 	{
 		// TODO conectar con la logica en donde se compruebe el login y si es
 		// tru se llame la funcion iniciar bienvenida
-		iniciarBienvenida();
-		return true;
+		
+		usuario = alquiler.tieneUsuario(usuarioA);
+		
+		if (usuario != null) {
+			
+			if (usuario.getContraseña().equals(contraseña)) {
+				iniciarBienvenida();
+				return true;
+			} else {
+				return false;
+			}
+			
+		} else {
+			return false;
+		}
+		
+		
 	}
 
 	public void nuevaReserva()

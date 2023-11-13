@@ -71,7 +71,7 @@ public class PanelMenu extends JPanel
 		innerConstraints.gridwidth = 2;
 		JButton botonReservas = boton("Reservas");
 		panelBotones.add(botonReservas, innerConstraints);
-		if (rolUsuario != "Empleado Sede")
+		if (!rolUsuario.equals("Empleado Sede"))
 		{
 			innerConstraints.gridx = 0;
 			innerConstraints.gridy = 2;
@@ -79,7 +79,7 @@ public class PanelMenu extends JPanel
 			JButton botonUsuarios = boton("Usuarios");
 			panelBotones.add(botonUsuarios, innerConstraints);
 		}
-		if (rolUsuario == "Admin total")
+		if (rolUsuario.equals("Admin total"))
 		{
 			innerConstraints.gridx = 0;
 			innerConstraints.gridy = 3;
@@ -88,7 +88,7 @@ public class PanelMenu extends JPanel
 			panelBotones.add(botonVehiculos, innerConstraints);
 
 		}
-		if (rolUsuario != "Empleado Sede")
+		if (!rolUsuario.equals("Empleado Sede"))
 		{
 			innerConstraints.gridx = 0;
 			innerConstraints.gridy = 4;
