@@ -22,8 +22,6 @@ public class PanelMenu extends JPanel
 	private Color color;
 	private String usuario;
 	private String rolUsuario = "Admin total";
-	
-	
 
 	public PanelMenu(Color color, VentanaPrincipal ventanaPrincipal)
 	{
@@ -53,7 +51,7 @@ public class PanelMenu extends JPanel
 		constraintsPanel.fill = GridBagConstraints.BOTH;
 		constraintsPanel.gridx = 1;
 		constraintsPanel.weightx = 8;
-		
+
 		panelActual = mensajeBienvenida;
 		this.add(panelActual, constraintsPanel);
 		this.setVisible(true);
@@ -73,26 +71,31 @@ public class PanelMenu extends JPanel
 		innerConstraints.gridwidth = 2;
 		JButton botonReservas = boton("Reservas");
 		panelBotones.add(botonReservas, innerConstraints);
+		if (rolUsuario != "Empleado Sede")
+		{
+			innerConstraints.gridx = 0;
+			innerConstraints.gridy = 2;
+			innerConstraints.gridwidth = 2;
+			JButton botonUsuarios = boton("Usuarios");
+			panelBotones.add(botonUsuarios, innerConstraints);
+		}
+		if (rolUsuario == "Admin total")
+		{
+			innerConstraints.gridx = 0;
+			innerConstraints.gridy = 3;
+			innerConstraints.gridwidth = 2;
+			JButton botonVehiculos = boton("Vehiculos");
+			panelBotones.add(botonVehiculos, innerConstraints);
 
-		innerConstraints.gridx = 0;
-		innerConstraints.gridy = 2;
-		innerConstraints.gridwidth = 2;
-		JButton botonUsuarios = boton("Usuarios");
-
-		panelBotones.add(botonUsuarios, innerConstraints);
-
-		innerConstraints.gridx = 0;
-		innerConstraints.gridy = 3;
-		innerConstraints.gridwidth = 2;
-		JButton botonVehiculos = boton("Vehiculos");
-		panelBotones.add(botonVehiculos, innerConstraints);
-
-		innerConstraints.gridx = 0;
-		innerConstraints.gridy = 4;
-		innerConstraints.gridwidth = 2;
-		JButton botonSedes = boton("Sedes");
-		panelBotones.add(botonSedes, innerConstraints);
-
+		}
+		if (rolUsuario != "Empleado Sede")
+		{
+			innerConstraints.gridx = 0;
+			innerConstraints.gridy = 4;
+			innerConstraints.gridwidth = 2;
+			JButton botonSedes = boton("Sedes");
+			panelBotones.add(botonSedes, innerConstraints);
+		}
 		innerConstraints.gridx = 0;
 		innerConstraints.gridy = 5;
 		innerConstraints.gridwidth = 2;
@@ -142,14 +145,14 @@ public class PanelMenu extends JPanel
 		labelConstraints.gridx = 0;
 		labelConstraints.gridy = 0;
 		labelConstraints.anchor = GridBagConstraints.NORTHWEST;
-		labelConstraints.insets = new Insets(0, 0, 250, 0); 
+		labelConstraints.insets = new Insets(0, 0, 250, 0);
 		panelReserva.add(labelTitulo, labelConstraints);
 
 		JButton botonNuevaReserva = botonPanel("NUEVA RESERVA");
 		GridBagConstraints nuevaReservaConstraints = new GridBagConstraints();
 		nuevaReservaConstraints.gridx = 0;
 		nuevaReservaConstraints.gridy = 1;
-		nuevaReservaConstraints.weightx = 0.5; // Ocupa la mitad del ancho
+		nuevaReservaConstraints.weightx = 0.5;
 		nuevaReservaConstraints.anchor = GridBagConstraints.CENTER;
 		nuevaReservaConstraints.insets = new Insets(0, 10, 250, 10);
 		panelReserva.add(botonNuevaReserva, nuevaReservaConstraints);
@@ -158,13 +161,13 @@ public class PanelMenu extends JPanel
 		GridBagConstraints cerrarReservaConstraints = new GridBagConstraints();
 		cerrarReservaConstraints.gridx = 1;
 		cerrarReservaConstraints.gridy = 1;
-		cerrarReservaConstraints.weightx = 0.5; // Ocupa la mitad del ancho
+		cerrarReservaConstraints.weightx = 0.5;
 		cerrarReservaConstraints.anchor = GridBagConstraints.CENTER;
 		cerrarReservaConstraints.insets = new Insets(0, 10, 250, 0);
 		panelReserva.add(botonModificarReserva, cerrarReservaConstraints);
 
 	}
-	
+
 	private void configurarPanelUsuarios()
 	{
 		this.panelUsuarios = new JPanel();
@@ -177,28 +180,28 @@ public class PanelMenu extends JPanel
 		labelConstraints.gridx = 0;
 		labelConstraints.gridy = 0;
 		labelConstraints.anchor = GridBagConstraints.NORTHWEST;
-		labelConstraints.insets = new Insets(0, 0, 250, 0); 
+		labelConstraints.insets = new Insets(0, 0, 250, 0);
 		panelUsuarios.add(labelTitulo, labelConstraints);
 
-		JButton botonNuevoUsuario = botonPanel("Nuevo Usuario");
+		JButton botonNuevoUsuario = botonPanel("NUEVO USUARIO");
 		GridBagConstraints nuevaReservaConstraints = new GridBagConstraints();
 		nuevaReservaConstraints.gridx = 0;
 		nuevaReservaConstraints.gridy = 1;
 		nuevaReservaConstraints.weightx = 0.5; // Ocupa la mitad del ancho
 		nuevaReservaConstraints.anchor = GridBagConstraints.CENTER;
-		nuevaReservaConstraints.insets = new Insets(0, 10, 250, 10); 
+		nuevaReservaConstraints.insets = new Insets(0, 10, 250, 10);
 		panelUsuarios.add(botonNuevoUsuario, nuevaReservaConstraints);
 
 		JButton botonModificarUsuario = botonPanel("Modificar Usuario");
 		GridBagConstraints cerrarReservaConstraints = new GridBagConstraints();
 		cerrarReservaConstraints.gridx = 1;
 		cerrarReservaConstraints.gridy = 1;
-		cerrarReservaConstraints.weightx = 0.5; 
+		cerrarReservaConstraints.weightx = 0.5;
 		cerrarReservaConstraints.anchor = GridBagConstraints.CENTER;
-		cerrarReservaConstraints.insets = new Insets(0, 10, 250, 0); 
+		cerrarReservaConstraints.insets = new Insets(0, 10, 250, 0);
 		panelUsuarios.add(botonModificarUsuario, cerrarReservaConstraints);
 	}
-	
+
 	private void configurarPanelVehiculos()
 	{
 		this.panelVehiculos = new JPanel();
@@ -218,7 +221,7 @@ public class PanelMenu extends JPanel
 		GridBagConstraints nuevoVehiculoConstraints = new GridBagConstraints();
 		nuevoVehiculoConstraints.gridx = 0;
 		nuevoVehiculoConstraints.gridy = 1;
-		nuevoVehiculoConstraints.weightx = 0.5; 
+		nuevoVehiculoConstraints.weightx = 0.5;
 		nuevoVehiculoConstraints.anchor = GridBagConstraints.CENTER;
 		nuevoVehiculoConstraints.insets = new Insets(0, 10, 250, 10);
 		panelVehiculos.add(botonNuevoVehiculo, nuevoVehiculoConstraints);
@@ -230,7 +233,8 @@ public class PanelMenu extends JPanel
 		modificarVehiculoConstraints.weightx = 0.5;
 		modificarVehiculoConstraints.anchor = GridBagConstraints.CENTER;
 		modificarVehiculoConstraints.insets = new Insets(0, 10, 250, 0);
-		panelVehiculos.add(botonModificarVehiculo, modificarVehiculoConstraints);
+		panelVehiculos.add(botonModificarVehiculo,
+				modificarVehiculoConstraints);
 	}
 	private void configurarPanelSedes()
 	{
@@ -251,7 +255,7 @@ public class PanelMenu extends JPanel
 		GridBagConstraints nuevaSedeConstraints = new GridBagConstraints();
 		nuevaSedeConstraints.gridx = 0;
 		nuevaSedeConstraints.gridy = 1;
-		nuevaSedeConstraints.weightx = 0.5; 
+		nuevaSedeConstraints.weightx = 0.5;
 		nuevaSedeConstraints.anchor = GridBagConstraints.CENTER;
 		nuevaSedeConstraints.insets = new Insets(0, 10, 250, 10);
 		panelSedes.add(botonNuevaSede, nuevaSedeConstraints);
@@ -265,12 +269,12 @@ public class PanelMenu extends JPanel
 		modificarSedeConstraints.insets = new Insets(0, 10, 250, 0);
 		panelSedes.add(botonModificarSede, modificarSedeConstraints);
 	}
-	
+
 	private void cambiarPanel(String panelNuevo)
 	{
 		GridBagConstraints constraintsPanel = new GridBagConstraints();
 		constraintsPanel.gridx = 1;
-		
+
 		if (panelNuevo == "Reservas")
 		{
 			constraintsPanel.weightx = 8;
@@ -278,7 +282,6 @@ public class PanelMenu extends JPanel
 			configurarPanelReserva();
 			panelActual = panelReserva;
 			this.add(panelReserva, constraintsPanel);
-			
 
 		} else if (panelNuevo == "Usuarios")
 		{
@@ -287,29 +290,29 @@ public class PanelMenu extends JPanel
 			configurarPanelUsuarios();
 			panelActual = panelUsuarios;
 			this.add(panelUsuarios, constraintsPanel);
-			
-		}else if (panelNuevo == "Vehiculos")
+
+		} else if (panelNuevo == "Vehiculos")
 		{
 			constraintsPanel.weightx = 0.8;
 			this.remove(panelActual);
 			configurarPanelVehiculos();
 			panelActual = panelVehiculos;
 			this.add(panelVehiculos, constraintsPanel);
-			
-		}else if (panelNuevo == "Sedes")
+
+		} else if (panelNuevo == "Sedes")
 		{
 			constraintsPanel.weightx = 0.8;
 			this.remove(panelActual);
 			configurarPanelSedes();
 			panelActual = panelSedes;
 			this.add(panelSedes, constraintsPanel);
-			
-		}else if (panelNuevo== "Salir")
+
+		} else if (panelNuevo == "Salir")
 		{
 			ventanaPrincipal.iniciarAplicacion();
 		}
 		revalidate();
-		
+
 	}
 	private JButton boton(String texto)
 	{
