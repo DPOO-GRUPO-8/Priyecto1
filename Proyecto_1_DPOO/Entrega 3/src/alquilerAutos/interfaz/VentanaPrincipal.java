@@ -72,7 +72,7 @@ public class VentanaPrincipal extends JFrame
 			
 			if (usuario.getContraseña().equals(contraseña)) {
 				
-				if (!usuario.getRol().equals("Admin total")) {
+				if (!(usuario.getRol().equals("Admin total"))) {
 					String[] dataRol = usuario.getRol().split(" ");
 					alquiler.setSedeActual(dataRol[1]);
 				}
@@ -177,8 +177,31 @@ public class VentanaPrincipal extends JFrame
 			iniciarBienvenida(usuario.getRol(), usuario.getUsuario());
 		}
 		if (accion == "VER DATOS SEDE")
-		{
+		{	
 			this.remove(panelMenu);
+			if (usuario.getRol().equals("Admin total")) {
+				String[] opciones = {"Sede_1", "Sede_2", "Sede_3"};
+				
+				int seleccion = JOptionPane.showOptionDialog(
+		                null,
+		                "Selecciona una opción:",
+		                "Miniventana",
+		                JOptionPane.DEFAULT_OPTION,
+		                JOptionPane.PLAIN_MESSAGE,
+		                null,
+		                opciones,
+		                opciones[0]
+		        );
+
+		        // Verificar la opción seleccionada por el usuario
+		        if (seleccion >= 0) {
+		            String opcionSeleccionada = opciones[seleccion];
+		            alquiler.setSedeActual(opcionSeleccionada);
+		            this.sede = alquiler.getSedeActual();
+		        } else {
+		            JOptionPane.showMessageDialog(null, "No seleccionaste ninguna opción");
+		        }
+			}
 			verDatosSede();
 		}
 	}

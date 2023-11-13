@@ -35,6 +35,8 @@ public class PanelMenu extends JPanel
 		if (!rol.equals("Admin total")) {
 			String[] dataRol = rol.split(" ");
 			rolUsuario = dataRol[0];
+		}else {
+			rolUsuario = rol;
 		}
 		
 		configurarPaneles();
