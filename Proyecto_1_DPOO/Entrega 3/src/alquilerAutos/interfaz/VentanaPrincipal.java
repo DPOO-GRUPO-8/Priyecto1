@@ -214,6 +214,17 @@ public class VentanaPrincipal extends JFrame
 	public void setReserva(HashMap<String, String> datosReserva)
 	{
 		this.datosReserva = datosReserva;
+		
+		String cedula = datosReserva.get("Cedula");
+		
+		try {
+			int numCedula = Integer.parseInt(cedula);
+		} catch (NumberFormatException e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "Ingresa un numero en la cedula", "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		
 		int precio = alquiler.calcularPrecio(datosReserva.get("Categoria"), Integer.parseInt(datosReserva.get("Conductores")), datosReserva.get("Sede recogida"), datosReserva.get("Sede llegada"), datosReserva.get("Fecha inicio"), datosReserva.get("Fecha final"));
 		Reserva nuevaReserva = new Reserva(0,datosReserva.get("Fecha inicio"), datosReserva.get("Fecha final"), datosReserva.get("Categoria"),
 				Integer.parseInt(datosReserva.get("Cedula")), precio, datosReserva.get("Sede recogida"));

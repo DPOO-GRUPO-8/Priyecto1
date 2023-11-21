@@ -677,4 +677,17 @@ public class AlquilerVehiculos
 		return sedeActual;
 	}
 	
+	/**
+	 * Busca si existe un cliente con el numero de cedula indicado
+	 * @param numero de cedula
+	 * @return cliente si existe, null de lo contrario
+	 */
+	public Cliente getCliente(int numero) {
+		Cliente retorno = null; 
+		
+		retorno = clientes.get(numero);
+		
+		return retorno;
+	}
+	
 }
